@@ -5,6 +5,8 @@ Este repositorio sera utilizado para o front end do projeto que esrá refeito em
 
 ## Tecnologia: 
 Vue3.js
+Node.js
+
 ### Usando o Vue-CLI
 
 <ul>
@@ -13,11 +15,20 @@ Vue3.js
 
 </ul>
 
-## instalação:
-<p> Primeiro temos que instalar o Node.js https://nodejs.org/en/</p>
-<p> Feita a instalação do node,execulte os seguintes comandos para verificar sua versão e do npm </p>
+## Instalação das Tecnologias:
+### Instalando o Node.js
+<p> Primeiro temos que instalar o Node.js disponivel em : https://nodejs.org/en/</p>
+<p> Feita a instalação do node,execulte os seguintes comandos para verificar sua versão do node.js e do npm </p>
 <p> node -v ou node -- version </p>
 <p> npm  -v ou npm  -- version </p>
+
+### instalando o Vue-CLI
+<p> Para Instação ou Documentação do Vue-CLI segue o link https://cli.vuejs.org/guide/installation.html</p>
+<p> Para instalar o Vue3-cli segue os seguintes comandos:</p>
+<p>npm install -g @vue/cli </p>
+<p>OR</p> 
+<p>yarn global add @vue/cli</p>
+
 
 
 
