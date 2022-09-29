@@ -1,22 +1,21 @@
 # proxima-parada-front-end-vue
 
-## Project setup
+## Configuração do Projeto
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compilar e rodar
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Compila e minifica para produção
 ```
 npm run build
 ```
 
-### Lints and fixes files
-```
+### Lints e corrige arquivos
 npm run lint
 ```
 
