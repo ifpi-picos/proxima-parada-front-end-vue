@@ -2,9 +2,12 @@
 
 ## Configuração do Projeto
 ```
-npm install
-```
 
+```
+## Instalação das Tecnologias
+```
+Primeiro o Node.js é preciso está 
+```
 ### Compilar e rodar
 ```
 npm run serve
