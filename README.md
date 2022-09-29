@@ -5,6 +5,11 @@ Este repositorio sera utilizado para o front end do projeto que esrá refeito em
 
 ## Tecnologia: 
 Vue3.js
-### Usando o Vue CLI
-O Vue-CLI é uma ferramenta de linhas de comandos do vue.js.
-Possibilita criar e configurar projetos de formas mais avançadas.
+### Usando o Vue-CLI
+
+<ul>
+    <li>O Vue-CLI é uma ferramenta de linhas de comandos do vue.js.</li>
+    <li>Possibilita criar e configurar projetos de formas mais avançadas.</li>
+</ul>
+
+
