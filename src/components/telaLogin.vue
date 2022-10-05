@@ -1,26 +1,22 @@
 <template>
-    
     <div class="login">
-        <h1>Faça o login</h1>
-        
-        <label >Email</label><br>
-            <input type="text" placeholder="Email">
-        <label for="">Senha
-            <a href="#" target="_blank">Esqueceu sua senha </a>
-        </label>
-        <input  type="password" placeholder="Senha"> <br>
-        <button type="button"   class=""> Entrar</button><br>
-        <button type="button"   class="butaoCriarConta">Criar Conta</button>
-
-
+        <h1>Login</h1>
+        <input type="text" placeholder="E-mail">
+        <br>
+        <input type="password" placeholder=" Senha">
+        <br>
+        <div class="btn-login">
+            <button>Login</button>
+        </div>
+        <p>Você não possui conta </p>
 
     </div>
 </template>
 
 <script scoped>
     export default {
-        name:"telaLogin"
-    }   
+        name:"telaLogin",
+    }  
 </script>
 
  <style>
