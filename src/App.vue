@@ -1,6 +1,6 @@
 <template>
-<telaLogin/>
-<forms-usuario/>
+    <telaLogin/>
+    <forms-usuario/>
 
 </template>
 
