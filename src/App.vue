@@ -1,20 +1,20 @@
 <template>
-    <telaLogin/>
-    <forms-usuario/>
+    <div>
+        <telaLogin/>
+    </div>
+
 
 </template>
 
 <script>
 
 import telaLogin from './components/telaLogin.vue'
-import FormsUsuario from './components/formsUsuario.vue'
+
 
     export default{
         name:'App',
         components:{
-            telaLogin,
-            FormsUsuario,
-                
+            telaLogin,     
         }
 
         
