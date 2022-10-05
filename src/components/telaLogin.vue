@@ -11,13 +11,11 @@
             <br>
             
             <button class="btn-login">Entrar</button> <br><br>
-            <button class="btn-cadastrar">Entrar</button>
+            <button class="btn-cadastrar">Cadastrar</button>
 
-            <p> <a href="#" target="_blank">Você não possui conta </a> </p>
+            <p> <a href="#" target="_blank">Esqueceu a senha </a> </p>
 
         </div>
-       
-
     </div>
 </template>
 
@@ -45,13 +43,25 @@
         height: 95%;
         background: #fff;
     }
-   
+    button,input{
+        width: 50%;
+        height: 30px;
+        font-size: 18px;
+
+    }
+    small{
+        font-size: 24px;
+    }
 
     .btn-login{
         background-color:#027bff;
+        border-radius: 5px;
+        height: 40px;
     }
     .btn-cadastrar{
         background-color: cadetblue;
+        border-radius: 5px;
+        height: 40px;
    
     }
 
