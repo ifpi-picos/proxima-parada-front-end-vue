@@ -15,11 +15,12 @@
             <p class="forgot-password text-right mt-2 mb-4">
                 <router-link to="/forgot-password">Esqueceu sua senha ?</router-link>
             </p>
-            <button type="submit" class="btn btn-dark">Entrar</button>
+            <button type="submit" class="btn btn-dark">Entrar</button> <br> <br>
+            <div class="conta"> 
+                <p class="criarConta">Já possui uma Conta? <a href="#">Criar uma Conta</a></p>
+            </div>
 
-           
 
-           
         </form>
 
     </div>
@@ -39,5 +40,9 @@
 .btn-dark{
     background-color:#222222;
     width: 100%;
+}
+.criarConta{
+    text-align: justify;
+    font-size: 14px;
 }
 </style>
