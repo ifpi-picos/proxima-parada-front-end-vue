@@ -1,7 +1,7 @@
 <template>
     <div class="vue-tempalte">
         <form class="inner-block">
-            <h3>Faça o login</h3>
+            <h3 class="vertical-center ">Faça o login</h3>
             <div class="form-group">
                 <label>E-mail</label>
                 <input type="email" class="form-control form-control-lg"/>
