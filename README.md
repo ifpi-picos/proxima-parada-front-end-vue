@@ -1,25 +1,18 @@
 # proxima-parada-front-end-vue
 
-## Configuração do Projeto
+## Project setup
+```
+npm install
 ```
 
-```
-## Instalação das Tecnologias
-```
-Primeiro o Node.js é preciso está 
-```
-### Compilar e rodar
+### Compiles and hot-reloads for development
 ```
 npm run serve
 ```
 
-### Compila e minifica para produção
+### Compiles and minifies for production
 ```
 npm run build
-```
-
-### Lints e corrige arquivos
-npm run lint
 ```
 
 ### Customize configuration
