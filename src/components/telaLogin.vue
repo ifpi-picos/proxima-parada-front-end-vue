@@ -15,11 +15,8 @@
             <p class="forgot-password text-right mt-2 mb-4">
                 <router-link to="/forgot-password">Esqueceu sua senha ?</router-link>
             </p>
-            <button type="submit" class="btn btn-dark btn-lg btn-block">Entrar</button>
+            <button type="submit" class="btn btn-dark ">Entrar</button>
 
-           
-
-           
         </form>
 
     </div>
