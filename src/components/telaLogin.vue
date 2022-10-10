@@ -4,13 +4,13 @@
             <h3 class="vertical-center ">Faça o login</h3>
             <div class="form-group">
                 <label>E-mail</label>
-                <input type="email" class="form-control form-control-lg"/>
+                <input type="email" class="form-control form-control-lg" placeholder="joão@gmail.com"/>
 
             </div>
 
             <div class="form-group">
                 <label>Senha</label>
-                <input type="password" class="form-control form-control-lg"/>
+                <input type="password" class="form-control form-control-lg" placeholder="Digite sua senha"/>
             </div>
             <p class="forgot-password text-right mt-2 mb-4">
                 <router-link to="/forgot-password">Esqueceu sua senha ?</router-link>
