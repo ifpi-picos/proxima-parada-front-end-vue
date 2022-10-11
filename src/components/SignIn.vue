@@ -11,7 +11,7 @@
        </v-card-text>
        <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn block color="primary" elevation="6" to="/">Entrar</v-btn>
+          <v-btn block color="primary" elevation="6" to="/home">Entrar</v-btn>
        </v-card-actions>
     </v-card>
  </template>
@@ -20,6 +20,7 @@
  export default {
     name: "SignIn",
     data() {
+        return {}
     },
  }
  </script>

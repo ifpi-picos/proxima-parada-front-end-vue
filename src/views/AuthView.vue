@@ -39,6 +39,7 @@ export default {
         SignUp
     },
     data() {
+        return {}
     },
 }
 </script>
