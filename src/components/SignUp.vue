@@ -1,5 +1,5 @@
 <template>
-    <v-card class="page">
+    <v-card>
         <v-card-text>
             <v-form>
                 <v-text-field prepend-icon="perm_identity" name="name" label="Nome Completo" type="text">

@@ -1,6 +1,7 @@
 <template>
-    <v-card class="page">
+    <v-card>
        <v-card-text>
+         <v-img :src="require('../assets/logo.png')" class="my-3" contain height="260" />
           <v-form>
              <v-text-field prepend-icon="mail_outline" name="login" label="E-mail" type="text">
              </v-text-field>
