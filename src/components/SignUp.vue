@@ -1,7 +1,7 @@
 <template>
     <v-card>
         <v-card-text>
-            <v-form @submit.prevent="createUser">
+            <v-form @submit.prevent="createUser" v-model="valid">
                 <v-text-field prepend-icon="perm_identity" name="name" label="Nome Completo" type="text"
                     :rules="[rules.required]" password v-model="userData.name">
                 </v-text-field>
@@ -23,7 +23,7 @@
                     :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'" :type="show2 ? 'text' : 'password'"
                     @click:append="show2 = !show2" v-model="password_confirm">
                 </v-text-field>
-                <v-btn block color="primary" elevation="6" type="submit">Cadastre-se</v-btn>
+                <v-btn :disabled="!valid" block color="primary" elevation="6" type="submit">Cadastre-se</v-btn>
             </v-form>
         </v-card-text>
     </v-card>
@@ -44,6 +44,7 @@ export default {
             password_confirm: "",
             show1: false,
             show2: false,
+            valid: false,
             rules: {
                 required: value => !!value || 'Obrigatório.',
                 min: value => value.length >= 6 || 'Min 6 characters',

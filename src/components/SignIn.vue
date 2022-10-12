@@ -2,7 +2,7 @@
    <v-card>
       <v-card-text>
          <v-img :src="require('../assets/logo.png')" class="my-3" contain height="260" />
-         <v-form @submit.prevent="auth">
+         <v-form @submit.prevent="auth" v-model="valid">
             <v-text-field prepend-icon="mail_outline" name="userEmail" label="E-mail" type="text"
                :rules="[rules.required, rules.email]" v-model="userAuth.email">
             </v-text-field>
@@ -10,7 +10,7 @@
                :rules="[rules.required, rules.min ]" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                :type="show1 ? 'text' : 'password'" @click:append="show1 = !show1" v-model="userAuth.password">
             </v-text-field>
-            <v-btn block color="primary" elevation="6" type="submit">Entrar</v-btn>
+            <v-btn :disabled="!valid" block color="primary" elevation="6" type="submit">Entrar</v-btn>
          </v-form>
       </v-card-text>
    </v-card>
@@ -28,6 +28,7 @@ export default {
             password: ""
          },
          show1: false,
+         valid: false,
          rules: {
             required: value => !!value || 'Obrigatório.',
             min: value => value.length >= 6 || 'Mínimo 6 caracteres',
