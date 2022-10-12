@@ -5,10 +5,10 @@
                 <v-card>
                     <v-tabs fixed-tabs background-color="primary">
                         <v-tab>
-                            Entrar
+                            Login
                         </v-tab>
                         <v-tab>
-                            Cadastre-se
+                            Registrar-se
                         </v-tab>
                         <v-tab-item>
                             <template>
