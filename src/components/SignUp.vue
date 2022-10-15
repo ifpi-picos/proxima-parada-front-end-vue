@@ -1,7 +1,7 @@
 <template>
     <v-card>
         <v-card-text>
-            <v-form @submit.prevent="createUser" v-model="valid">
+            <v-form @submit.prevent="signup" v-model="valid">
                 <v-text-field prepend-icon="perm_identity" name="name" label="Nome Completo" type="text"
                     :rules="[rules.required]" password v-model="userData.name">
                 </v-text-field>
@@ -23,13 +23,13 @@
                     :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'" :type="show2 ? 'text' : 'password'"
                     @click:append="show2 = !show2" v-model="password_confirm">
                 </v-text-field>
-                <v-btn :disabled="!valid" block color="primary" elevation="6" type="submit">Cadastre-se</v-btn>
+                <v-btn :disabled="!valid" block color="primary" elevation="6" type="submit">Cadastrar</v-btn>
             </v-form>
         </v-card-text>
     </v-card>
 </template>
 <script>
-import User from "../services/users"
+import Auth from "../services/auth"
 export default {
     name: "SignUp",
     data() {
@@ -57,9 +57,15 @@ export default {
         }
     },
     methods: {
-        createUser() {
-            User.create(this.userData).then(res => {
+        signup() {
+            Auth.signup(this.userData).then(res => {
                 console.log(res);
+                if (res.status == 200) {
+                    //this.$router.push('/home')
+                    this.$router.push({ name: 'HomeView', query:{usuario: res.data['name']}})
+                } else {
+                    alert(res.statusText);
+                }
             })
         }
     }
