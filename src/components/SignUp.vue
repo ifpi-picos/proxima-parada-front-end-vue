@@ -1,6 +1,7 @@
 <template>
     <v-card>
         <v-card-text>
+            <v-alert :value="erroAlert" color="red" elevation="3" outlined type="warning">{{messageError}}</v-alert>
             <v-form @submit.prevent="signup" v-model="valid">
                 <v-text-field prepend-icon="perm_identity" name="name" label="Nome Completo" type="text"
                     :rules="[rules.required]" password v-model="userData.name">
@@ -42,12 +43,15 @@ export default {
                 password: ""
             },
             password_confirm: "",
+            messageError: "",
+            loading: false,
+            erroAlert: false,
             show1: false,
             show2: false,
             valid: false,
             rules: {
                 required: value => !!value || 'Obrigatório.',
-                min: value => value.length >= 6 || 'Min 6 characters',
+                min: value => value.length >= 6 || 'Mínimo 6 caracteres',
                 email: value => {
                     const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
                     return pattern.test(value) || 'E-mail inválido.'
@@ -57,17 +61,28 @@ export default {
         }
     },
     methods: {
-        signup() {
-            Auth.signup(this.userData).then(res => {
-                console.log(res);
+        async auth() {
+            this.loading = true
+            try {
+                const res = await Auth.signin(this.userData)
                 if (res.status == 200) {
-                    //this.$router.push('/home')
-                    this.$router.push({ name: 'HomeView', query:{usuario: res.data['name']}})
-                } else {
-                    alert(res.statusText);
+                    this.loading = false
+                    this.$router.push({ name: 'HomeView', query: { usuario: res.data['name'] } })
                 }
-            })
+            } catch (error) {
+                const response = error.response
+                this.loading = false
+                this.erroAlert = true
+                this.messageError = response.data
+                console.log(response.data)
+            }
         }
-    }
+    },
+    watch: {
+        erroAlert(val) {
+            if (!val) return
+            setTimeout(() => (this.erroAlert = false), 3000)
+        }
+    },
 }
 </script>
