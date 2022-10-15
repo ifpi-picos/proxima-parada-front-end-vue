@@ -2,6 +2,8 @@
     <v-card>
         <v-card-text>
             <v-alert :value="erroAlert" color="red" elevation="3" outlined type="warning">{{messageError}}</v-alert>
+            <v-progress-linear :active="loading" :indeterminate="loading" absolute top height="6">
+            </v-progress-linear>
             <v-form @submit.prevent="signup" v-model="valid">
                 <v-text-field prepend-icon="perm_identity" name="name" label="Nome Completo" type="text"
                     :rules="[rules.required]" password v-model="userData.name">

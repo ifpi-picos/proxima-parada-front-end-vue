@@ -2,6 +2,8 @@
    <v-card>
       <v-card-text>
          <v-alert :value="erroAlert" color="red" elevation="3" outlined type="warning">{{messageError}}</v-alert>
+         <v-progress-linear :active="loading" :indeterminate="loading" absolute top height="6">
+         </v-progress-linear>
          <v-img :src="require('../assets/logo.png')" class="my-3" contain height="260" />
          <v-form @submit.prevent="auth" v-model="valid">
             <v-text-field prepend-icon="mail_outline" name="email" label="E-mail" type="text"
