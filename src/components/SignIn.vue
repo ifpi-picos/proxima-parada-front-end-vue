@@ -57,7 +57,7 @@ export default {
             const response = error.response
             this.loading = false
             this.erroAlert = true
-            this.messageError = response.data
+            this.messageError = response.data.message
             console.log(response.data)
          }
       }
