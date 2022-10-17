@@ -63,10 +63,10 @@ export default {
         }
     },
     methods: {
-        async auth() {
+        async signup() {
             this.loading = true
             try {
-                const res = await Auth.signin(this.userData)
+                const res = await Auth.signup(this.userData)
                 if (res.status == 200) {
                     this.loading = false
                     this.$router.push({ name: 'HomeView', query: { usuario: res.data['name'] } })
