@@ -1,11 +1,11 @@
 <template>
     <v-container fluid fill-height>
         <v-layout align-center justify-center>
-            <v-flex xs12 sm8 md4>
+            <v-flex xs8 sm6 md4>
                 <v-card>
                     <v-tabs fixed-tabs background-color="primary">
                         <v-tab>
-                            Login
+                            Entrar
                         </v-tab>
                         <v-tab>
                             Registrar-se
