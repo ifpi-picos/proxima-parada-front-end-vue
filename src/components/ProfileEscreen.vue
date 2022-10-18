@@ -40,12 +40,24 @@
                     :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'" :type="show2 ? 'text' : 'password'"
                     @click:append="show2 = !show2" v-model="userData.samePasswords">
                 </v-text-field>
-
+<!-- 
                 <v-btn :disabled="!valid" block color="primary" elevation="6" type="submit">Salvar Alterações</v-btn>
                 <br>
 
                 <v-btn :disabled="!valid" block color="primary" elevation="6" type="submit">Cancelar Alterações</v-btn>
+                 -->
+                <v-row>
+                    <v-btn depressed color="primary" type="submit" width="100vw" font-size="45px">Salvar</v-btn>
+                </v-row>
+                <br>
+                <br>
+
+                <v-row>
+                    <v-btn depressed color="primary" type="submit" width="100vw" >Cancelar</v-btn>
+                </v-row>
+                
             </v-form>
+            
         </v-card-text>
     </v-card>
 </template>
@@ -110,3 +122,10 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+v-row{
+    width: 120px;
+}
+
+</style>
