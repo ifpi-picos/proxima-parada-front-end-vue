@@ -26,7 +26,7 @@
                 <v-text-field prepend-icon="password" name="password_confirm" label="Comfirmar senha"
                     :rules="[rules.required, rules.min, rules.matchPassword]"
                     :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'" :type="show2 ? 'text' : 'password'"
-                    @click:append="show2 = !show2" v-model="password_confirm">
+                    @click:append="show2 = !show2" v-model="userData.samePasswords">
                 </v-text-field>
                 <v-btn :disabled="!valid" block color="primary" elevation="6" type="submit">Cadastrar</v-btn>
             </v-form>
@@ -46,9 +46,9 @@ export default {
                 occupation: "",
                 phone_number: "",
                 email: "",
-                password: ""
+                password: "",
+                samePasswords: "",
             },
-            password_confirm: "",
             messageError: "Erro ao conetar-se a internet!",
             loading: false,
             erroAlert: false,
@@ -62,7 +62,7 @@ export default {
                     const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
                     return pattern.test(value) || 'E-mail inválido.'
                 },
-                matchPassword: () => this.userData.password === this.password_confirm || `Senhas diferentes`,
+                matchPassword: () => this.userData.password === this.userData.samePasswords || `Senhas diferentes`,
             }
         }
     },
