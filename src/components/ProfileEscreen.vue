@@ -40,6 +40,7 @@
                     :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'" :type="show2 ? 'text' : 'password'"
                     @click:append="show2 = !show2" v-model="userData.samePasswords">
                 </v-text-field>
+                <br>
 <!-- 
                 <v-btn :disabled="!valid" block color="primary" elevation="6" type="submit">Salvar Alterações</v-btn>
                 <br>
