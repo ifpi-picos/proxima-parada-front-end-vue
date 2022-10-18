@@ -11,13 +11,14 @@
           <v-icon>logout</v-icon>
         </v-btn>
       </v-app-bar>
-      <SignUp2/>
+      <ProfileEscreen/>
     </div>
     <!-- <hello-world /> -->
   </template>
   
   <script>
-import SignUp2 from "../components/SignUp2.vue";
+
+import ProfileEscreen from "../components/ProfileEscreen.vue";
     /* import HelloWorld from '../components/HelloWorld' */
   
     export default {
@@ -25,6 +26,6 @@ import SignUp2 from "../components/SignUp2.vue";
     data() {
         return {};
     },
-    components: { SignUp2 }
+    components: {  ProfileEscreen }
 }
   </script>

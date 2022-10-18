@@ -37,7 +37,7 @@
 import Auth from "../services/auth"
 
 export default {
-    name: "SignUp2",
+    name: "ProfileEscreen",
     data() {
         return {
             items: ['Aluno(a)', 'Professor(a)', 'Outro(a)'],
