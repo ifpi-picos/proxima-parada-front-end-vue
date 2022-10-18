@@ -12,7 +12,7 @@
                     :rules="[rules.required]" v-model="userData.occupation">
                 </v-text-field>
                 <v-text-field prepend-icon="perm_device_information" name="phone_number" label="Número de Whatsapp"
-                    :rules="[rules.required]" type="phone" v-model="userData.phone_number">
+                    :rules="[rules.required]" type="number" v-model="userData.phone_number">
                 </v-text-field>
                 <v-text-field prepend-icon="mail_outline" name="email" label="E-mail" type="text"
                     :rules="[rules.required, rules.email]" v-model="userData.email">
