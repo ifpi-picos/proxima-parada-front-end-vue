@@ -29,7 +29,7 @@ export default {
             email: "",
             password: ""
          },
-         messageError: "",
+         messageError: "Erro ao conetar-se a internet!",
          loading: false,
          erroAlert: false,
          show1: false,
@@ -53,11 +53,14 @@ export default {
                this.loading = false
                this.$router.push({ name: 'HomeView', query: { usuario: res.data['userReturn']['name'] } })
             }
+
          } catch (error) {
             const response = error.response
             this.loading = false
             this.erroAlert = true
-            this.messageError = response.data.message
+            if (response.data.message) {
+               this.messageError = response.data.message
+            }
             console.log(response.data)
          }
       }

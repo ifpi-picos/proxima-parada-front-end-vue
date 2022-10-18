@@ -4,15 +4,17 @@
             <v-alert :value="erroAlert" color="red" elevation="3" outlined type="warning">{{messageError}}</v-alert>
             <v-progress-linear :active="loading" :indeterminate="loading" absolute top height="6">
             </v-progress-linear>
-            <v-form @submit.prevent="signup" v-model="valid">
+            <v-form @submit.prevent="auht" v-model="valid">
                 <v-text-field prepend-icon="perm_identity" name="name" label="Nome Completo" type="text"
                     :rules="[rules.required]" password v-model="userData.name">
                 </v-text-field>
-                <v-text-field prepend-icon="work_outline" name="occupation" label="Ocupação no IFPI" type="text"
-                    :rules="[rules.required]" v-model="userData.occupation">
-                </v-text-field>
+
+                <v-select prepend-icon="work_outline" name="occupation" label="Ocupação no IFPI" :items="items"
+                    v-model="userData.occupation" :rules="[rules.required]">
+                </v-select>
+
                 <v-text-field prepend-icon="perm_device_information" name="phone_number" label="Número de Whatsapp"
-                    :rules="[rules.required]" type="phone" v-model="userData.phone_number">
+                    :rules="[rules.required]" v-mask="'(##) # ####-####'" type="phone" v-model="userData.phone_number">
                 </v-text-field>
                 <v-text-field prepend-icon="mail_outline" name="email" label="E-mail" type="text"
                     :rules="[rules.required, rules.email]" v-model="userData.email">
@@ -33,10 +35,12 @@
 </template>
 <script>
 import Auth from "../services/auth"
+
 export default {
     name: "SignUp",
     data() {
         return {
+            items: ['Aluno(a)', 'Professor(a)', 'Outro(a)'],
             userData: {
                 name: "",
                 occupation: "",
@@ -45,7 +49,7 @@ export default {
                 password: ""
             },
             password_confirm: "",
-            messageError: "",
+            messageError: "Erro ao conetar-se a internet!",
             loading: false,
             erroAlert: false,
             show1: false,
@@ -63,7 +67,7 @@ export default {
         }
     },
     methods: {
-        async signup() {
+        async auht() {
             this.loading = true
             try {
                 const res = await Auth.signup(this.userData)
@@ -75,7 +79,9 @@ export default {
                 const response = error.response
                 this.loading = false
                 this.erroAlert = true
-                this.messageError = response.data.message
+                if (response.data.message) {
+                    this.messageError = response.data.message
+                }
                 console.log(response.data)
             }
         }
