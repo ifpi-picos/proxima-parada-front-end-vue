@@ -1,34 +1,50 @@
 <template>
     <v-card>
         <v-card-text>
-            <v-alert :value="erroAlert" color="red" elevation="3" outlined type="warning">{{messageError}}</v-alert>
+            <!-- <v-alert :value="erroAlert" color="red" elevation="3" outlined type="warning">{{messageError}}</v-alert>
             <v-progress-linear :active="loading" :indeterminate="loading" absolute top height="6">
-            </v-progress-linear>
+            </v-progress-linear> -->
             <v-form @submit.prevent="auht" v-model="valid">
+
                 <v-text-field prepend-icon="perm_identity" name="name" label="Nome Completo" type="text"
                     :rules="[rules.required]" password v-model="userData.name">
+                </v-text-field>
+
+                <v-text-field prepend-icon="perm_device_information" name="phone_number" label="Número de Whatsapp"
+                    :rules="[rules.required]" v-mask="'(##) # ####-####'" type="phone" v-model="userData.phone_number">
                 </v-text-field>
 
                 <v-select prepend-icon="work_outline" name="occupation" label="Ocupação no IFPI" :items="items"
                     v-model="userData.occupation" :rules="[rules.required]">
                 </v-select>
 
-                <v-text-field prepend-icon="perm_device_information" name="phone_number" label="Número de Whatsapp"
-                    :rules="[rules.required]" v-mask="'(##) # ####-####'" type="phone" v-model="userData.phone_number">
-                </v-text-field>
                 <v-text-field prepend-icon="mail_outline" name="email" label="E-mail" type="text"
                     :rules="[rules.required, rules.email]" v-model="userData.email">
                 </v-text-field>
+
+                <v-text-field prepend-icon="home" name="text" label="Nome da Cidade">
+                </v-text-field>
+
+                <v-text-field prepend-icon="home"  label="Bairro" type="text"
+                    >
+                </v-text-field>
+
                 <v-text-field prepend-icon="password" name="password" label="Senha"
                     :rules="[rules.required, rules.min ]" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                     :type="show1 ? 'text' : 'password'" @click:append="show1 = !show1" v-model="userData.password">
+            
                 </v-text-field>
+
                 <v-text-field prepend-icon="password" name="password_confirm" label="Comfirmar senha"
                     :rules="[rules.required, rules.min, rules.matchPassword]"
                     :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'" :type="show2 ? 'text' : 'password'"
                     @click:append="show2 = !show2" v-model="userData.samePasswords">
                 </v-text-field>
-                <v-btn :disabled="!valid" block color="primary" elevation="6" type="submit">Cadastrar</v-btn>
+
+                <v-btn :disabled="!valid" block color="primary" elevation="6" type="submit">Salvar Alterações</v-btn>
+                <br>
+
+                <v-btn :disabled="!valid" block color="primary" elevation="6" type="submit">Cancelar Alterações</v-btn>
             </v-form>
         </v-card-text>
     </v-card>
