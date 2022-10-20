@@ -1,9 +1,15 @@
 <template>
+    
     <v-card>
+        
         <v-card-text>
+            <div class="imagem">
+                <v-img src="../../src/assets/stite.jpg" class="img"/>
+            </div>
             <!-- <v-alert :value="erroAlert" color="red" elevation="3" outlined type="warning">{{messageError}}</v-alert>
             <v-progress-linear :active="loading" :indeterminate="loading" absolute top height="6">
             </v-progress-linear> -->
+         
             <v-form @submit.prevent="auht" v-model="valid">
 
                 <v-text-field prepend-icon="perm_identity" name="name" label="Nome Completo" type="text"
@@ -125,8 +131,14 @@ export default {
 </script>
 
 <style scoped>
-v-row{
-    width: 120px;
+.img{
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.575);
+    width: 150px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
 }
 
 </style>
