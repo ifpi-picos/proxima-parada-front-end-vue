@@ -2,9 +2,9 @@
 <template>
 
   <v-app>
-    <v-navigation-drawer class="primary" v-model="drawer" app temporary>
+    <v-navigation-drawer class="primary" v-model="drawer" dark app temporary>
       <v-list>
-        <v-list-item-group mandatory>
+        <v-list-item-group >
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title>
@@ -13,16 +13,14 @@
             </v-list-item-content>
           </v-list-item>
           <v-divider></v-divider>
-          <template>
-            <v-list-item v-for="(item, index) in items" :key="index">
-              <v-list-item :href="item.href" :to="{name: item.href}" :key="index">
+          <template v-for="(item, index) in items" >
+              <v-list-item :href="item.href" :to="{name: item.href}" :key="index" >
                 <v-list-item-action>
                   <v-icon light v-html="item.icon"></v-icon>
                 </v-list-item-action>
                 <v-list-item-content>
                   <v-list-item-title v-html="item.title"></v-list-item-title>
                 </v-list-item-content>
-              </v-list-item>
             </v-list-item>
 
           </template>
@@ -41,7 +39,7 @@
     </v-app-bar>
 
     <v-main>
-    
+
       <v-fade-transition mode="out-in">
         <router-view></router-view>
       </v-fade-transition>
@@ -74,6 +72,8 @@ export default {
   }
 }
 </script>
+<style>
+</style>
 
 <!-- <template>
   <v-app>
