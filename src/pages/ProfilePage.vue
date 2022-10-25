@@ -5,10 +5,10 @@
         <v-card-text>
             <div class="imagem">
                 <v-img src="../../src/assets/stite.jpg" class="img" />
-                <figcaption> {{userData.name }}</figcaption>
+                <figcaption> {{userData.name}}</figcaption>
             </div>
             <div class="status">
-                <h3 >Ocupação no Campus: {{ userData.occupation}} </h3>
+                <h3 >Ocupação no Campus: {{userData.occupation}} </h3>
                 <h3>E-mail: {{userData.email}}</h3>
                 <h3>status: {{userData.status}}</h3>
             </div> <br>
@@ -28,20 +28,12 @@ export default {
     name: "ProfileEscreen",
     data(){
         return{
-            items: ['Aluno(a)', 'Professor(a)', 'Outro(a)'],
-            userData: {
-                name: "Edivan Santos",
-                occupation: "Aluno",
-                phone_number: "",
-                email: "Edivan@gmail.com",
-                password: "",
-                samePasswords: "",
-                status:"Motorista"
-                
-            },
+            userData:{}
         }
+    },
+    created(){
+        this.userData = JSON.parse(localStorage.getItem('userData')) 
     }
-    
 }
 </script>
 

@@ -13,8 +13,8 @@
             </v-list-item-content>
           </v-list-item>
           <v-divider></v-divider>
-          <template v-for="(item, index) in items" >
-              <v-list-item :href="item.href" :to="{name: item.href}" :key="index" >
+          <div v-for="(item, index) in items"  :key="index" >
+              <v-list-item :href="item.href" :to="{name: item.href}">
                 <v-list-item-action>
                   <v-icon light v-html="item.icon"></v-icon>
                 </v-list-item-action>
@@ -23,7 +23,7 @@
                 </v-list-item-content>
             </v-list-item>
 
-          </template>
+          </div>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
@@ -31,11 +31,11 @@
     <v-app-bar v-if="['AuthMain'].indexOf($route.name) === -1" class="primary" dense dark app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
-      <v-toolbar-title>Top Scenes Anime</v-toolbar-title>
+      <v-toolbar-title>{{nomeUsuario}}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon to="/">
+      <v-btn @click="logout()" icon >
         <v-icon>logout</v-icon>
-      </v-btn>
+      </v-btn >
     </v-app-bar>
 
     <v-main>
@@ -68,9 +68,24 @@ export default {
       },],
     }
   },
-  components: {
-  }
+  computed: {
+    nomeUsuario(){
+      if (this.$route.query.usuario) {
+        return this.$route.query.usuario;
+      }
+
+      return ''
+    }
+  },
+  methods:{
+    logout(){
+      localStorage.removeItem('userData');
+      this.$router.push('/')
+    }
+
+  },
 }
+  
 </script>
 <style>
 </style>

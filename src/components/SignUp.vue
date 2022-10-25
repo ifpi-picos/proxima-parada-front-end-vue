@@ -73,6 +73,8 @@ export default {
                 const res = await Auth.signup(this.userData)
                 if (res.status == 200) {
                     this.loading = false
+                    const {name,email,occupation} = this.userData
+                    localStorage.setItem('userData', JSON.stringify({name,email,occupation}));
                     this.$router.push({ name: 'HomeView', query: { usuario: res.data['name'] } })
                 }
             } catch (error) {
