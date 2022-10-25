@@ -32,6 +32,7 @@ export default {
         }
     },
     created(){
+        
         this.userData = JSON.parse(localStorage.getItem('userData')) 
     }
 }

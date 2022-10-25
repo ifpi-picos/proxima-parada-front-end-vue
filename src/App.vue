@@ -73,7 +73,6 @@ export default {
       if (this.$route.query.usuario) {
         return this.$route.query.usuario;
       }
-
       return ''
     }
   },
