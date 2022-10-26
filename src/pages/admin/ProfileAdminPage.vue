@@ -1,79 +1,50 @@
 <template>
-  <v-container id="user-profile" fluid tag="section">
+  <v-container fluid>
     <v-row justify="center">
-      <v-col cols="12" md="4">
-        <v-card
-          class="v-card-profile"
-          avatar="https://demos.creative-tim.com/vue-material-dashboard/img/marc.aba54d65.jpg"
-        >
-          <v-card-text class="text-center">
-            <h6 class="display-1 mb-1 grey--text">CEO / CO-FOUNDER</h6>
-
-            <h4 class="display-2 font-weight-light mb-3 black--text">
-              Alec Thompson
-            </h4>
-
-            <p class="font-weight-light grey--text">
-              Don't be scared of the truth because we need to restart the human
-              foundation in truth And I love you like Kanye loves Kanye I love
-              Rick Owens’ bed design but the back is...
-            </p>
-
-            <v-btn color="success" rounded class="mr-0"> Follow </v-btn>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="12" md="8">
+      <v-col cols="12" xm="8" sm="8" md="8" lg="10">
         <v-card>
-          <v-form>
-            <v-container class="py-0">
+          <v-form @submit.prevent="auht" v-model="valid">
+            <v-container>
               <v-row>
-                <v-col cols="12" md="4">
-                  <v-text-field label="Company (disabled)" disabled />
+                <v-col cols="12" md="5">
+                  <v-row class="pa-2" align="center" justify="center">
+                    <v-avatar size="165px" v-if="!url" class="grey">
+                      <span>Escolha uma imagem</span>
+                    </v-avatar>
+                    <v-avatar size="165" v-else>
+                      <v-img v-if="url" :src="url" />
+                    </v-avatar>
+                  </v-row>
+                  <v-row class="pa-2" align="center" justify="center">
+                    <input
+                      hidden
+                      id="selectFile"
+                      type="file"
+                      @change="onFileChange"
+                    />
+                    <v-btn color="primary" @click="chooseImage()"
+                      >Nova Imagen</v-btn
+                    >
+                  </v-row>
                 </v-col>
-
-                <v-col cols="12" md="4">
-                  <v-text-field class="purple-input" label="User Name" />
-                </v-col>
-
-                <v-col cols="12" md="4">
-                  <v-text-field label="Email Address" class="purple-input" />
-                </v-col>
-
-                <v-col cols="12" md="6">
-                  <v-text-field label="First Name" class="purple-input" />
-                </v-col>
-
-                <v-col cols="12" md="6">
-                  <v-text-field label="Last Name" class="purple-input" />
-                </v-col>
-
-                <v-col cols="12">
-                  <v-text-field label="Adress" class="purple-input" />
-                </v-col>
-
-                <v-col cols="12" md="4">
-                  <v-text-field label="City" class="purple-input" />
-                </v-col>
-
-                <v-col cols="12" md="4">
-                  <v-text-field label="Country" class="purple-input" />
-                </v-col>
-
-                <v-col cols="12" md="4">
+                <v-col cols="12" md="7">
                   <v-text-field
-                    class="purple-input"
-                    label="Postal Code"
-                    type="number"
+                    prepend-icon="perm_identity"
+                    name="name"
+                    label="Nome Completo"
+                    type="text"
+                    :rules="[rules.required]"
+                    password
+                    v-model="userData.name"
                   />
-                </v-col>
-
-                <v-col cols="12">
-                  <v-textarea class="purple-input" label="About Me" />
-                </v-col>
-
-                <v-col cols="12" class="text-right">
-                  <v-btn color="success" class="mr-0"> Update Profile </v-btn>
+                  <v-text-field
+                    prepend-icon="mail_outline"
+                    name="email"
+                    label="E-mail"
+                    type="text"
+                    :rules="[rules.required, rules.email]"
+                    v-model="userData.email"
+                  />
                 </v-col>
               </v-row>
             </v-container>
@@ -86,6 +57,38 @@
 
 <script>
 export default {
-  //
+  //justify-content: center
+  data() {
+    return {
+      url: null,
+      userData: {
+        name: "",
+        email: "",
+      },
+      rules: {
+        required: (value) => !!value || "Obrigatório.",
+        min: (value) => value.length >= 6 || "Mínimo 6 caracteres",
+        email: (value) => {
+          const pattern =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          return pattern.test(value) || "E-mail inválido.";
+        },
+      },
+    };
+  },
+  methods: {
+    chooseImage() {
+      document.getElementById("selectFile").click();
+    },
+    onFileChange(e) {
+      const file = e.target.files[0];
+      this.url = URL.createObjectURL(file);
+    },
+  },
 };
 </script>
+<style>
+.border {
+  border: 1px solid red;
+}
+</style>

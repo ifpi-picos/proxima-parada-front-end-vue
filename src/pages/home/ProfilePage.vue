@@ -194,14 +194,3 @@ export default {
   border: 1px solid red;
 }
 </style>
-<!-- 
-<v-col cols="12" md="4">
-  <v-img
-    class="card-profile"
-    max-height="150"
-    max-width="150"
-    src="../../assets/stite.jpg"
-  >
-  </v-img>
-  <h6 class="display-1 mb-1 grey--text">{{ nomeUsuario }}</h6>
-</v-col> -->
