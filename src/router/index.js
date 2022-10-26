@@ -1,32 +1,56 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import AuthView from "../views/AuthView.vue"
-import HomePage from "../pages/HomePage"
-import ProfilePage from "../pages/ProfilePage"
 
 Vue.use(VueRouter)
 
 const routes = [
   {
+    path: "*",
+    redirect: { name: "feed" },
+  },
+  {
     path: "/",
-    name: "AuthMain",
-    component: AuthView,
+    name: "authMain",
+    component: () => import("../layouts/AuthLayout.vue"),
   },
   {
-    path: '/home',
-    name: 'home',
-    component: HomePage,
+    path: "/home",
+    name: "home",
+    component: () => import("../layouts/HomeLayout.vue"),
+    children: [
+      {
+        path: "feed",
+        name: "feed",
+        component: () => import("../pages/home/HomePage.vue"),
+      },
+      {
+        path: "profile",
+        name: "profile",
+        component: () => import("../pages/home/ProfilePage.vue"),
+      },
+    ],
   },
   {
-    path: '/profile',
-    name: 'profile',
-    component: ProfilePage,
-  },
-  {
-    path: '*',
-    redirect: {
-      name: 'home',
-    },
+    path: "/admin",
+    name: "admin",
+    component: () => import("../layouts/AdminLayout.vue"),
+    children: [
+      {
+        path: "dashboard",
+        name: "dashboard",
+        component: () => import("../pages/admin/DashboadPage.vue"),
+      },
+      {
+        path: "users",
+        name: "users",
+        component: () => import("../pages/admin/UsersPage.vue"),
+      },
+      {
+        path: "profile-admin",
+        name: "profile-admin",
+        component: () => import("../pages/admin/ProfileAdminPage.vue"),
+      },
+    ],
   },
 ];
 

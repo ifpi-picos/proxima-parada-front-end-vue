@@ -34,7 +34,7 @@
     </v-card>
 </template>
 <script>
-import Auth from "../services/auth"
+import Auth from "../../services/auth"
 
 export default {
     name: "SignUp",

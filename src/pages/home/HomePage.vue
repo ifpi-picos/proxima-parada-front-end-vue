@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid class="border">
+    <v-container fluid >
         <v-row dense>
             <v-col v-for="(item, i) in items" :key="i" cols="12" sm="6" md="4" lg="3">
                 <v-card :color="item.color" dark>

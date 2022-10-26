@@ -24,7 +24,6 @@
                                 <sign-up />
                             </template>
                         </v-tab-item>
-
                     </v-tabs>
                 </v-card>
             </v-flex>
@@ -33,8 +32,8 @@
 </template>
   
 <script>
-import SignIn from '../components/SignIn.vue'
-import SignUp from '../components/SignUp.vue'
+import SignIn from './SignIn.vue'
+import SignUp from './SignUp.vue'
 export default {
     name: 'Auth-main',
     components: {
