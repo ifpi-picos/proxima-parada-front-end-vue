@@ -47,6 +47,7 @@
                         <v-img v-if="url" :src="url" />
                       </v-avatar>
                     </v-row>
+                    
                     <v-row class="pa-2" align="center" justify="center">
                       <input
                         hidden
