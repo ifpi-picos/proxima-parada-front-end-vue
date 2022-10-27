@@ -1,13 +1,13 @@
 <template>
-  <v-container fluid>
+  <v-container fluid >
     <v-row justify="center">
       <v-col cols="12" xm="8" sm="8" md="8" lg="10">
-        <v-card>
-          <v-card-content>
+        <v-card >
+          <v-card-content >
             <v-row>
               <v-col cols="12" md="5">
                 <v-avatar size="165">
-                  <v-img src="../../assets/img/background.jpg" />
+                  <v-img src="../../assets/stite.jpg" />
                 </v-avatar>
               </v-col>
               <v-col cols="12" md="7">
@@ -31,14 +31,14 @@
       </v-col>
     </v-row>
 
-    <v-row justify="center">
+    <v-row justify="center" >
       <v-dialog v-model="dialog" persistent max-width="800px">
-        <v-col cols="12" xm="8" sm="8" md="8" lg="10">
+        <v-col cols="12" xm="12" sm="16" md="16" lg="25">
           <v-card>
             <v-form @submit.prevent="auht" v-model="valid">
               <v-container>
                 <v-row>
-                  <v-col cols="12" md="5">
+                  <v-col cols="12" md="5" >
                     <v-row class="pa-2" align="center" justify="center">
                       <v-avatar size="165px" v-if="!url" class="grey">
                         <span>Escolha uma imagem</span>
@@ -59,7 +59,7 @@
                       >
                     </v-row>
                   </v-col>
-                  <v-col cols="12" md="7">
+                  <v-col cols="12" md="7" >
                     <v-text-field
                       prepend-icon="perm_identity"
                       name="name"
@@ -91,7 +91,7 @@
                   </v-col>
                 </v-row>
               </v-container>
-              <v-container>
+              <v-container >
                 <v-row>
                   <v-col cols="12">
                     <v-text-field
@@ -235,6 +235,12 @@ export default {
 </script>
 <style>
 .border {
-  border: 1px solid red;
+  border: 1px solid  red;
+  
+ 
+}
+.teste{
+  height: auto;
+  padding-left: 78px;
 }
 </style>
