@@ -21,7 +21,7 @@
                 </v-list-item-content>
               </v-list-item>
             </template>
-  
+            
             <template v-for="(item, index) in items">
               <v-list-item :href="item.href" :to="{ name: item.href }" :key="index">
                 <v-list-item-action>
@@ -32,6 +32,18 @@
                 </v-list-item-content>
               </v-list-item>
             </template>
+
+            <div>
+              <v-list-item href="../pages/home/Cadastrar-Carona.vue" :to="{ name: 'Cadastrar-Carona' }">
+                <v-list-item-action>
+                  <v-icon light>Cadastrar-Carona</v-icon>
+                </v-list-item-action>
+                <v-list-item-content>
+                  <v-list-item-title>Cadastrar-Carona</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </div>
+
           </v-list-item-group>
         </v-list>
       </v-navigation-drawer>
@@ -45,6 +57,8 @@
           <v-icon>logout</v-icon>
         </v-btn>
       </v-app-bar>
+
+    
   
       <v-main>
         <v-fade-transition mode="out-in">
@@ -57,7 +71,7 @@
   
   <script>
   
-  
+
   export default {
     name: 'HomeView',
     data() {
@@ -75,6 +89,7 @@
       }
     },
     components: {
+      
     }
   }
   </script>
