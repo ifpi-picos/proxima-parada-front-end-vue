@@ -1,36 +1,24 @@
 <template>
-  <v-container fluid >
-    <v-row justify="center">
-      <v-col cols="12" xm="8" sm="8" md="8" lg="10">
-        <v-card >
-          <v-card-content >
-            <v-row>
-              <v-col cols="12" md="5">
-                <v-avatar size="165">
-                  <v-img src="../../assets/stite.jpg" />
-                </v-avatar>
-              </v-col>
-              <v-col cols="12" md="7">
-                <v-card-title> {{ userData.name }} </v-card-title>
-                <v-card-subtitle>{{ userData.occupation }}</v-card-subtitle>
-                <v-card-subtitle>{{ userData.phone_number }}</v-card-subtitle>
-                <v-card-subtitle>{{ userData.email }}</v-card-subtitle>
-              </v-col>
-            </v-row>
-          </v-card-content>
-          <v-card-actions>
-            <v-row justify="center">
-              <v-col cols="12" md="6">
-                <v-btn color="primary" outlined block @click="dialog = true">
-                  Editar Perfil
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
+  <v-container fluid  class="border1">
+  
+    <v-col cols="12" md="6" class="border4">
+        <v-avatar size="165" >
+          <v-img src="../../assets/stite.jpg"/>
+        </v-avatar> 
+      
+        <h3> Nome : {{ userData.name }} </h3><br>
+        <h4>Ocupação no Campus: {{ userData.occupation }}</h4><br>
+        <h4>Número do Celular: {{ userData.phone_number }}</h4><br>
+        <h4> E-mail: {{ userData.email }}</h4> <br>
+        <v-row justify="center">
+          <v-col cols="12" md="4" class="button">
+            <v-btn color="primary" outlined block @click="dialog = true" >Editar Perfil </v-btn>
+          </v-col>
+        </v-row>
+    </v-col>
 
+   
+     
     <v-row justify="center" >
       <v-dialog v-model="dialog" persistent max-width="800px">
         <v-col cols="12" xm="12" sm="16" md="16" lg="25">
@@ -47,7 +35,6 @@
                         <v-img v-if="url" :src="url" />
                       </v-avatar>
                     </v-row>
-                    
                     <v-row class="pa-2" align="center" justify="center">
                       <input
                         hidden
@@ -235,13 +222,29 @@ export default {
 };
 </script>
 <style>
-.border {
-  border: 1px solid  red;
+.border1{
+  width: 95vw;
+  height: 95vh;
+  align-items: center;
+
+}
+
+.border4{
+  text-align: center;
+  border: 2px solid rgba(63, 62, 62, 0.342);
+  width: 85%;
+  height: 85%;
+  background: #fff;
+  margin: auto;
+
+
+}
+h4{
+  text-align:center;
   
- 
 }
-.teste{
-  height: auto;
-  padding-left: 78px;
+body{
+  margin: 0
 }
+
 </style>
