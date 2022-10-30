@@ -20,6 +20,7 @@
                 <v-list-item-title>DashBoard</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
+<<<<<<< HEAD
           </template>
 
           <template v-for="(item, index) in items">
@@ -83,3 +84,91 @@ export default {
 </script>
 
 <style></style>
+=======
+            <template>
+              <v-list-item href="dashboard" :to="{ name: 'dashboard' }">
+                <v-list-item-action>
+                  <v-icon light>dashboard</v-icon>
+                </v-list-item-action>
+                <v-list-item-content>
+                  <v-list-item-title>DashBoard</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+            
+            <template v-for="(item, index) in items">
+              <v-list-item :href="item.href" :to="{ name: item.href }" :key="index">
+                <v-list-item-action>
+                  <v-icon light v-html="item.icon"></v-icon>
+                </v-list-item-action>
+                <v-list-item-content>
+                  <v-list-item-title v-html="item.title"></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+
+            <div>
+              <v-list-item href="../pages/home/Cadastrar-Carona.vue" :to="{ name: 'Cadastrar-Carona' }">
+                <v-list-item-action>
+                  <v-icon light>Cadastrar-Carona</v-icon>
+                </v-list-item-action>
+                <v-list-item-content>
+                  <v-list-item-title>Cadastrar-Carona</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </div>
+
+          </v-list-item-group>
+        </v-list>
+      </v-navigation-drawer>
+  
+      <v-app-bar class="primary" dense dark app>
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        <v-spacer></v-spacer>
+        <v-toolbar-title>Próxima Parada</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-btn icon to="/">
+          <v-icon>logout</v-icon>
+        </v-btn>
+      </v-app-bar>
+
+    
+  
+      <v-main>
+        <v-fade-transition mode="out-in">
+          <router-view></router-view>
+        </v-fade-transition>
+      </v-main>
+    </v-app>
+  
+  </template>
+  
+  <script>
+  
+
+  export default {
+    name: 'HomeView',
+    data() {
+      return {
+        drawer: false,
+        items: [{
+          href: 'feed',
+          title: 'Home',
+          icon: 'home',
+        }, {
+          href: 'profile',
+          title: 'Profile',
+          icon: 'account_box',
+        },],
+      }
+    },
+    components: {
+      
+    }
+  }
+  </script>
+  
+  <style>
+  
+  </style>
+>>>>>>> ab5a321a4c0dae712a712d1eb6d7f17997f357cb

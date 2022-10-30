@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <v-container fluid>
     <v-row justify="center">
       <v-progress-linear
@@ -51,15 +52,36 @@
         </v-card>
       </v-col>
     </v-row>
+=======
+  <v-container fluid  class="border1">
+  
+    <v-col cols="12" md="6" class="border4">
+        <v-avatar size="165" >
+          <v-img src="../../assets/stite.jpg"/>
+        </v-avatar> 
+      
+        <h3> Nome : {{ userData.name }} </h3><br>
+        <h4>Ocupação no Campus: {{ userData.occupation }}</h4><br>
+        <h4>Número do Celular: {{ userData.phone_number }}</h4><br>
+        <h4> E-mail: {{ userData.email }}</h4> <br>
+        <v-row justify="center">
+          <v-col cols="12" md="4" class="button">
+            <v-btn color="primary" outlined block @click="dialog = true" >Editar Perfil </v-btn>
+          </v-col>
+        </v-row>
+    </v-col>
+>>>>>>> ab5a321a4c0dae712a712d1eb6d7f17997f357cb
 
-    <v-row justify="center">
+   
+     
+    <v-row justify="center" >
       <v-dialog v-model="dialog" persistent max-width="800px">
-        <v-col cols="12" xm="8" sm="8" md="8" lg="10">
+        <v-col cols="12" xm="12" sm="16" md="16" lg="25">
           <v-card>
             <v-form @submit.prevent="auht" v-model="valid">
               <v-container>
                 <v-row>
-                  <v-col cols="12" md="5">
+                  <v-col cols="12" md="5" >
                     <v-row class="pa-2" align="center" justify="center">
                       <v-avatar size="165px" v-if="!url" class="grey">
                         <span>Escolha uma imagem</span>
@@ -80,7 +102,7 @@
                       >
                     </v-row>
                   </v-col>
-                  <v-col cols="12" md="7">
+                  <v-col cols="12" md="7" >
                     <v-text-field
                       prepend-icon="perm_identity"
                       name="name"
@@ -112,7 +134,7 @@
                   </v-col>
                 </v-row>
               </v-container>
-              <v-container>
+              <v-container >
                 <v-row>
                   <v-col cols="12">
                     <v-text-field
@@ -280,7 +302,29 @@ export default {
 };
 </script>
 <style>
-.border {
-  border: 1px solid red;
+.border1{
+  width: 95vw;
+  height: 95vh;
+  align-items: center;
+
 }
+
+.border4{
+  text-align: center;
+  border: 2px solid rgba(63, 62, 62, 0.342);
+  width: 85%;
+  height: 85%;
+  background: #fff;
+  margin: auto;
+
+
+}
+h4{
+  text-align:center;
+  
+}
+body{
+  margin: 0
+}
+
 </style>
