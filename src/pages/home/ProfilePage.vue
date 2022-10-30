@@ -1,13 +1,29 @@
 <template>
   <v-container fluid>
     <v-row justify="center">
+      <v-progress-linear
+        :active="loading"
+        :indeterminate="loading"
+        absolute
+        top
+        height="6"
+      >
+      </v-progress-linear>
       <v-col cols="12" xm="8" sm="8" md="8" lg="10">
+        <v-alert
+          :value="erroAlert"
+          color="red"
+          elevation="3"
+          outlined
+          type="warning"
+          >{{ messageError }}</v-alert
+        >
         <v-card>
           <v-card-content>
             <v-row>
               <v-col cols="12" md="5">
                 <v-avatar size="165">
-                  <v-img src="../../assets/img/background.jpg" />
+                  <v-img src="../../assets/log1o.png" />
                 </v-avatar>
               </v-col>
               <v-col cols="12" md="7">
@@ -23,6 +39,11 @@
               <v-col cols="12" md="6">
                 <v-btn color="primary" outlined block @click="dialog = true">
                   Editar Perfil
+                </v-btn>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-btn color="primary" block @click="getData">
+                  getInfoUser
                 </v-btn>
               </v-col>
             </v-row>
@@ -183,8 +204,8 @@
 </template>
 
 <script>
+import User from "../../services/user";
 export default {
-  //justify-content: center
   data() {
     return {
       nomeUsuario: "Edivan Dos Santos",
@@ -199,7 +220,7 @@ export default {
         password: "",
         samePasswords: "",
       },
-      messageError: "Erro ao conetar-se a internet!",
+      messageError: "Algum Erro!",
       loading: false,
       erroAlert: false,
       dialog: false,
@@ -229,6 +250,31 @@ export default {
     onFileChange(e) {
       const file = e.target.files[0];
       this.url = URL.createObjectURL(file);
+    },
+
+    async getData() {
+      this.loading = true;
+      try {
+        const res = await User.getUserData();
+        if (res.status == 200) {
+          console.log(res);
+          this.loading = false;
+        }
+      } catch (error) {
+        const response = error.response;
+        this.erroAlert = true;
+        this.loading = false;
+        if (response.data.message) {
+          this.messageError = response.data.message;
+        }
+        console.log(response.data);
+      }
+    },
+  },
+  watch: {
+    erroAlert(val) {
+      if (!val) return;
+      setTimeout(() => (this.erroAlert = false), 3000);
     },
   },
 };
