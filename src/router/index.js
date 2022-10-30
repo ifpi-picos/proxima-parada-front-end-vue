@@ -19,6 +19,14 @@ const routes = [
     component: () => import("../layouts/HomeLayout.vue"),
     children: [
       {
+        path: "*",
+        redirect: { name: "feed" },
+      },
+      {
+        path: "",
+        redirect: { name: "feed" },
+      },
+      {
         path: "feed",
         name: "feed",
         component: () => import("../pages/home/HomePage.vue"),
@@ -28,11 +36,6 @@ const routes = [
         name: "profile",
         component: () => import("../pages/home/ProfilePage.vue"),
       },
-      {
-        path: "Cadastrar-Carona",
-        name: "Cadastrar-Carona",
-        component: () => import("../pages/home/Cadastrar-Carona"),
-      },
     ],
   },
   {
@@ -40,6 +43,14 @@ const routes = [
     name: "admin",
     component: () => import("../layouts/AdminLayout.vue"),
     children: [
+      {
+        path: "*",
+        redirect: { name: "dashboard" },
+      },
+      {
+        path: "",
+        redirect: { name: "dashboard" },
+      },
       {
         path: "dashboard",
         name: "dashboard",

@@ -86,13 +86,11 @@ export default {
   methods: {
     async auth() {
       this.loading = true;
-      console.log("tentean");
       try {
         const res = await Auth.signin(this.userAuth);
-        console.log(res.data);
         if (res.status == 200) {
           this.loading = false;
-          this.$router.push({ name: "home" });
+          this.$router.push({ name: "feed" });
         }
       } catch (error) {
         const response = error.response;

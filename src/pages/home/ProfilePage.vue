@@ -1,7 +1,6 @@
 <template>
-<<<<<<< HEAD
-  <v-container fluid>
-    <v-row justify="center">
+  <v-container>
+    <v-row justify="center" fluid class="pa-3">
       <v-progress-linear
         :active="loading"
         :indeterminate="loading"
@@ -19,32 +18,45 @@
           type="warning"
           >{{ messageError }}</v-alert
         >
-        <v-card>
-          <v-card-content>
-            <v-row>
-              <v-col cols="12" md="5">
-                <v-avatar size="165">
-                  <v-img src="../../assets/log1o.png" />
-                </v-avatar>
-              </v-col>
-              <v-col cols="12" md="7">
-                <v-card-title> {{ userData.name }} </v-card-title>
-                <v-card-subtitle>{{ userData.occupation }}</v-card-subtitle>
-                <v-card-subtitle>{{ userData.phone_number }}</v-card-subtitle>
-                <v-card-subtitle>{{ userData.email }}</v-card-subtitle>
-              </v-col>
-            </v-row>
-          </v-card-content>
+        <v-card max-width="450px" class="mx-auto bg pt-10" elevation="2">
+          <v-row justify="center">
+            <v-col
+              align-self="start"
+              class="d-flex justify-center align-center pa-0"
+              cols="12"
+            >
+              <v-avatar size="165">
+                <v-img v-if="userData.avatar" :src="userData.avatar" />
+              </v-avatar>
+            </v-col>
+          </v-row>
+          <v-list-item class="profile-text-name ml-2 pt-16">
+            <v-list-item-content>
+              <v-list-item-title class="text-h4">
+                {{ userData.name }}
+              </v-list-item-title>
+              <v-list-item-subtitle class="text-h6">{{
+                userData.occupation
+              }}</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          <v-spacer></v-spacer>
+          <v-card-subtitle>
+            <b class="ml-2 text-h6">{{ userData.phone_number }}</b>
+          </v-card-subtitle>
+          <v-card-subtitle>
+            <b class="ml-2 text-h6">{{ userData.email }}</b>
+          </v-card-subtitle>
           <v-card-actions>
             <v-row justify="center">
               <v-col cols="12" md="6">
-                <v-btn color="primary" outlined block @click="dialog = true">
+                <v-btn color="primary" block @click="dialog = true">
                   Editar Perfil
                 </v-btn>
               </v-col>
               <v-col cols="12" md="6">
-                <v-btn color="primary" block @click="getData">
-                  getInfoUser
+                <v-btn color="primary" block outlined @click="dialogCar = true">
+                  Cadastrar veiculo
                 </v-btn>
               </v-col>
             </v-row>
@@ -52,42 +64,20 @@
         </v-card>
       </v-col>
     </v-row>
-=======
-  <v-container fluid  class="border1">
-  
-    <v-col cols="12" md="6" class="border4">
-        <v-avatar size="165" >
-          <v-img src="../../assets/stite.jpg"/>
-        </v-avatar> 
-      
-        <h3> Nome : {{ userData.name }} </h3><br>
-        <h4>Ocupação no Campus: {{ userData.occupation }}</h4><br>
-        <h4>Número do Celular: {{ userData.phone_number }}</h4><br>
-        <h4> E-mail: {{ userData.email }}</h4> <br>
-        <v-row justify="center">
-          <v-col cols="12" md="4" class="button">
-            <v-btn color="primary" outlined block @click="dialog = true" >Editar Perfil </v-btn>
-          </v-col>
-        </v-row>
-    </v-col>
->>>>>>> ab5a321a4c0dae712a712d1eb6d7f17997f357cb
-
-   
-     
-    <v-row justify="center" >
-      <v-dialog v-model="dialog" persistent max-width="800px">
+    <v-row justify="center">
+      <v-dialog v-model="dialog" persistent max-width="800px" scrollable="true">
         <v-col cols="12" xm="12" sm="16" md="16" lg="25">
           <v-card>
             <v-form @submit.prevent="auht" v-model="valid">
               <v-container>
                 <v-row>
-                  <v-col cols="12" md="5" >
+                  <v-col cols="12" md="5">
                     <v-row class="pa-2" align="center" justify="center">
-                      <v-avatar size="165px" v-if="!url" class="grey">
+                      <v-avatar size="165px" v-if="!userData.avatar" class="grey">
                         <span>Escolha uma imagem</span>
                       </v-avatar>
                       <v-avatar size="165" v-else>
-                        <v-img v-if="url" :src="url" />
+                        <v-img v-if="userData.avatar" :src="userData.avatar" />
                       </v-avatar>
                     </v-row>
                     <v-row class="pa-2" align="center" justify="center">
@@ -102,7 +92,7 @@
                       >
                     </v-row>
                   </v-col>
-                  <v-col cols="12" md="7" >
+                  <v-col cols="12" md="7">
                     <v-text-field
                       prepend-icon="perm_identity"
                       name="name"
@@ -134,7 +124,7 @@
                   </v-col>
                 </v-row>
               </v-container>
-              <v-container >
+              <v-container>
                 <v-row>
                   <v-col cols="12">
                     <v-text-field
@@ -142,65 +132,22 @@
                       name="email"
                       label="E-mail"
                       type="text"
-                      :rules="[rules.required, rules.email]"
+                      readonly
                       v-model="userData.email"
                     />
                   </v-col>
-
-                  <v-col cols="12" md="6">
-                    <v-text-field
-                      prepend-icon="password"
-                      name="password"
-                      label="Senha"
-                      :rules="[rules.required, rules.min]"
-                      :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                      :type="show1 ? 'text' : 'password'"
-                      @click:append="show1 = !show1"
-                      v-model="userData.CurrentPassword"
-                    />
-                  </v-col>
-                  <v-container>
-                    <v-row>
-                      <v-col cols="12" md="6">
-                        <v-text-field
-                          prepend-icon="password"
-                          name="password"
-                          label="Senha"
-                          :rules="[rules.required, rules.min]"
-                          :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-                          :type="show2 ? 'text' : 'password'"
-                          @click:append="show2 = !show2"
-                          v-model="userData.password"
-                        />
-                      </v-col>
-                      <v-col cols="12" md="6">
-                        <v-text-field
-                          prepend-icon="password"
-                          name="password_confirm"
-                          label="Comfirmar senha"
-                          :rules="[
-                            rules.required,
-                            rules.min,
-                            rules.matchPassword,
-                          ]"
-                          :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                          :type="show3 ? 'text' : 'password'"
-                          @click:append="show3 = !show3"
-                          v-model="userData.samePasswords"
-                        />
-                      </v-col>
-                    </v-row>
-                  </v-container>
                 </v-row>
               </v-container>
               <v-container>
                 <v-row>
                   <v-col cols="12" md="6">
                     <v-btn
-                      :disabled="!valid"
+                      :loading="updateLoading"
+                      :disabled="updateLoading"
                       color="primary"
                       block
                       type="submit"
+                      @click="saveChanges"
                     >
                       Salvar
                     </v-btn>
@@ -210,7 +157,86 @@
                       color="primary"
                       outlined
                       block
-                      :to="{ name: 'feed' }"
+                      @click="dialog = false"
+                    >
+                      Cancelar
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-form>
+          </v-card>
+        </v-col>
+      </v-dialog>
+    </v-row>
+
+    <v-row justify="center">
+      <v-dialog v-model="dialogCar" persistent max-width="800px" scrollable="true">
+        <v-col cols="12" xm="12" sm="16" md="16" lg="25">
+          <v-card>
+            <v-form @submit.prevent="car" v-model="valid">
+              <v-container>
+                <v-row>
+                  <v-col cols="12" md="5">
+                    <v-row class="pa-2" align="center" justify="center">
+                      <v-avatar tile size="165px" v-if="!carData.image" class="grey">
+                        <span>Escolha uma imagem</span>
+                      </v-avatar>
+                      <v-avatar tile size="165" v-else>
+                        <v-img v-if="carData.image" :src="carData.image" />
+                      </v-avatar>
+                    </v-row>
+                    <v-row class="pa-2" align="center" justify="center">
+                      <input
+                        hidden
+                        id="selectFileCar"
+                        type="file"
+                        @change="onFileCarChange"
+                      />
+                      <v-btn color="primary" @click="chooseImageCar()"
+                        >Escolher Imagen</v-btn
+                      >
+                    </v-row>
+                  </v-col>
+                  <v-col cols="12" md="7">
+                    <v-text-field
+                      name="modelo"
+                      label="Modelo"
+                      type="text"
+                      :rules="[rules.required]"
+                      v-model="carData.modelo"
+                    />
+
+                    <v-text-field
+                      name="marca"
+                      label="Marca"
+                      v-model="carData.marca"
+                      :rules="[rules.required]"
+                    />
+                  </v-col>
+                </v-row>
+              </v-container>
+             
+              <v-container>
+                <v-row>
+                  <v-col cols="12" md="6">
+                    <v-btn
+                      :loading="newCarLoading"
+                      :disabled="newCarLoading"
+                      color="primary"
+                      block
+                      type="submit"
+                      @click="newCar"
+                    >
+                      Salvar
+                    </v-btn>
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-btn
+                      color="primary"
+                      outlined
+                      block
+                      @click="dialogCar = false"
                     >
                       Cancelar
                     </v-btn>
@@ -230,22 +256,30 @@ import User from "../../services/user";
 export default {
   data() {
     return {
-      nomeUsuario: "Edivan Dos Santos",
-      url: "../../assets/img/logo.png",
       items: ["Aluno(a)", "Professor(a)", "Outro(a)"],
       userData: {
-        name: "Roberto Silva",
-        occupation: "Professor",
-        phone_number: "(87) 9 8888-8888",
-        email: "roberto@teste.com",
+        name: "",
+        occupation: "",
+        phone_number: "",
+        email: "",
+        avatar: "https://www.pngfind.com/pngs/m/470-4703547_icon-user-icon-hd-png-download.png",
         CurrentPassword: "",
         password: "",
         samePasswords: "",
       },
-      messageError: "Algum Erro!",
+      carData: {
+        modelo: "",
+        marcar: "",
+        image: "",
+      },
+      messageError: "Erro ao conectar-se ao banco de dados!",
       loading: false,
+      updateLoading: false,
+      newCarLoading: false,
+      loader: null,
       erroAlert: false,
       dialog: false,
+      dialogCar: false,
       show1: false,
       show2: false,
       show3: false,
@@ -271,16 +305,49 @@ export default {
     },
     onFileChange(e) {
       const file = e.target.files[0];
-      this.url = URL.createObjectURL(file);
+      this.userData.avatar = URL.createObjectURL(file);
+    },
+    chooseImageCar() {
+      document.getElementById("selectFileCar").click();
+    },
+    onFileCarChange(e) {
+      const file = e.target.files[0];
+      this.carData.image = URL.createObjectURL(file);
     },
 
-    async getData() {
+    async saveChanges() {
+      this.updateLoading = true;
+      this.loader = this.updateLoading;
+      try {
+        const res = await User.updateUserData(this.userData);
+        if (res.status == 200) {
+          console.log(res);
+          this.updateLoading = false;
+          this.loader = null;
+          this.dialog = false;
+          this.userData = res.data;
+        }
+      } catch (error) {
+        const response = error.response;
+        this.erroAlert = true;
+        this.updateLoading = false;
+        this.dialog = false;
+        this.loader = null;
+        if (response.data.message) {
+          this.messageError = response.data.message;
+        }
+        console.log(response.data);
+      }
+    },
+
+    async getUserData() {
       this.loading = true;
       try {
         const res = await User.getUserData();
         if (res.status == 200) {
           console.log(res);
           this.loading = false;
+          this.userData = res.data;
         }
       } catch (error) {
         const response = error.response;
@@ -292,6 +359,34 @@ export default {
         console.log(response.data);
       }
     },
+
+    async newCar() {
+      this.newCarLoading = true;
+      this.loader = this.newCarLoading;
+      try {
+        const res = await User.newCar(this.carData);
+        if (res.status == 200) {
+          console.log(res);
+          this.newCarLoading = false;
+          this.loader = null;
+          this.dialog = false;
+          this.carData = res.data;
+        }
+      } catch (error) {
+        const response = error.response;
+        this.erroAlert = true;
+        this.newCarLoading = false;
+        this.dialog = false;
+        this.loader = null;
+        if (response.data.message) {
+          this.messageError = response.data.message;
+        }
+        console.log(response.data);
+      }
+    },
+  },
+  created() {
+    this.getUserData();
   },
   watch: {
     erroAlert(val) {
@@ -302,29 +397,61 @@ export default {
 };
 </script>
 <style>
-.border1{
+.border1 {
   width: 95vw;
   height: 95vh;
   align-items: center;
-
 }
 
-.border4{
+.border4 {
   text-align: center;
   border: 2px solid rgba(63, 62, 62, 0.342);
   width: 85%;
   height: 85%;
   background: #fff;
   margin: auto;
-
-
 }
-h4{
-  text-align:center;
-  
+h4 {
+  text-align: center;
 }
-body{
-  margin: 0
+body {
+  margin: 0;
 }
 
+.custom-loader {
+  animation: loader 1s infinite;
+  display: flex;
+}
+@-moz-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 </style>
