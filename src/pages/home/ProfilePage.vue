@@ -25,7 +25,10 @@
               class="d-flex justify-center align-center pa-0"
               cols="12"
             >
-              <v-avatar size="165">
+              <v-avatar size="165px" v-if="!userData.avatar">
+                <v-img src="https://lh3.googleusercontent.com/-Gvq8ieRFxvU/U-wQMDsuoJI/AAAAAAAADVs/-3qBKC1CFIQ/s250/Avatar7.png" />
+              </v-avatar>
+              <v-avatar size="165" v-else>
                 <v-img v-if="userData.avatar" :src="userData.avatar" />
               </v-avatar>
             </v-col>
@@ -64,6 +67,7 @@
         </v-card>
       </v-col>
     </v-row>
+    
     <v-row justify="center">
       <v-dialog v-model="dialog" persistent max-width="800px" scrollable="true">
         <v-col cols="12" xm="12" sm="16" md="16" lg="25">
@@ -73,7 +77,11 @@
                 <v-row>
                   <v-col cols="12" md="5">
                     <v-row class="pa-2" align="center" justify="center">
-                      <v-avatar size="165px" v-if="!userData.avatar" class="grey">
+                      <v-avatar
+                        size="165px"
+                        v-if="!userData.avatar"
+                        class="grey"
+                      >
                         <span>Escolha uma imagem</span>
                       </v-avatar>
                       <v-avatar size="165" v-else>
@@ -171,7 +179,12 @@
     </v-row>
 
     <v-row justify="center">
-      <v-dialog v-model="dialogCar" persistent max-width="800px" scrollable="true">
+      <v-dialog
+        v-model="dialogCar"
+        persistent
+        max-width="800px"
+        scrollable="true"
+      >
         <v-col cols="12" xm="12" sm="16" md="16" lg="25">
           <v-card>
             <v-form @submit.prevent="car" v-model="valid">
@@ -179,7 +192,12 @@
                 <v-row>
                   <v-col cols="12" md="5">
                     <v-row class="pa-2" align="center" justify="center">
-                      <v-avatar tile size="165px" v-if="!carData.image" class="grey">
+                      <v-avatar
+                        tile
+                        size="165px"
+                        v-if="!carData.image"
+                        class="grey"
+                      >
                         <span>Escolha uma imagem</span>
                       </v-avatar>
                       <v-avatar tile size="165" v-else>
@@ -216,7 +234,7 @@
                   </v-col>
                 </v-row>
               </v-container>
-             
+
               <v-container>
                 <v-row>
                   <v-col cols="12" md="6">
@@ -262,7 +280,8 @@ export default {
         occupation: "",
         phone_number: "",
         email: "",
-        avatar: "https://www.pngfind.com/pngs/m/470-4703547_icon-user-icon-hd-png-download.png",
+        avatar:
+          "https://www.pngfind.com/pngs/m/470-4703547_icon-user-icon-hd-png-download.png",
         CurrentPassword: "",
         password: "",
         samePasswords: "",

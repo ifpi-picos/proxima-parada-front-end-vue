@@ -1,7 +1,7 @@
 <template>
   <v-app-bar dark app>
     <v-spacer></v-spacer>
-    <v-toolbar-title>Dashboard</v-toolbar-title>
+    <v-toolbar-title>Próxima Parada admin</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn icon to="/">
       <v-icon>logout</v-icon>
