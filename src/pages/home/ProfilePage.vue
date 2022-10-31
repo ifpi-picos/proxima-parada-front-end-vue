@@ -26,7 +26,9 @@
               cols="12"
             >
               <v-avatar size="165px" v-if="!userData.avatar">
-                <v-img src="https://lh3.googleusercontent.com/-Gvq8ieRFxvU/U-wQMDsuoJI/AAAAAAAADVs/-3qBKC1CFIQ/s250/Avatar7.png" />
+                <v-img
+                  src="https://lh3.googleusercontent.com/-Gvq8ieRFxvU/U-wQMDsuoJI/AAAAAAAADVs/-3qBKC1CFIQ/s250/Avatar7.png"
+                />
               </v-avatar>
               <v-avatar size="165" v-else>
                 <v-img v-if="userData.avatar" :src="userData.avatar" />
@@ -67,7 +69,7 @@
         </v-card>
       </v-col>
     </v-row>
-    
+
     <v-row justify="center">
       <v-dialog v-model="dialog" persistent max-width="800px" scrollable="true">
         <v-col cols="12" xm="12" sm="16" md="16" lg="25">
@@ -280,8 +282,7 @@ export default {
         occupation: "",
         phone_number: "",
         email: "",
-        avatar:
-          "https://www.pngfind.com/pngs/m/470-4703547_icon-user-icon-hd-png-download.png",
+        avatar: "",
         CurrentPassword: "",
         password: "",
         samePasswords: "",
