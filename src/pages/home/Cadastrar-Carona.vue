@@ -37,10 +37,6 @@
         </v-card> 
         <br>
 
-        <v-card class="veiculo" color="#96b5bb5e">
-           <h2>Modalidade</h2>
-          
-        </v-card> 
 
         <v-container>
             <v-row align="center">
