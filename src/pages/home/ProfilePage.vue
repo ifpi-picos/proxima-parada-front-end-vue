@@ -18,7 +18,12 @@
           type="warning"
           >{{ messageError }}</v-alert
         >
-        <v-card max-width="450px" class="mx-auto bg pt-10" elevation="2">
+        <v-card
+          max-width="450px"
+          min-width="400px"
+          class="mx-auto bg pt-10"
+          elevation="2"
+        >
           <v-row justify="center">
             <v-col
               align-self="start"
@@ -46,12 +51,38 @@
             </v-list-item-content>
           </v-list-item>
           <v-spacer></v-spacer>
-          <v-card-subtitle>
-            <b class="ml-2 text-h6">{{ userData.phone_number }}</b>
-          </v-card-subtitle>
-          <v-card-subtitle>
-            <b class="ml-2 text-h6">{{ userData.email }}</b>
-          </v-card-subtitle>
+          <v-container>
+            <v-row>
+              <v-col cols="12" md="6">
+                <v-card-subtitle class="pa-0">
+                  <b class="ml-2 text-h6">{{ userData.phone_number }}</b>
+                </v-card-subtitle>
+                <v-card-subtitle class="pa-0">
+                  <b class="ml-2 text-h6">{{ userData.email }}</b>
+                </v-card-subtitle>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-card-subtitle v-if="carData.brand" class="pa-0">
+                  <span class="card-subtitle"
+                    ><b>Veículo:</b> {{ carData.brand }},
+                    {{ carData.model }}</span
+                  >
+                </v-card-subtitle>
+
+                <v-card-subtitle v-if="!carData.brand" class="pa-0">
+                  <span class="card-subtitle"
+                    ><b>Veículo:</b> Nenhum veículo cadastrado</span
+                  >
+                </v-card-subtitle>
+                <v-card-actions v-if="carData.brand" class="pa-0 mt-2">
+                  <v-btn color="primary" block @click="dialogDriver = true">
+                    Oferecer caronas
+                  </v-btn>
+                </v-card-actions>
+              </v-col>
+            </v-row>
+          </v-container>
+
           <v-card-actions>
             <v-row justify="center">
               <v-col cols="12" md="6">
@@ -215,17 +246,17 @@
                   </v-col>
                   <v-col cols="12" md="7">
                     <v-text-field
-                      name="modelo"
-                      label="Modelo"
+                      name="brand"
+                      label="Marca"
                       type="text"
                       :rules="[rules.required]"
-                      v-model="carData.modelo"
+                      v-model="carData.brand"
                     />
 
                     <v-text-field
-                      name="marca"
-                      label="Marca"
-                      v-model="carData.marca"
+                      name="model"
+                      label="Modelo"
+                      v-model="carData.model"
                       :rules="[rules.required]"
                     />
                   </v-col>
@@ -241,7 +272,7 @@
                       color="primary"
                       block
                       type="submit"
-                      @click="newCar"
+                      @click="newVehicle"
                     >
                       Salvar
                     </v-btn>
@@ -263,29 +294,66 @@
         </v-col>
       </v-dialog>
     </v-row>
+
+    <v-row justify="center">
+      <v-dialog v-model="dialogDriver" max-width="290">
+        <v-card>
+          <v-card-title class="text-h5">
+            Tem certeza de que desejá a posição de motorisa?
+          </v-card-title>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+
+            <v-btn color="red darken-1" text @click="dialogDriver = false">
+              Cancelar
+            </v-btn>
+
+            <v-btn
+              color="green darken-1"
+              text
+              :loading="driverLoading"
+              :disabled="driverLoading"
+              @click="requesrPositionDriver"
+            >
+              Aceitar
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
   </v-container>
 </template>
 
 <script>
 import User from "../../services/user";
+import Vehicle from "../../services/vehicle";
+import Requisition from "../../services/requisition";
+
 export default {
   data() {
     return {
       items: ["Aluno(a)", "Professor(a)", "Outro(a)"],
       userData: {},
+      requisition:{
+        id_user: "",
+      },
       carData: {
-        modelo: "",
-        marcar: "",
+        brand: "",
+        model: "",
         image: "",
+        id_user: "",
       },
       messageError: "Erro ao conectar-se ao banco de dados!",
       loading: false,
       updateLoading: false,
       newCarLoading: false,
+      driverLoading: false,
       loader: null,
       erroAlert: false,
       dialog: false,
       dialogCar: false,
+      dialogDriver: false,
       show1: false,
       show2: false,
       show3: false,
@@ -332,23 +400,63 @@ export default {
         }
       } catch (error) {
         this.finishLoading();
-        this.showErroAlert(true, error.response.data.message)
+        this.showErroAlert(true, error.response.data.message);
         //console.log(response.data);
       }
     },
 
-    async newCar() {
+    async requesrPositionDriver() {
+      this.driverLoading = true;
+      this.loader = this.driverLoading;
+      this.requisition.id_user = this.userData.id;
+      try {
+        const res = await Requisition.createNewRequisition(this.requisition);
+        if (res.status == 201) {
+          this.finishLoading();
+          this.requisition = res.data;
+        }
+      } catch (error) {
+        this.finishLoading();
+        this.showErroAlert(true, error.response.data.message);
+        //console.log(response.data);
+      }
+    },
+
+    async getDataVehicle(idUser) {
+      this.loading = true;
+      try {
+        console.log("entrando na função get veiculo: " + idUser);
+        const res = await Vehicle.getVehicleByIdUser(idUser);
+        if (res.status == 201) {
+          console.log("entrando na função get veiculo: deu certo");
+          this.carData = res.data;
+          console.log(this.carData);
+          this.finishLoading();
+        }
+      } catch (error) {
+        console.log("entrando na função get veiculo: deu errado");
+        this.finishLoading();
+        this.showErroAlert(true, error.response.data.message);
+        console.log(error.response.data.message);
+      }
+    },
+
+    async newVehicle() {
       this.newCarLoading = true;
       this.loader = this.newCarLoading;
+      this.carData.id_user = this.userData.id;
       try {
-        const res = await User.newCar(this.carData);
+        console.log("entrando na função");
+        const res = await Vehicle.createNewVehicle(this.carData);
         if (res.status == 200) {
+          console.log("entrando na função: deu certo");
           this.finishLoading();
           this.carData = res.data;
         }
       } catch (error) {
+        console.log("entrando na função: deu errado");
         this.finishLoading();
-        this.showErroAlert(true, error.response.data.message)
+        this.showErroAlert(true, error.response.data.message);
         //console.log(response.data);
       }
     },
@@ -356,8 +464,11 @@ export default {
     finishLoading() {
       this.loader = null;
       this.dialog = false;
+      this.dialogCar = false;
+      this.dialogDriver = false;
       this.updateLoading = false;
       this.newCarLoading = false;
+      this.loading = false;
     },
     showErroAlert(status, message) {
       this.erroAlert = status;
@@ -369,6 +480,8 @@ export default {
   created() {
     if (sessionStorage.getItem("userLocal")) {
       this.userData = JSON.parse(sessionStorage.getItem("userLocal"));
+      //console.log("testand o user loca no Profile: ", this.userData);
+      this.getDataVehicle(this.userData.id);
     }
   },
   watch: {
@@ -379,7 +492,15 @@ export default {
   },
 };
 </script>
-<style>
+<style lang="css" scoped>
+.border {
+  border: 1px red solid;
+}
+
+.card-subtitle {
+  font-size: 1.35em;
+}
+
 .border1 {
   width: 95vw;
   height: 95vh;

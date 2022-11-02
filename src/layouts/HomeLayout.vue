@@ -33,7 +33,7 @@
 
             <v-list-item v-if="userLocal.status" :to="{ name: 'ride' }">
               <v-list-item-action>
-                <v-icon light>account_box</v-icon>
+                <v-icon light>drive_eta</v-icon>
               </v-list-item-action>
               <v-list-item-content>
                 <v-list-item-title>Caronas</v-list-item-title>
@@ -42,7 +42,7 @@
             
             <v-list-item  :to="{ name: 'dashboard' }">
               <v-list-item-action>
-                <v-icon light>account_box</v-icon>
+                <v-icon light>dashboard</v-icon>
               </v-list-item-action>
               <v-list-item-content>
                 <v-list-item-title>Area do Admin</v-list-item-title>
@@ -50,20 +50,6 @@
             </v-list-item>
             
           </template>
-          <!-- <template v-for="(item, index) in items">
-            <v-list-item
-              :href="item.href"
-              :to="{ name: item.href }"
-              :key="index"
-            >
-              <v-list-item-action>
-                <v-icon light v-html="item.icon"></v-icon>
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title v-html="item.title"></v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </template> -->
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
@@ -136,10 +122,10 @@ export default {
   },
   components: {},
   created() {
-    this.resume();
+    //this.resume();
     if (sessionStorage.getItem("userLocal")) {
       this.userLocal = JSON.parse(sessionStorage.getItem("userLocal"));
-      //console.log("testand o user loca: ", this.userLocal);
+      //console.log("testand o user loca no HomeLayout: ", this.userLocal);
     }
   },
 };
