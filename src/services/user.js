@@ -1,11 +1,11 @@
 import { http } from "./config";
 
 export default {
-  getUserData: () => {
-    return http.get("/users");
+  getUserData: (userData) => {
+    return http.get("/users/" + userData.id);
   },
   updateUserData: (userData) => {
-    return http.put("/users", userData);
+    return http.put("/users/" + userData.id, userData);
   },
 
   newCar: (carData) => {

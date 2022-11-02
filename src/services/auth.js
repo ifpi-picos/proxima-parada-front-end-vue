@@ -8,4 +8,12 @@ export default {
   signup: (userData) => {
     return http.post("/users", userData);
   },
+
+  logout: () => {
+    return http.post("/sessions/logout");
+  },
+
+  resume: () => {
+    return http.post("/sessions/resume");
+  },
 };

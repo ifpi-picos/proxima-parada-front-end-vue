@@ -5,10 +5,6 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: "*",
-    redirect: { name: "feed" },
-  },
-  {
     path: "/",
     name: "authMain",
     component: () => import("../layouts/AuthLayout.vue"),
@@ -18,10 +14,6 @@ const routes = [
     name: "home",
     component: () => import("../layouts/HomeLayout.vue"),
     children: [
-      {
-        path: "*",
-        redirect: { name: "feed" },
-      },
       {
         path: "",
         redirect: { name: "feed" },
@@ -36,6 +28,11 @@ const routes = [
         name: "profile",
         component: () => import("../pages/home/ProfilePage.vue"),
       },
+      {
+        path: "ride",
+        name: "ride",
+        component: () => import("../pages/home/Cadastrar-Carona.vue"),
+      },
     ],
   },
   {
@@ -43,10 +40,6 @@ const routes = [
     name: "admin",
     component: () => import("../layouts/AdminLayout.vue"),
     children: [
-      {
-        path: "*",
-        redirect: { name: "dashboard" },
-      },
       {
         path: "",
         redirect: { name: "dashboard" },

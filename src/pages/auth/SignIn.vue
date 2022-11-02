@@ -63,6 +63,7 @@ import Auth from "../../services/auth";
 export default {
   data() {
     return {
+      userLocal: {},
       userAuth: {
         email: "",
         password: "",
@@ -89,6 +90,8 @@ export default {
       try {
         const res = await Auth.signin(this.userAuth);
         if (res.status == 200) {
+          this.userLocal = res.data.userReturn;
+          sessionStorage.setItem("userLocal", JSON.stringify(this.userLocal));
           this.loading = false;
           this.$router.push({ name: "feed" });
         }

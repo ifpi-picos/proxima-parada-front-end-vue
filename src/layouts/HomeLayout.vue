@@ -11,7 +11,46 @@
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <template v-for="(item, index) in items">
+          <template>
+
+            <v-list-item :to="{ name: 'feed' }">
+              <v-list-item-action>
+                <v-icon light>home</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>Home</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item  :to="{ name: 'profile' }">
+              <v-list-item-action>
+                <v-icon light>account_box</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>Perfil</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item v-if="userLocal.status" :to="{ name: 'ride' }">
+              <v-list-item-action>
+                <v-icon light>account_box</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>Caronas</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            
+            <v-list-item  :to="{ name: 'dashboard' }">
+              <v-list-item-action>
+                <v-icon light>account_box</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>Area do Admin</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            
+          </template>
+          <!-- <template v-for="(item, index) in items">
             <v-list-item
               :href="item.href"
               :to="{ name: item.href }"
@@ -24,7 +63,7 @@
                 <v-list-item-title v-html="item.title"></v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-          </template>
+          </template> -->
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
@@ -34,7 +73,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-title>Próxima Parada</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon to="/">
+      <v-btn icon @click="signup">
         <v-icon>logout</v-icon>
       </v-btn>
     </v-app-bar>
@@ -48,26 +87,61 @@
 </template>
 
 <script>
+import Auth from "../services/auth";
+
 export default {
   name: "HomeView",
   data() {
     return {
       drawer: false,
-      items: [
-        {
-          href: "feed",
-          title: "Home",
-          icon: "home",
-        },
-        {
-          href: "profile",
-          title: "Profile",
-          icon: "account_box",
-        },
-      ],
+      userLocal: {
+        status: true
+      },
     };
   },
+  methods: {
+    async signup() {
+      sessionStorage.removeItem("userLocal");
+      try {
+        const res = await Auth.logout();
+        if (res.status == 200) {
+          this.$router.push({ name: "authMain" });
+        }
+      } catch (error) {
+        const response = error.response;
+        if (response.data.message) {
+          this.messageError = response.data.message;
+        }
+        console.log(response);
+      }
+    },
+    async resume() {
+      try {
+        const res = await Auth.resume();
+        sessionStorage.setItem(
+          "userLocal",
+          JSON.stringify(res.data.userReturn)
+        );
+      } catch (error) {
+        if (error.response.status == 400) {
+          this.$router.push({ name: "authMain" });
+        }
+        const response = error.response;
+        if (response.data.message) {
+          this.messageError = response.data.message;
+        }
+        console.log(response);
+      }
+    },
+  },
   components: {},
+  created() {
+    this.resume();
+    if (sessionStorage.getItem("userLocal")) {
+      this.userLocal = JSON.parse(sessionStorage.getItem("userLocal"));
+      //console.log("testand o user loca: ", this.userLocal);
+    }
+  },
 };
 </script>
 

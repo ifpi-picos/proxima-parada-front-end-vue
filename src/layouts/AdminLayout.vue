@@ -14,6 +14,7 @@
   
   import Navbar from '../components/navbar/NavbarAdmin.vue'
   import Sidebar from '../components/sidebar/SidebarAdmin.vue'
+  import Auth from "../services/auth";
   
   export default {
     data() {
@@ -23,7 +24,32 @@
     components: {
       Navbar,
       Sidebar,
+    },
+  methods:{
+    async resume(){
+      try {
+        const res = await Auth.resume();
+          sessionStorage.setItem("userLocal", JSON.stringify(res.data.userReturn));
+      } catch (error) {
+
+        if (error.response.status == 400) {
+          this.$router.push({ name: "authMain" });
+        }
+        const response = error.response;
+        if (response.data.message) {
+          this.messageError = response.data.message;
+        }
+        console.log(response);
+      }
     }
+  },
+  created() {
+    this.resume();
+    if (sessionStorage.getItem("userLocal")) {
+      this.userLocal = JSON.parse(sessionStorage.getItem("userLocal"));
+      //console.log("testand o user loca: ", this.userLocal);
+    }
+  },
   }
   </script>
   

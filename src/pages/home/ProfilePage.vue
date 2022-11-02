@@ -27,7 +27,7 @@
             >
               <v-avatar size="165px" v-if="!userData.avatar">
                 <v-img
-                  src="https://lh3.googleusercontent.com/-Gvq8ieRFxvU/U-wQMDsuoJI/AAAAAAAADVs/-3qBKC1CFIQ/s250/Avatar7.png"
+                  src="https://e7.pngegg.com/pngimages/178/595/png-clipart-user-profile-computer-icons-login-user-avatars-monochrome-black.png"
                 />
               </v-avatar>
               <v-avatar size="165" v-else>
@@ -71,7 +71,7 @@
     </v-row>
 
     <v-row justify="center">
-      <v-dialog v-model="dialog" persistent max-width="800px" scrollable="true">
+      <v-dialog v-model="dialog" persistent max-width="800px" scrollable>
         <v-col cols="12" xm="12" sm="16" md="16" lg="25">
           <v-card>
             <v-form @submit.prevent="auht" v-model="valid">
@@ -181,12 +181,7 @@
     </v-row>
 
     <v-row justify="center">
-      <v-dialog
-        v-model="dialogCar"
-        persistent
-        max-width="800px"
-        scrollable="true"
-      >
+      <v-dialog v-model="dialogCar" persistent max-width="800px" scrollable>
         <v-col cols="12" xm="12" sm="16" md="16" lg="25">
           <v-card>
             <v-form @submit.prevent="car" v-model="valid">
@@ -277,16 +272,7 @@ export default {
   data() {
     return {
       items: ["Aluno(a)", "Professor(a)", "Outro(a)"],
-      userData: {
-        name: "",
-        occupation: "",
-        phone_number: "",
-        email: "",
-        avatar: "",
-        CurrentPassword: "",
-        password: "",
-        samePasswords: "",
-      },
+      userData: {},
       carData: {
         modelo: "",
         marcar: "",
@@ -341,42 +327,13 @@ export default {
       try {
         const res = await User.updateUserData(this.userData);
         if (res.status == 200) {
-          console.log(res);
-          this.updateLoading = false;
-          this.loader = null;
-          this.dialog = false;
+          this.finishLoading();
           this.userData = res.data;
         }
       } catch (error) {
-        const response = error.response;
-        this.erroAlert = true;
-        this.updateLoading = false;
-        this.dialog = false;
-        this.loader = null;
-        if (response.data.message) {
-          this.messageError = response.data.message;
-        }
-        console.log(response.data);
-      }
-    },
-
-    async getUserData() {
-      this.loading = true;
-      try {
-        const res = await User.getUserData();
-        if (res.status == 200) {
-          console.log(res);
-          this.loading = false;
-          this.userData = res.data;
-        }
-      } catch (error) {
-        const response = error.response;
-        this.erroAlert = true;
-        this.loading = false;
-        if (response.data.message) {
-          this.messageError = response.data.message;
-        }
-        console.log(response.data);
+        this.finishLoading();
+        this.showErroAlert(true, error.response.data.message)
+        //console.log(response.data);
       }
     },
 
@@ -386,27 +343,33 @@ export default {
       try {
         const res = await User.newCar(this.carData);
         if (res.status == 200) {
-          console.log(res);
-          this.newCarLoading = false;
-          this.loader = null;
-          this.dialog = false;
+          this.finishLoading();
           this.carData = res.data;
         }
       } catch (error) {
-        const response = error.response;
-        this.erroAlert = true;
-        this.newCarLoading = false;
-        this.dialog = false;
-        this.loader = null;
-        if (response.data.message) {
-          this.messageError = response.data.message;
-        }
-        console.log(response.data);
+        this.finishLoading();
+        this.showErroAlert(true, error.response.data.message)
+        //console.log(response.data);
+      }
+    },
+
+    finishLoading() {
+      this.loader = null;
+      this.dialog = false;
+      this.updateLoading = false;
+      this.newCarLoading = false;
+    },
+    showErroAlert(status, message) {
+      this.erroAlert = status;
+      if (message) {
+        this.messageError = message;
       }
     },
   },
   created() {
-    this.getUserData();
+    if (sessionStorage.getItem("userLocal")) {
+      this.userData = JSON.parse(sessionStorage.getItem("userLocal"));
+    }
   },
   watch: {
     erroAlert(val) {

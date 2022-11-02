@@ -36,9 +36,9 @@
             </v-list-item-content>
 
             <v-list-item-avatar size="100" v-if="!user.avatar">
-              <img
-                src="https://lh3.googleusercontent.com/-Gvq8ieRFxvU/U-wQMDsuoJI/AAAAAAAADVs/-3qBKC1CFIQ/s250/Avatar7.png"
-              />
+              <v-img
+                  src="https://e7.pngegg.com/pngimages/178/595/png-clipart-user-profile-computer-icons-login-user-avatars-monochrome-black.png"
+                />
             </v-list-item-avatar>
             <v-list-item-avatar v-else size="80">
               <v-img v-if="user.avatar" :src="user.avatar" />
