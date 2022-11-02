@@ -36,6 +36,11 @@ const routes = [
         name: "profile",
         component: () => import("../pages/home/ProfilePage.vue"),
       },
+      {
+        path: "Cadastrar-Carona",
+        name: "Cadastrar-Carona",
+        component: () => import("../pages/home/Cadastrar-Carona.vue"),
+      },
     ],
   },
   {

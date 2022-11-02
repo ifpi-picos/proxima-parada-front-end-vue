@@ -2,8 +2,6 @@
     <v-app>
       <Sidebar />
       <Navbar />
-      <Sidebar />
-      <Navbar />
       <v-main>
         <v-fade-transition mode="out-in">
           <router-view></router-view>

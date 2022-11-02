@@ -2,11 +2,11 @@
     <v-container fluid >
         <v-row dense>
             <v-col v-for="(item, i) in items" :key="i" cols="12" sm="6" md="4" lg="3">
-                <v-card :color="item.color" dark>
+                <v-card  :color="item.color" dark>
                     <v-card-title class="text-h5" v-text="item.bairro"></v-card-title>
                     <v-card-subtitle v-text="item.driver"></v-card-subtitle>
                     <v-card-actions>
-                        <v-btn outlined rounded small>
+                        <v-btn outlined small>
                             Conversar com o motorista
                         </v-btn>
                     </v-card-actions>
