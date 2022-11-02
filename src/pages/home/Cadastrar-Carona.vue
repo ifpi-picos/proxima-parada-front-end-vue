@@ -30,20 +30,72 @@
         <br>
         
         <v-card class="veiculo" color="#96b5bb5e">
+
            <h2>Caracteristica do Veículo</h2>
-          <v-select prepend-icon="send" name="Qual é seu transport" label="Selecione seu veiculo" :items="items"/>
+            <v-container fluid>
+                <v-row align="center">
+                    <v-col class="d-flex" cols="12" sm="12">
+                        <v-select prepend-icon="send" :items="transport" label="Tipo de Veículo"/>
+                    </v-col> 
+                </v-row>
+            </v-container>
+
           <v-text-field prepend-icon="send" name="name" label="Digite a placa do Veículo" type="text"/>
           <v-text-field prepend-icon="send" name="name" label="Digite a cor de seu transpote" type="text"/>
+ 
         </v-card> 
         <br>
+        <v-card class="veiculo" color="#96b5bb5e" >
 
+            <h2>Tipo da Carona</h2>
+            <v-container fluid>
+                <v-row align="center">
+                    <v-col class="d-flex" cols="12" sm="12">
+                        <v-select prepend-icon="send" :items="disponibilidade" label="Tipo da Carona"/>
+                    </v-col> 
+                </v-row>
+            </v-container>
+        </v-card> <br>
+
+        <v-card class="veiculo"  color="#96b5bb5e" >
+            <h2>Qual dia voce vai disponibilizar a Carona</h2>
+            <v-container>
+                <v-row >
+                    
+                        <v-checkbox cols="12" sm="12"
+                            label="Segunda-Feira">
+                        </v-checkbox>
+                        <v-checkbox 
+                            label="Terça-Feira">
+                        </v-checkbox>
+                        <v-checkbox 
+                            label="Quarta-Feira">
+                        </v-checkbox>
+                        <v-checkbox 
+                            label="Quinta-Feira">
+                        </v-checkbox>
+                        <v-checkbox 
+                            label="Sexta-Feira">
+                        </v-checkbox>
+                        <v-checkbox 
+                            label="Sábado">
+                        </v-checkbox>
+                        <v-checkbox 
+                            label="Domingo">
+                        </v-checkbox>
+                   
+                </v-row>
+            </v-container>
+        </v-card >
+      
+  
 
         <v-container>
             <v-row align="center">
                 <v-col cols="12" sm="12">
                 <div class="text-center">
                     <div class="my-2">
-                        <v-btn x-large color="primary" type="submit">Extra large Button</v-btn>
+                        <v-btn x-large color="primary" type="submit">Cadastrar Carona</v-btn>
                     </div>
                 </div>
                 </v-col>
@@ -56,12 +108,12 @@
 
 export default {
     name: "Cadastrar-Carona",
-    data(){
-        return {
-            items:['Moto','Carro'],
-            select:{'Colaborativa':'Não coloborativa'},
-        }    
-    }      
+    
+    data: () => ({
+    transport: ['Carro','Moto'],
+    disponibilidade:['Colaborativa','Não-Colaborativa']
+  }),
+         
 }
 </script>
 
@@ -85,6 +137,7 @@ export default {
         height: 85%;
         background: #fff;
         margin: auto;
+       
     }
    
     .title {
