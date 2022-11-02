@@ -54,15 +54,11 @@
                         <v-select prepend-icon="send" :items="disponibilidade" label="Tipo da Carona"/>
                     </v-col> 
                 </v-row>
-            </v-container>
-        </v-card> <br>
-
-        <v-card class="veiculo"  color="#96b5bb5e" >
-            <h2>Qual dia voce vai disponibilizar a Carona</h2>
-            <v-container>
-                <v-row >
+                <v-col >
                     
-                        <v-checkbox cols="12" sm="12"
+                    <h2>Dia da carona</h2>
+                    
+                    <v-checkbox 
                             label="Segunda-Feira">
                         </v-checkbox>
                         <v-checkbox 
@@ -83,10 +79,11 @@
                         <v-checkbox 
                             label="Domingo">
                         </v-checkbox>
-                   
-                </v-row>
+                    </v-col>
             </v-container>
-        </v-card >
+        </v-card> <br>
+
+     
       
   
 
