@@ -8,8 +8,6 @@
            <v-text-field prepend-icon="mdi-map-marker" name="name" label="Digite seu nome Completo" type="text"/>
             <v-text-field prepend-icon="mdi-map-marker" name="name" label="Número para Contato" type="number"/>
             <v-text-field prepend-icon="home" name="name" label="Ocupação no Campus" type="text"/>
-            
-    
         </v-card> <br>
 
         <v-card class="origin" color="#96b5bb5e">
@@ -32,15 +30,16 @@
         <br>
         
         <v-card class="veiculo" color="#96b5bb5e">
-           <h2>Cadastrar Veículo</h2>
+           <h2>Caracteristica do Veículo</h2>
           <v-select prepend-icon="send" name="Qual é seu transport" label="Selecione seu veiculo" :items="items"/>
-          <v-text-field  name="name" label="Digite a placa do Veículo" type="text"/>
+          <v-text-field prepend-icon="send" name="name" label="Digite a placa do Veículo" type="text"/>
+          <v-text-field prepend-icon="send" name="name" label="Digite a cor de seu transpote" type="text"/>
         </v-card> 
         <br>
 
         <v-card class="veiculo" color="#96b5bb5e">
            <h2>Modalidade</h2>
-          <v-select  :item="item"/>
+          
         </v-card> 
 
         <v-container>
@@ -48,21 +47,13 @@
                 <v-col cols="12" sm="12">
                 <div class="text-center">
                     <div class="my-2">
-                        <v-btn x-large color="primary">
-                            Extra large Button
-                        </v-btn>
+                        <v-btn x-large color="primary" type="submit">Extra large Button</v-btn>
                     </div>
                 </div>
                 </v-col>
             </v-row>
         </v-container>
-     
-    
     </v-card>
-
-    
- 
- 
 </template>
 
 <script>
@@ -73,11 +64,8 @@ export default {
         return {
             items:['Moto','Carro'],
             select:{'Colaborativa':'Não coloborativa'},
-     
-        }
-        
-    }
-       
+        }    
+    }      
 }
 </script>
 
@@ -108,11 +96,5 @@ export default {
         padding: 23px;
       
     }
-    h2{
-        font-family: 'Muli';
-    }
-    button{
-        color:red
-    }
-    
+  
 </style>
