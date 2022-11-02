@@ -3,7 +3,7 @@
         <div class="title">
             <h2>Cadastramento de Caronas</h2>
         </div> 
-        <v-card class="destino">
+        <v-card class="destino" color="#96b5bb5e">
            <h2>Informações Pessoais</h2>
            <v-text-field prepend-icon="mdi-map-marker" name="name" label="Digite seu nome Completo" type="text"/>
             <v-text-field prepend-icon="mdi-map-marker" name="name" label="Número para Contato" type="number"/>
@@ -12,7 +12,7 @@
     
         </v-card> <br>
 
-        <v-card class="origin">
+        <v-card class="origin" color="#96b5bb5e">
            <h2>Origem da Carona</h2>
             <v-text-field prepend-icon="mdi-map-marker" name="name" label="Bairro" type="text"/>
             <v-text-field prepend-icon="home" name="name" label="Nome da Rua" type="text"/>
@@ -22,7 +22,7 @@
          
         </v-card>  
         <br>
-        <v-card class="destino">
+        <v-card class="destino" color="#96b5bb5e">
            <h2>Destino Da Carona</h2>
            <v-text-field prepend-icon="mdi-map-marker" name="name" label="Bairro" type="text"/>
             <v-text-field prepend-icon="mdi-map-marker" name="name" label="Nome da Rua" type="text"/>
@@ -31,21 +31,36 @@
         </v-card> 
         <br>
         
-        <v-card class="veiculo">
+        <v-card class="veiculo" color="#96b5bb5e">
            <h2>Cadastrar Veículo</h2>
           <v-select prepend-icon="send" name="Qual é seu transport" label="Selecione seu veiculo" :items="items"/>
           <v-text-field  name="name" label="Digite a placa do Veículo" type="text"/>
         </v-card> 
         <br>
 
-        <v-card class="veiculo">
+        <v-card class="veiculo" color="#96b5bb5e">
            <h2>Modalidade</h2>
           <v-select  :item="item"/>
         </v-card> 
-        <br>
-        <v-btn :disabled="!valid" block color="primary" elevation="6" type="submit">Cadastrar</v-btn>
 
+        <v-container>
+            <v-row align="center">
+                <v-col cols="12" sm="12">
+                <div class="text-center">
+                    <div class="my-2">
+                        <v-btn x-large color="primary">
+                            Extra large Button
+                        </v-btn>
+                    </div>
+                </div>
+                </v-col>
+            </v-row>
+        </v-container>
+     
+    
     </v-card>
+
+    
  
  
 </template>
@@ -91,8 +106,13 @@ export default {
     .title {
         text-align: center;
         padding: 23px;
-        
+      
+    }
+    h2{
+        font-family: 'Muli';
+    }
+    button{
+        color:red
     }
     
-
 </style>
