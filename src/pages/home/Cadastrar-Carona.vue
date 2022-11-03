@@ -59,6 +59,8 @@
                         <v-select  prepend-icon="send" :items="diaSemanas"  label="Escolha os dias da semanas"/>
                     </v-col>
                 </v-row>
+
+                
                 
             </v-container>
         </v-card> <br>
