@@ -1,8 +1,8 @@
 import { http } from "./config";
 
 export default {
-  createNewRequisition: (reqsitionData) => {
-    return http.post("/requisitions", reqsitionData);
+  createNewRequisition: (id_user) => {
+    return http.post("/requisitions", id_user);
   },
   getAllRequisitions:()=>{
     return http.get("/requisitions");

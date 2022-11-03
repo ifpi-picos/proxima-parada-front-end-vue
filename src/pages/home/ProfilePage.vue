@@ -62,21 +62,21 @@
                 </v-card-subtitle>
               </v-col>
               <v-col cols="12" md="6">
-                <v-card-subtitle v-if="userData.Vehicle[0]" class="pa-0">
+                <v-card-subtitle v-if="userData.Vehicle[0].brand" class="pa-0">
                   <span class="card-subtitle"
                     ><b>Veículo:</b> {{ userData.Vehicle[0].brand }},
                     {{ userData.Vehicle[0].model }}</span
                   >
                 </v-card-subtitle>
 
-                <v-card-subtitle v-if="!userData.Vehicle[0]" class="pa-0">
+                <v-card-subtitle v-if="!userData.Vehicle[0].brand" class="pa-0">
                   <span class="card-subtitle"
                     ><b>Veículo:</b> Nenhum veículo cadastrado</span
                   >
                 </v-card-subtitle>
-                <v-card-actions v-if="userData.Vehicle[0]" class="pa-0 mt-2">
+                <v-card-actions v-if="userData.Vehicle[0].id == null" class="pa-0 mt-2">
                   <v-btn
-                    v-if="!userData.Requisition[0]"
+                    v-if="userData.Requisition[0].exist"
                     color="primary"
                     block
                     @click="dialogDriver = true"
@@ -84,7 +84,7 @@
                     Oferecer caronas
                   </v-btn>
 
-                  <v-card v-if="userData.Requisition[0]" class="wmp">
+                  <v-card v-if="userData.Requisition[0].id" class="wmp">
                     <v-card-title
                       v-if="!userData.Requisition[0].readed"
                       class="card-result wmp warning"
@@ -123,7 +123,7 @@
               </v-col>
               <v-col cols="12" md="6">
                 <v-btn
-                  :disabled="!userData.Vehicle[0] == ''"
+                  :disabled="userData.Vehicle[0].id == null"
                   color="primary"
                   block
                   outlined
@@ -260,13 +260,16 @@
                       <v-avatar
                         tile
                         size="165px"
-                        v-if="!carData.image"
+                        v-if="!userData.Vehicle[0].image"
                         class="grey"
                       >
                         <span>Escolha uma imagem</span>
                       </v-avatar>
                       <v-avatar tile size="165" v-else>
-                        <v-img v-if="carData.image" :src="carData.image" />
+                        <v-img
+                          v-if="userData.Vehicle[0].image"
+                          :src="userData.Vehicle[0].image"
+                        />
                       </v-avatar>
                     </v-row>
                     <v-row class="pa-2" align="center" justify="center">
@@ -351,7 +354,7 @@
               text
               :loading="driverLoading"
               :disabled="driverLoading"
-              @click="requesrPositionDriver"
+              @click="requestPositionDriver"
             >
               Aceitar
             </v-btn>
@@ -372,7 +375,7 @@ export default {
     return {
       items: ["Aluno(a)", "Professor(a)", "Outro(a)"],
       userData: {
-        Vehicle: [{ id_user: "" }],
+        Vehicle: [{ id_user: "", image: "", brand: "", model: "" }],
         Requisition: [{ id_user: "" }],
       },
       messageError: "Erro ao conectar-se ao banco de dados!",
@@ -417,7 +420,7 @@ export default {
     },
     onFileCarChange(e) {
       const file = e.target.files[0];
-      this.carData.image = URL.createObjectURL(file);
+      this.userData.Vehicle[0].image = URL.createObjectURL(file);
     },
 
     async saveChanges() {
@@ -436,22 +439,18 @@ export default {
       }
     },
 
-    async requesrPositionDriver() {
+    async requestPositionDriver() {
       this.driverLoading = true;
       this.loader = this.driverLoading;
-      this.userData.Requisition[0].id_user = this.userData.id;
       try {
-        const res = await Requisition.createNewRequisition(
-          this.userData.Requisition[0]
-        );
-        if (res.status == 201) {
-          this.finishLoading();
-          this.userData.Requisition[0] = res.data;
-        }
+        const res = await Requisition.createNewRequisition({id: this.userData.id});
+        this.finishLoading();
+        this.userData.Requisition[0] = res.data;
+        sessionStorage.setItem("userLocal", JSON.stringify(this.userData));
+        this.$router.go();
       } catch (error) {
         this.finishLoading();
         this.showErroAlert(true, error.response.data.message);
-        //console.log(response.data);
       }
     },
 
@@ -460,15 +459,13 @@ export default {
       this.loader = this.newCarLoading;
       this.userData.Vehicle[0].id_user = this.userData.id;
       try {
-        console.log("entrando na função");
+        console.log("entrando na função: ", this.userData.Vehicle[0]);
         const res = await Vehicle.createNewVehicle(this.userData.Vehicle[0]);
-        if (res.status == 200) {
-          console.log("entrando na função: deu certo");
-          this.finishLoading();
-          this.userData.Vehicle[0] = res.data;
-        }
+        this.finishLoading();
+        this.userData.Vehicle[0] = res.data;
+        sessionStorage.setItem("userLocal", JSON.stringify(this.userData));
+        this.$router.go();
       } catch (error) {
-        console.log("entrando na função: deu errado");
         this.finishLoading();
         this.showErroAlert(true, error.response.data.message);
         //console.log(response.data);
@@ -494,8 +491,25 @@ export default {
   created() {
     if (sessionStorage.getItem("userLocal")) {
       this.userData = JSON.parse(sessionStorage.getItem("userLocal"));
+      //this.userData.Requisition[0].id_user = this.userData.id;
+      if (!this.userData.Vehicle[0]) {
+        this.userData.Vehicle[0] = {
+          id: "",
+          id_user: "",
+          image: "",
+          brand: "",
+          model: "",
+        };
+      }
+      if (!this.userData.Requisition[0]) {
+        this.userData.Requisition[0] = {
+          id: "",
+          exist: true,
+          status: false,
+          readed: false,
+        };
+      }
       console.log("testand o user loca no Profile: ", this.userData);
-      //this.getDataVehicle(this.userData.id);
     }
   },
   watch: {
