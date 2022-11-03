@@ -54,38 +54,14 @@
                         <v-select prepend-icon="send" :items="disponibilidade" label="Tipo da Carona"/>
                     </v-col> 
                 </v-row>
-                <v-col >
-                    
-                    <h2>Dia da carona</h2>
-                    
-                    <v-checkbox 
-                            label="Segunda-Feira">
-                        </v-checkbox>
-                        <v-checkbox 
-                            label="Terça-Feira">
-                        </v-checkbox>
-                        <v-checkbox 
-                            label="Quarta-Feira">
-                        </v-checkbox>
-                        <v-checkbox 
-                            label="Quinta-Feira">
-                        </v-checkbox>
-                        <v-checkbox 
-                            label="Sexta-Feira">
-                        </v-checkbox>
-                        <v-checkbox 
-                            label="Sábado">
-                        </v-checkbox>
-                        <v-checkbox 
-                            label="Domingo">
-                        </v-checkbox>
+                <v-row>
+                    <v-col>
+                        <v-select  prepend-icon="send" :items="diaSemanas"  label="Escolha os dias da semanas"/>
                     </v-col>
+                </v-row>
+                
             </v-container>
         </v-card> <br>
-
-     
-      
-  
 
         <v-container>
             <v-row align="center">
@@ -108,7 +84,8 @@ export default {
     
     data: () => ({
     transport: ['Carro','Moto'],
-    disponibilidade:['Colaborativa','Não-Colaborativa']
+    disponibilidade:['Colaborativa','Não-Colaborativa'],
+    diaSemanas:['Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado','Domingo']
   }),
          
 }
