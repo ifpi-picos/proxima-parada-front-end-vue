@@ -89,12 +89,10 @@ export default {
       this.loading = true;
       try {
         const res = await Auth.signin(this.userAuth);
-        if (res.status == 200) {
-          this.userLocal = res.data.userReturn;
-          sessionStorage.setItem("userLocal", JSON.stringify(this.userLocal));
-          this.loading = false;
-          this.$router.push({ name: "feed" });
-        }
+        this.userLocal = res.data.userReturn;
+        sessionStorage.setItem("userLocal", JSON.stringify(this.userLocal));
+        this.loading = false;
+        this.$router.push({ name: "feed" });
       } catch (error) {
         const response = error.response;
         this.loading = false;

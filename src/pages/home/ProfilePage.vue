@@ -62,22 +62,53 @@
                 </v-card-subtitle>
               </v-col>
               <v-col cols="12" md="6">
-                <v-card-subtitle v-if="carData.brand" class="pa-0">
+                <v-card-subtitle v-if="userData.Vehicle[0]" class="pa-0">
                   <span class="card-subtitle"
-                    ><b>Veículo:</b> {{ carData.brand }},
-                    {{ carData.model }}</span
+                    ><b>Veículo:</b> {{ userData.Vehicle[0].brand }},
+                    {{ userData.Vehicle[0].model }}</span
                   >
                 </v-card-subtitle>
 
-                <v-card-subtitle v-if="!carData.brand" class="pa-0">
+                <v-card-subtitle v-if="!userData.Vehicle[0]" class="pa-0">
                   <span class="card-subtitle"
                     ><b>Veículo:</b> Nenhum veículo cadastrado</span
                   >
                 </v-card-subtitle>
-                <v-card-actions v-if="carData.brand" class="pa-0 mt-2">
-                  <v-btn color="primary" block @click="dialogDriver = true">
+                <v-card-actions v-if="userData.Vehicle[0]" class="pa-0 mt-2">
+                  <v-btn
+                    v-if="!userData.Requisition[0]"
+                    color="primary"
+                    block
+                    @click="dialogDriver = true"
+                  >
                     Oferecer caronas
                   </v-btn>
+
+                  <v-card v-if="userData.Requisition[0]" class="wmp">
+                    <v-card-title
+                      v-if="!userData.Requisition[0].readed"
+                      class="card-result wmp warning"
+                      block
+                    >
+                      Sual solicitação está em processamento.
+                    </v-card-title>
+                    <div v-if="userData.Requisition[0].readed" class="wmp">
+                      <v-card-title
+                        v-if="!userData.Requisition[0].status"
+                        class="card-result wmp error"
+                        block
+                      >
+                        Sual solicitação foi recusada.
+                      </v-card-title>
+                      <v-card-title
+                        v-if="userData.Requisition[0].status"
+                        class="card-result wmp success"
+                        block
+                      >
+                        Voce já é um motorista.
+                      </v-card-title>
+                    </div>
+                  </v-card>
                 </v-card-actions>
               </v-col>
             </v-row>
@@ -91,7 +122,13 @@
                 </v-btn>
               </v-col>
               <v-col cols="12" md="6">
-                <v-btn color="primary" block outlined @click="dialogCar = true">
+                <v-btn
+                  :disabled="!userData.Vehicle[0] == ''"
+                  color="primary"
+                  block
+                  outlined
+                  @click="dialogCar = true"
+                >
                   Cadastrar veiculo
                 </v-btn>
               </v-col>
@@ -250,13 +287,13 @@
                       label="Marca"
                       type="text"
                       :rules="[rules.required]"
-                      v-model="carData.brand"
+                      v-model="userData.Vehicle[0].brand"
                     />
 
                     <v-text-field
                       name="model"
                       label="Modelo"
-                      v-model="carData.model"
+                      v-model="userData.Vehicle[0].model"
                       :rules="[rules.required]"
                     />
                   </v-col>
@@ -334,15 +371,9 @@ export default {
   data() {
     return {
       items: ["Aluno(a)", "Professor(a)", "Outro(a)"],
-      userData: {},
-      requisition:{
-        id_user: "",
-      },
-      carData: {
-        brand: "",
-        model: "",
-        image: "",
-        id_user: "",
+      userData: {
+        Vehicle: [{ id_user: "" }],
+        Requisition: [{ id_user: "" }],
       },
       messageError: "Erro ao conectar-se ao banco de dados!",
       loading: false,
@@ -408,12 +439,14 @@ export default {
     async requesrPositionDriver() {
       this.driverLoading = true;
       this.loader = this.driverLoading;
-      this.requisition.id_user = this.userData.id;
+      this.userData.Requisition[0].id_user = this.userData.id;
       try {
-        const res = await Requisition.createNewRequisition(this.requisition);
+        const res = await Requisition.createNewRequisition(
+          this.userData.Requisition[0]
+        );
         if (res.status == 201) {
           this.finishLoading();
-          this.requisition = res.data;
+          this.userData.Requisition[0] = res.data;
         }
       } catch (error) {
         this.finishLoading();
@@ -422,36 +455,17 @@ export default {
       }
     },
 
-    async getDataVehicle(idUser) {
-      this.loading = true;
-      try {
-        console.log("entrando na função get veiculo: " + idUser);
-        const res = await Vehicle.getVehicleByIdUser(idUser);
-        if (res.status == 201) {
-          console.log("entrando na função get veiculo: deu certo");
-          this.carData = res.data;
-          console.log(this.carData);
-          this.finishLoading();
-        }
-      } catch (error) {
-        console.log("entrando na função get veiculo: deu errado");
-        this.finishLoading();
-        this.showErroAlert(true, error.response.data.message);
-        console.log(error.response.data.message);
-      }
-    },
-
     async newVehicle() {
       this.newCarLoading = true;
       this.loader = this.newCarLoading;
-      this.carData.id_user = this.userData.id;
+      this.userData.Vehicle[0].id_user = this.userData.id;
       try {
         console.log("entrando na função");
-        const res = await Vehicle.createNewVehicle(this.carData);
+        const res = await Vehicle.createNewVehicle(this.userData.Vehicle[0]);
         if (res.status == 200) {
           console.log("entrando na função: deu certo");
           this.finishLoading();
-          this.carData = res.data;
+          this.userData.Vehicle[0] = res.data;
         }
       } catch (error) {
         console.log("entrando na função: deu errado");
@@ -480,8 +494,8 @@ export default {
   created() {
     if (sessionStorage.getItem("userLocal")) {
       this.userData = JSON.parse(sessionStorage.getItem("userLocal"));
-      //console.log("testand o user loca no Profile: ", this.userData);
-      this.getDataVehicle(this.userData.id);
+      console.log("testand o user loca no Profile: ", this.userData);
+      //this.getDataVehicle(this.userData.id);
     }
   },
   watch: {
@@ -499,6 +513,34 @@ export default {
 
 .card-subtitle {
   font-size: 1.35em;
+}
+
+.card-result {
+  font-size: 0.875rem;
+  color: #ffffff;
+  height: 36px;
+  padding: 0 16px;
+
+  align-items: center;
+  letter-spacing: 0.0892857143em;
+  justify-content: center;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.wmp {
+  min-width: 100% !important;
+  max-width: none;
+
+  display: flex;
+  flex: 1 0 auto;
+
+  margin: 0;
+  padding: 0;
 }
 
 .border1 {
