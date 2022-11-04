@@ -47,21 +47,25 @@
         <br>
         <v-card class="veiculo" color="#96b5bb5e" >
 
-            <h2>Tipo da Carona</h2>
+            <h2>Modalidade</h2>
             <v-container fluid>
                 <v-row align="center">
                     <v-col class="d-flex" cols="12" sm="12">
                         <v-select prepend-icon="send" :items="disponibilidade" label="Tipo da Carona"/>
                     </v-col> 
                 </v-row>
-                <v-row>
-                    <v-col>
-                        <v-select  prepend-icon="send" :items="diaSemanas"  label="Escolha os dias da semanas"/>
+                <h2>Frequência da Rotas</h2>
+                    <v-col class="d-flex" cols="12" sm="12" >
+                        <v-select v-if='regular' prepend-icon="send" :items="frequenciaRotas" label="Frequência da Rota" /> 
+                        <v-select prepend-icon="send" :items="diaSemanas"  label="Escolha os dias da semanas"/>
+                        <v-select v-if='naoregular' prepend-icon="send" :items="frequenciaRotas" label="Frequência da Rota" /> 
+                        
                     </v-col>
-                </v-row>
-
-                
-                
+                <v-row>
+                    <v-col >
+                        <v-select v-if="f" prepend-icon="send" :items="diaSemanas"  label="Escolha os dias da semanas"/>
+                    </v-col>
+                </v-row>   
             </v-container>
         </v-card> <br>
 
@@ -80,16 +84,19 @@
 </template>
 
 <script>
-
 export default {
     name: "Cadastrar-Carona",
-    
+
     data: () => ({
     transport: ['Carro','Moto'],
     disponibilidade:['Colaborativa','Não-Colaborativa'],
-    diaSemanas:['Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado','Domingo']
+    diaSemanas:['Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado','Domingo'],
+    frequenciaRotas:['Regular','Não-Regular'],
+    regular:true,
+    naoregular:false
+
   }),
-         
+      
 }
 </script>
 
