@@ -11,12 +11,12 @@
       </v-progress-linear>
       <v-col cols="12" xm="8" sm="8" md="8" lg="10">
         <v-alert
-          :value="erroAlert"
+          :value="alertError"
           color="red"
           elevation="3"
           outlined
-          type="warning"
-          >{{ messageError }}</v-alert
+          :type="alertType"
+          >{{ alertMessage }}</v-alert
         >
         <v-card
           max-width="450px"
@@ -74,7 +74,10 @@
                     ><b>Veículo:</b> Nenhum veículo cadastrado</span
                   >
                 </v-card-subtitle>
-                <v-card-actions v-if="userData.Vehicle[0].id == null" class="pa-0 mt-2">
+                <v-card-actions
+                  v-if="userData.Vehicle[0].id == null"
+                  class="pa-0 mt-2"
+                >
                   <v-btn
                     v-if="userData.Requisition[0].exist"
                     color="primary"
@@ -142,6 +145,14 @@
       <v-dialog v-model="dialog" persistent max-width="800px" scrollable>
         <v-col cols="12" xm="12" sm="16" md="16" lg="25">
           <v-card>
+            <v-alert
+              :value="alertSuccess"
+              color="red"
+              elevation="3"
+              outlined
+              :type="alertType"
+              >{{ alertMessage }}</v-alert
+            >
             <v-form @submit.prevent="auht" v-model="valid">
               <v-container>
                 <v-row>
@@ -252,6 +263,14 @@
       <v-dialog v-model="dialogCar" persistent max-width="800px" scrollable>
         <v-col cols="12" xm="12" sm="16" md="16" lg="25">
           <v-card>
+            <v-alert
+              :value="alertSuccess"
+              color="red"
+              elevation="3"
+              outlined
+              :type="alertType"
+              >{{ alertMessage }}</v-alert
+            >
             <v-form @submit.prevent="car" v-model="valid">
               <v-container>
                 <v-row>
@@ -338,6 +357,14 @@
     <v-row justify="center">
       <v-dialog v-model="dialogDriver" max-width="290">
         <v-card>
+          <v-alert
+            :value="alertSuccess"
+            color="red"
+            elevation="3"
+            outlined
+            :type="alertType"
+            >{{ alertMessage }}</v-alert
+          >
           <v-card-title class="text-h5">
             Tem certeza de que desejá a posição de motorisa?
           </v-card-title>
@@ -378,13 +405,15 @@ export default {
         Vehicle: [{ id_user: "", image: "", brand: "", model: "" }],
         Requisition: [{ id_user: "" }],
       },
-      messageError: "Erro ao conectar-se ao banco de dados!",
+      alertMessage: "Erro ao conectar-se ao banco de dados!",
       loading: false,
       updateLoading: false,
       newCarLoading: false,
       driverLoading: false,
       loader: null,
-      erroAlert: false,
+      alertError: false,
+      alertSuccess: false,
+      alertType: "",
       dialog: false,
       dialogCar: false,
       dialogDriver: false,
@@ -423,18 +452,22 @@ export default {
       this.userData.Vehicle[0].image = URL.createObjectURL(file);
     },
 
+    async uploadImage() {},
+
     async saveChanges() {
       this.updateLoading = true;
       this.loader = this.updateLoading;
       try {
         const res = await User.updateUserData(this.userData);
-        if (res.status == 200) {
-          this.finishLoading();
-          this.userData = res.data;
-        }
+        this.userData = res.data;
+        this.showSuccesAlert(
+          true,
+          "Informações aletradas com Sucesso!!!",
+          "warning"
+        );
       } catch (error) {
         this.finishLoading();
-        this.showErroAlert(true, error.response.data.message);
+        this.showErrorAlert(true, error.response.data.message, "warning");
         //console.log(response.data);
       }
     },
@@ -443,14 +476,19 @@ export default {
       this.driverLoading = true;
       this.loader = this.driverLoading;
       try {
-        const res = await Requisition.createNewRequisition({id: this.userData.id});
-        this.finishLoading();
+        const res = await Requisition.createNewRequisition({
+          id: this.userData.id,
+        });
         this.userData.Requisition[0] = res.data;
         sessionStorage.setItem("userLocal", JSON.stringify(this.userData));
-        this.$router.go();
+        this.showSuccesAlert(
+          true,
+          "Requisição solicitada com Sucesso.",
+          "warning"
+        );
       } catch (error) {
         this.finishLoading();
-        this.showErroAlert(true, error.response.data.message);
+        this.showErrorAlert(true, error.response.data.message, "warning");
       }
     },
 
@@ -459,15 +497,17 @@ export default {
       this.loader = this.newCarLoading;
       this.userData.Vehicle[0].id_user = this.userData.id;
       try {
-        console.log("entrando na função: ", this.userData.Vehicle[0]);
         const res = await Vehicle.createNewVehicle(this.userData.Vehicle[0]);
-        this.finishLoading();
         this.userData.Vehicle[0] = res.data;
         sessionStorage.setItem("userLocal", JSON.stringify(this.userData));
-        this.$router.go();
+        this.showSuccesAlert(
+          true,
+          "Veiculo cadastrado com Sucesso.",
+          "warning"
+        );
       } catch (error) {
         this.finishLoading();
-        this.showErroAlert(true, error.response.data.message);
+        this.showErrorAlert(true, error.response.data.message, "warning");
         //console.log(response.data);
       }
     },
@@ -481,11 +521,23 @@ export default {
       this.newCarLoading = false;
       this.loading = false;
     },
-    showErroAlert(status, message) {
-      this.erroAlert = status;
-      if (message) {
-        this.messageError = message;
-      }
+    showErrorAlert(status, message, type) {
+      this.alertError = status;
+      this.alertType = type;
+      this.messageError = message;
+    },
+
+    showSuccesAlert(status, message, type) {
+      this.alertSuccess = status;
+      this.alertType = type;
+      this.messageError = message;
+      setTimeout(() => (this.alertSuccess = false), 3000);
+      this.finishLoading();
+      this.refresh();
+    },
+
+    refresh() {
+      this.$router.go();
     },
   },
   created() {
@@ -513,9 +565,9 @@ export default {
     }
   },
   watch: {
-    erroAlert(val) {
+    alertError(val) {
       if (!val) return;
-      setTimeout(() => (this.erroAlert = false), 3000);
+      setTimeout(() => (this.alertError = false), 3000);
     },
   },
 };
