@@ -40,6 +40,8 @@
                 <v-text-field ref="address"  
                 label="Informe o numero da casa" placeholder="Rua do pcc "/>
 
+                
+
             <v-text-field
               ref="state"
               v-model="state"
