@@ -1,15 +1,6 @@
- <template>
-    <div id="app">
-  <v-app id="inspire">
-    
+ <template> 
     <v-row justify="center">
-      
-      <v-col
-        cols="12"
-        sm="10"
-        md="8"
-        lg="6"
-      >
+      <v-col cols="12" sm="10" md="8" lg="6">
         <v-card ref="form">
           
           <v-card-text>
@@ -38,16 +29,17 @@
 
                 <v-text-field v-model="time" 
                 label="Informe a Hora exata" placeholder=" 01/02/2022" type="time"/>
-                
-            <v-text-field
+                <h2>Pra onde vou</h2>
 
-              ref="city"
-              v-model="city"
-              :rules="[() => !!city || 'This field is required', addressCheck]"
-              label="City"
-              placeholder="El Paso"
-              required
-            ></v-text-field>
+                <v-text-field ref="address"  
+                label="Informe o Bairro " placeholder="Rua do pcc "/>
+
+                <v-text-field ref="address"  
+                label="Informe o nome da rua " placeholder="Rua do pcc "/>
+
+                <v-text-field ref="address"  
+                label="Informe o numero da casa" placeholder="Rua do pcc "/>
+
             <v-text-field
               ref="state"
               v-model="state"
@@ -74,6 +66,7 @@
               required
             ></v-autocomplete>
           </v-card-text>
+          
           <v-divider class="mt-12"></v-divider>
           <v-card-actions>
             <v-btn text>
@@ -110,8 +103,7 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-app>
-</div>
+
  </template>
 
  <script>
@@ -179,7 +171,7 @@
 </script>
  
  
- v-model="address"
+
  <!-- <template>
    <v-card >
         <div class="title">
