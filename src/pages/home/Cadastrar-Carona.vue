@@ -13,29 +13,34 @@
         <v-card ref="form">
           
           <v-card-text>
-            <h3> Bem-Vindo Ao cadastro de Caronas </h3>
+            <h1> Bem-Vindo Ao cadastro de Caronas </h1>
+            <br><br>
+            <h2>Informações Pessoais</h2>
+
+            <v-text-field placeholder="João da silva" ref="name" v-model="name" :rules="[() => !!name || 'Esse Campo e obrigatorio']"
+              :error-messages="errorMessages" label="Nome Completo" required/>
+
+              <v-text-field placeholder="(XX)XXXXX-XXXX" ref="number-phone" label="Numero para contato" type="number" :rules="[() => !!name || 'Esse Campo e obrigatorio']"/>
+            
+              <h2>De onde estou Saindo</h2>
+            
+            <v-text-field ref="address" v-model="address"  :rules="[
+                () => !!address || 'Esse Campo e obrigatorio',]"
+                label="Informe o Bairro" placeholder="Bairro Junco "/>
+
+                <v-text-field ref="address"  :rules="[ () => !!address || 'Esse Campo e obrigatorio',]"
+                label="Informe a Rua " placeholder="Rua do pcc "/>
+
+                <v-text-field label="Número da Casa " placeholder="288" type="number"/>
+
+                <v-text-field v-model="time" 
+                label="Informe Dia Mes e Ano " placeholder=" 01/02/2022" type="date"/>
+
+                <v-text-field v-model="time" 
+                label="Informe a Hora exata" placeholder=" 01/02/2022" type="time"/>
+                
             <v-text-field
-              ref="name"
-              v-model="name"
-              :rules="[() => !!name || 'This field is required']"
-              :error-messages="errorMessages"
-              label="Nome Completo"
-              required
-            ></v-text-field>
-            <v-text-field
-              ref="address"
-              v-model="address"
-              :rules="[
-                () => !!address || 'This field is required',
-                () => !!address && address.length <= 25 || 'Address must be less than 25 characters',
-                addressCheck
-              ]"
-              label="Address Line"
-              placeholder="Snowy Rock Pl"
-              counter="25"
-              required
-            ></v-text-field>
-            <v-text-field
+
               ref="city"
               v-model="city"
               :rules="[() => !!city || 'This field is required', addressCheck]"
@@ -112,7 +117,6 @@
  <script>
  export default {
  data: () => ({
-    countries: ['Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Anguilla', 'Antigua &amp; Barbuda', 'Argentina', 'Armenia', 'Aruba', 'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bermuda', 'Bhutan', 'Bolivia', 'Bosnia &amp; Herzegovina', 'Botswana', 'Brazil', 'British Virgin Islands', 'Brunei', 'Bulgaria', ],
     errorMessages: '',
     name: null,
     address: null,
@@ -121,6 +125,7 @@
     zip: null,
     country: null,
     formHasErrors: false,
+    time:null
   }),
 
   computed: {
@@ -174,7 +179,7 @@
 </script>
  
  
- 
+ v-model="address"
  <!-- <template>
    <v-card >
         <div class="title">
