@@ -64,7 +64,7 @@
                   <v-radio label="Não-Regular" value="selector"/>
                   
                 </v-radio-group>
-                <v-select :items="naoRegular" v-if="type === 'selector'" v-model="selector" label="Selecione os dia Não-Regular da semana"/>  
+                <v-select :items="naoRegular" v-if="type === 'selector'" v-model="selector" label="Selecione os dia da Semana"/>  
                 
                 <v-select :items="regular"  v-if="type === 'number'" v-model="number" type="number"
                   label="selecione o dias Regulares da Semana ">
@@ -72,7 +72,12 @@
                 
               </v-col>
             </v-row>
-          </v-container>
+          </v-container >
+          <v-card-text>
+            <h2>Quantidade de vagas Disponivel</h2>
+            <v-select :items="vagas"></v-select>
+
+          </v-card-text>
          
         </v-card-text>
           <v-divider class="mt-12"/>
@@ -97,6 +102,7 @@
       test:'seletor',
       regular:['segunda','terça','Quarta','Quinta','sexta','Sábado','Domingo'],
       naoRegular:['segunda','terça','Quarta','Quinta','sexta'],
+      vagas:[1,2,3,4,5]
     }),
     
   } 
