@@ -37,24 +37,27 @@
         <v-card-text>
           <h2>Pra onde vou</h2>
           <v-text-field ref="address"  
-          label="Digite do Bairro " placeholder="Rua do pcc "/>
+          label="Digite o nome do Bairro " placeholder="Bairro pantanal"/>
 
           <v-text-field  
-          label="Digite o nome da rua " placeholder="Rua do pcc "/>
+          label="Digite o nome da rua " placeholder="Qudra 04 "/>
 
           <v-text-field type="number"  
-          label="Digite o numero da casa" placeholder="Rua do pcc "/>
+          label="Digite o numero da casa" placeholder=" 265 "/>
 
         </v-card-text>
 
         <v-card-text>
-
+          <h2>Dados do Veiculos e Caracteristicas da Carona</h2>
+          <v-select ref="veiculos" :items="veiculos" label="Selecione seu Veículos"/>
+          
+          <v-text-field type="text"  
+          label="Digite os numeros da placa de seu veículo" placeholder="xxx-xxxx"/>
 
         </v-card-text>
           <v-divider class="mt-12"/>
           <v-card-actions>
             <v-btn text> Cancelar </v-btn>
-
             <v-spacer></v-spacer>
             <v-btn color="blue" text @click="submit"> Salvar Carona </v-btn>
           </v-card-actions>
@@ -66,6 +69,7 @@
 <script>
  export default {
  data: () => ({
+  veiculos:['Moto','Carro'],
     errorMessages: '',
     name: null,
     address: null,
