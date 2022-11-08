@@ -51,33 +51,25 @@
           <h2>Dados do Veiculos e Caracteristicas da Carona</h2>
           <v-select ref="veiculos" :items="veiculos" label="Selecione seu Veículos" />
 
-          <v-text-field label="informe a Cor de Seu Veículo"/>
-
           <v-text-field type="text" 
           label="Digite os numeros da placa de seu veículo" placeholder="xxx-xxxx"/>
 
-          <h2>Modalidade da carona</h2>
-          <v-select ref="modalidade" :items="modalidade" placeholder="Selecione a Modalidade da Carona"/>
-          <h2>Frequência da Carona</h2>
-          <v-select ref="semanas" :items="dias" placeholder="Qual e a frequências dessa carona"/>
-          <v-select :items="dias" multiple label="Selecione os dias da semana"/>
           <h2> Frequência das caronas </h2>
           <v-container>
             <v-row>
               <v-col cols="12">
                 
                 <v-radio-group v-model="type" row >
-                <v-radio label="Regular" value="number"></v-radio>
-                <v-radio label="Não-Regular" value="selector"/>
-                
+                  <v-radio label="Regular" value="number"></v-radio>
+                  <v-radio label="Não-Regular" value="selector"/>
+                  
                 </v-radio-group>
-                <v-text-field v-if="type === 'selector'" v-model="selector" label="Selector"/>
-               
-                <v-select :items="naoRegular" multiple v-if="type === 'number'"
-                  v-model="number"
-                  type="number"
-                  label="selecione os dia da semana">
+                <v-select :items="naoRegular" v-if="type === 'selector'" v-model="selector" label="Selecione os dia Não-Regular da semana"/>  
+                
+                <v-select :items="regular"  v-if="type === 'number'" v-model="number" type="number"
+                  label="selecione o dias Regulares da Semana ">
                 </v-select>
+                
               </v-col>
             </v-row>
           </v-container>
@@ -100,13 +92,10 @@
     data: () => ({
       veiculos:['Moto','Carro'],
       modalidade:['Colaborativa','Não-Colaborativa'],
-      frequencia:['Regular','Não-Regular'],
-      dias:['Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','sexta-feira','Sábado','Domingo'],
-      
       type: 'number',
-      number: 9999,
-      regular:['segunda','terça','Quarta','Quinta','sexta',
-      'Sábado','Domingo'],
+      number: 0,
+      test:'seletor',
+      regular:['segunda','terça','Quarta','Quinta','sexta','Sábado','Domingo'],
       naoRegular:['segunda','terça','Quarta','Quinta','sexta'],
     }),
     
