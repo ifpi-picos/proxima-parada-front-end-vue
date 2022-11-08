@@ -61,11 +61,11 @@
           <h2>Frequência da Carona</h2>
           <v-select ref="semanas" :items="dias" placeholder="Qual e a frequências dessa carona"/>
           <v-select :items="dias" multiple label="Selecione os dias da semana"/>
-
+          <h2> Frequência das caronas </h2>
           <v-container>
             <v-row>
               <v-col cols="12">
-                <h3 ref="radio" class="text-h5"> Frequência das caronas </h3>
+                
                 <v-radio-group v-model="type" row >
                 <v-radio label="Regular" value="number"></v-radio>
                 <v-radio label="Não-Regular" value="selector"/>
