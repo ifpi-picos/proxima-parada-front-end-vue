@@ -61,30 +61,26 @@
           <h2>Frequência da Carona</h2>
           <v-select ref="semanas" :items="dias" placeholder="Qual e a frequências dessa carona"/>
           <v-select :items="dias" multiple label="Selecione os dias da semana"/>
-      <v-container>
-      <v-row>
-        <v-col cols="12">
-          <h3 ref="radio" class="text-h5"> Frequência das caronas </h3>
-          <v-radio-group v-model="type" row >
-            <v-radio label="Regular" value="number"></v-radio>
-            <v-radio label="Não-Regular" value="selector"/>
-         
-          </v-radio-group>
-          <v-text-field v-if="type === 'selector'"
-            v-model="selector"
-            label="Selector">
-          </v-text-field>
-        
-        <v-select :items="naoRegular"
-            v-if="type === 'number'"
-            v-model="number"
-            type="number"
-            label="selecione os dia da semana"/>
-  
-          
-        </v-col>
-      </v-row>
-    </v-container>
+
+          <v-container>
+            <v-row>
+              <v-col cols="12">
+                <h3 ref="radio" class="text-h5"> Frequência das caronas </h3>
+                <v-radio-group v-model="type" row >
+                <v-radio label="Regular" value="number"></v-radio>
+                <v-radio label="Não-Regular" value="selector"/>
+                
+                </v-radio-group>
+                <v-text-field v-if="type === 'selector'" v-model="selector" label="Selector"/>
+               
+                <v-select :items="naoRegular" multiple v-if="type === 'number'"
+                  v-model="number"
+                  type="number"
+                  label="selecione os dia da semana">
+                </v-select>
+              </v-col>
+            </v-row>
+          </v-container>
          
         </v-card-text>
           <v-divider class="mt-12"/>
@@ -114,7 +110,6 @@
       naoRegular:['segunda','terça','Quarta','Quinta','sexta'],
     }),
     
-
   } 
 </script>
  
