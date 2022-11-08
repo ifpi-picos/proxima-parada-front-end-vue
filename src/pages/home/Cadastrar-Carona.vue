@@ -84,7 +84,7 @@
           <v-card-actions>
             <v-btn text> Cancelar </v-btn>
             <v-spacer></v-spacer>
-            <v-btn color="blue" text @click="submit"> Salvar Carona </v-btn>
+            <v-btn color="primary" text @click="submit"> Salvar Carona </v-btn>
           </v-card-actions>
       </v-card>
     </v-col>
@@ -107,6 +107,12 @@
     
   } 
 </script>
+<style>
+h1{
+  text-align: center;
+}
+
+</style>
  
  <!-- <template>
    <v-card >
