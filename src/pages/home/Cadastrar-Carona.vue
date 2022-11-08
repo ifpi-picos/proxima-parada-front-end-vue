@@ -13,16 +13,16 @@
           :error-messages="errorMessages" label="Nome Completo" required/>
 
           <v-text-field placeholder="(XX)XXXXX-XXXX" ref="number-phone" label="Numero para contato" type="number" 
-          :rules="[() => !!name || 'Esse Campo e obrigatorio']"/>
+          :rules="[() => !!name || 'Esse Campo e Obrigatorio']"/>
         </v-card-text>
 
         <v-card-text>   
           <h2>De onde estou Saindo</h2>
             
-          <v-text-field ref="address" v-model="address"  :rules="[() => !!address || 'Esse Campo e obrigatorio',]"
+          <v-text-field ref="address" v-model="address"  :rules="[() => !!address || 'Esse Campo e Obrigatorio',]"
           label="Nome do Bairro" placeholder="Bairro Junco "/>
 
-          <v-text-field ref="address"  :rules="[ () => !!address || 'Esse Campo e obrigatorio',]"
+          <v-text-field ref="address"  :rules="[ () => !!address || 'Esse Campo e Obrigatorio',]"
           label="Nome da Rua " placeholder="Rua do pcc "/>
 
           <v-text-field label="Número da Casa " placeholder="288" type="number"/>
@@ -49,11 +49,19 @@
 
         <v-card-text>
           <h2>Dados do Veiculos e Caracteristicas da Carona</h2>
-          <v-select ref="veiculos" :items="veiculos" label="Selecione seu Veículos"/>
-          
-          <v-text-field type="text"  
+          <v-select ref="veiculos" :items="veiculos" label="Selecione seu Veículos" />
+
+          <v-text-field label="informe a Cor de Seu Veículo"/>
+
+          <v-text-field type="text" 
           label="Digite os numeros da placa de seu veículo" placeholder="xxx-xxxx"/>
 
+          <h2>Modalidade da carona</h2>
+          <v-select ref="modalidade" :items="modalidade" placeholder="Selecione a Modalidade da Carona"/>
+          <h2>Frequência da Carona</h2>
+          <v-select ref="frequencia" :items="frequencia" placeholder="Qual e a frequências dessa carona"/>
+          <v-select ref="semanas" :items="dias" placeholder="selecione os dia da semana"/>
+         
         </v-card-text>
           <v-divider class="mt-12"/>
           <v-card-actions>
@@ -67,51 +75,16 @@
 </template>
 
 <script>
- export default {
- data: () => ({
-  veiculos:['Moto','Carro'],
-    errorMessages: '',
-    name: null,
-    address: null,
-    city: null,
-    state: null,
-    zip: null,
-    country: null,
-    formHasErrors: false,
-    time:null
-  }),
+  export default {
+    data: () => ({
+      veiculos:['Moto','Carro'],
+      modalidade:['Colaborativa','Não-Colaborativa'],
+      frequencia:['Regular','Não-Regular'],
+      dias:['Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','sexta-feira','Sábado','Domingo'],
+   
+    }),
 
-  computed: {
-    form () {
-      return {
-        name: this.name,
-        address: this.address,
-        city: this.city,
-        state: this.state,
-        zip: this.zip,
-        country: this.country,
-      }
-    },
-  },
-
-  watch: {
-    name () {
-      this.errorMessages = ''
-    },
-  },
-
-  methods: {
-    submit () {
-      this.formHasErrors = true
-
-      Object.keys(this.form).forEach(f => {
-        if (!this.form[f]) this.formHasErrors = true
-
-        this.$refs[f].validate(true)
-      })
-    },
-  },
-} 
+  } 
 </script>
  
  <!-- <template>
