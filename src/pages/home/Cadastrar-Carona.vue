@@ -234,6 +234,8 @@
                   v-model="number"
                   type="number"
                   label="selecione os dia da semana">
+
+                  
                 </v-select>
               </v-col>
             </v-row>
