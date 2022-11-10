@@ -1,3 +1,4 @@
+
 <template>
   <v-container>
     <v-row justify="center" fluid class="pa-3">
@@ -24,33 +25,64 @@
           class="mx-auto bg pt-10"
           elevation="2"
         >
-          <v-row justify="center">
-            <v-col
-              align-self="start"
-              class="d-flex justify-center align-center pa-0"
-              cols="12"
-            >
-              <v-avatar size="165px" v-if="!userData.avatar">
-                <v-img
-                  src="https://e7.pngegg.com/pngimages/178/595/png-clipart-user-profile-computer-icons-login-user-avatars-monochrome-black.png"
-                />
-              </v-avatar>
-              <v-avatar size="165" v-else>
-                <v-img v-if="userData.avatar" :src="userData.avatar" />
-              </v-avatar>
-            </v-col>
-          </v-row>
-          <v-list-item class="profile-text-name ml-2 pt-16">
-            <v-list-item-content>
-              <v-list-item-title class="text-h4">
-                {{ userData.name }}
-              </v-list-item-title>
-              <v-list-item-subtitle class="text-h6">{{
-                userData.occupation
-              }}</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-          <v-spacer></v-spacer>
+        <div >
+        <v-card>
+            <v-container>
+                <v-row >
+                    <v-col cols="6" >
+                        <v-card color="#385F73" dark class="cards" >
+                            <v-card-title>
+                                <h2>Nome do Usuario</h2>
+                                </v-card-title>
+                                <p>Status:Professor</p>
+                                <p>status da Carona:</p>
+                                <p>Quantidade de Vagas</p>
+                                <p>Data:12:00 as 14/11/2022</p>
+                                <p>Quantidade de Vagas : 3</p>
+                            </v-card>
+                    </v-col>
+                    <v-col cols="6">
+                        <v-card color="#385F73" dark class="cards" >
+                            <v-card-title>
+                                <h2>Nome do Usuario</h2>
+                                </v-card-title>
+                                <p>Status:Professor</p>
+                                <p>status da Carona:</p>
+                                <p>Quantidade de Vagas</p>
+                                <p>Data:12:00 as 14/11/2022</p>
+                                <p>Quantidade de Vagas : 2</p>
+                        </v-card>
+                    </v-col>
+                    <v-col cols="6">
+                        <v-card color="#385F73" dark class="cards" >
+                            <v-card-title>
+                                <h2>Nome do Usuario</h2>
+                                </v-card-title>
+                                <p>Status:Professor</p>
+                                <p>status da Carona:</p>
+                                <p>Quantidade de Vagas</p>
+                                <p>Data:12:00 as 14/11/2022</p>
+                                <p>Quantidade de Vagas : 1</p>
+                        </v-card>
+                    </v-col>
+                    <v-col cols="6">
+                        <v-card color="#385F73" dark class="cards" >
+                            <v-card-title>
+                                <h2>Nome do Usuario</h2>
+                                </v-card-title>
+                                <p>Status:Professor</p>
+                                <p>status da Carona:</p>
+                                <p>Quantidade de Vagas</p>
+                                <p>Data:12:00 as 14/11/2022</p>
+                                <p>Quantidade de Vagas : 4</p>
+                        </v-card>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </v-card>   
+    </div>
+
+          
           <v-container>
             <v-row>
               <v-col cols="12" md="6">
@@ -69,50 +101,7 @@
                   >
                 </v-card-subtitle>
 
-                <v-card-subtitle v-if="!userData.Vehicle[0].brand" class="pa-0">
-                  <span class="card-subtitle"
-                    ><b>Veículo:</b> Nenhum veículo cadastrado</span
-                  >
-                </v-card-subtitle>
-                <v-card-actions
-                  v-if="userData.Vehicle[0].id == null"
-                  class="pa-0 mt-2"
-                >
-                  <v-btn
-                    v-if="userData.Requisition[0].exist"
-                    color="primary"
-                    block
-                    @click="dialogDriver = true"
-                  >
-                    Oferecer caronas
-                  </v-btn>
-
-                  <v-card v-if="userData.Requisition[0].id" class="wmp">
-                    <v-card-title
-                      v-if="!userData.Requisition[0].readed"
-                      class="card-result wmp warning"
-                      block
-                    >
-                      Sual solicitação está em processamento.
-                    </v-card-title>
-                    <div v-if="userData.Requisition[0].readed" class="wmp">
-                      <v-card-title
-                        v-if="!userData.Requisition[0].status"
-                        class="card-result wmp error"
-                        block
-                      >
-                        Sual solicitação foi recusada.
-                      </v-card-title>
-                      <v-card-title
-                        v-if="userData.Requisition[0].status"
-                        class="card-result wmp success"
-                        block
-                      >
-                        Voce já é um motorista.
-                      </v-card-title>
-                    </div>
-                  </v-card>
-                </v-card-actions>
+                
               </v-col>
             </v-row>
           </v-container>
@@ -121,19 +110,11 @@
             <v-row justify="center">
               <v-col cols="12" md="6">
                 <v-btn color="primary" block @click="dialog = true">
-                  Editar Perfil
+                  Cadastrar Carona
                 </v-btn>
               </v-col>
               <v-col cols="12" md="6">
-                <v-btn
-                  :disabled="userData.Vehicle[0].id == null"
-                  color="primary"
-                  block
-                  outlined
-                  @click="dialogCar = true"
-                >
-                  Cadastrar veiculo
-                </v-btn>
+              
               </v-col>
             </v-row>
           </v-card-actions>
@@ -154,8 +135,6 @@
               >{{ alertMessage }}</v-alert
             >
             <v-form @submit.prevent="auht" v-model="valid">
-
-              <!-- daqui pra baixo são as nova tela -->
               <v-row justify="center">
     <v-col cols="12" sm="10" md="8" lg="6">
       <v-card ref="form">
@@ -234,8 +213,6 @@
                   v-model="number"
                   type="number"
                   label="selecione os dia da semana">
-
-
                 </v-select>
               </v-col>
             </v-row>
@@ -251,185 +228,16 @@
       </v-card>
     </v-col>
   </v-row>
-  <!-- daqui pra baixo são as nova tela -->
-
              
-              <v-container>
-                <v-row>
-                  <v-col cols="12">
-                    <v-text-field
-                      prepend-icon="mail_outline"
-                      name="email"
-                      label="E-mail"
-                      type="text"
-                      readonly
-                      v-model="userData.email"
-                    />
-                  </v-col>
-                </v-row>
-              </v-container>
-              <v-container>
-                <v-row>
-                  <v-col cols="12" md="6">
-                    <v-btn
-                      :loading="updateLoading"
-                      :disabled="updateLoading"
-                      color="primary"
-                      block
-                      type="submit"
-                      @click="saveChanges"
-                    >
-                      Salvar
-                    </v-btn>
-                  </v-col>
-                  <v-col cols="12" md="6">
-                    <v-btn
-                      color="primary"
-                      outlined
-                      block
-                      @click="dialog = false"
-                    >
-                      Cancelar
-                    </v-btn>
-                  </v-col>
-                </v-row>
-              </v-container> -->
             </v-form>
           </v-card>
         </v-col>
       </v-dialog>
     </v-row>
 
-    <v-row justify="center">
-      <v-dialog v-model="dialogCar" persistent max-width="800px" scrollable>
-        <v-col cols="12" xm="12" sm="16" md="16" lg="25">
-          <v-card>
-            <v-alert
-              :value="alertSuccess"
-              color="red"
-              elevation="3"
-              outlined
-              :type="alertType"
-              >{{ alertMessage }}</v-alert
-            >
-            <v-form @submit.prevent="car" v-model="valid">
-              <v-container>
-                <v-row>
-                  <v-col cols="12" md="5">
-                    <v-row class="pa-2" align="center" justify="center">
-                      <v-avatar
-                        tile
-                        size="165px"
-                        v-if="!userData.Vehicle[0].image"
-                        class="grey"
-                      >
-                        <span>Escolha uma imagem</span>
-                      </v-avatar>
-                      <v-avatar tile size="165" v-else>
-                        <v-img
-                          v-if="userData.Vehicle[0].image"
-                          :src="userData.Vehicle[0].image"
-                        />
-                      </v-avatar>
-                    </v-row>
-                    <v-row class="pa-2" align="center" justify="center">
-                      <input
-                        hidden
-                        id="selectFileCar"
-                        type="file"
-                        @change="onFileCarChange"
-                      />
-                      <v-btn color="primary" @click="chooseImageCar()"
-                        >Escolher Imagen</v-btn
-                      >
-                    </v-row>
-                  </v-col>
-                  <v-col cols="12" md="7">
-                    <v-text-field
-                      name="brand"
-                      label="Marca"
-                      type="text"
-                      :rules="[rules.required]"
-                      v-model="userData.Vehicle[0].brand"
-                    />
+    
 
-                    <v-text-field
-                      name="model"
-                      label="Modelo"
-                      v-model="userData.Vehicle[0].model"
-                      :rules="[rules.required]"
-                    />
-                  </v-col>
-                </v-row>
-              </v-container>
-
-              <v-container>
-                <v-row>
-                  <v-col cols="12" md="6">
-                    <v-btn
-                      :loading="newCarLoading"
-                      :disabled="newCarLoading"
-                      color="primary"
-                      block
-                      type="submit"
-                      @click="newVehicle"
-                    >
-                      Salvar
-                    </v-btn>
-                  </v-col>
-                  <v-col cols="12" md="6">
-                    <v-btn
-                      color="primary"
-                      outlined
-                      block
-                      @click="dialogCar = false"
-                    >
-                      Cancelar
-                    </v-btn>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-form>
-          </v-card>
-        </v-col>
-      </v-dialog>
-    </v-row>
-
-    <v-row justify="center">
-      <v-dialog v-model="dialogDriver" max-width="290">
-        <v-card>
-          <v-alert
-            :value="alertSuccess"
-            color="red"
-            elevation="3"
-            outlined
-            :type="alertType"
-            >{{ alertMessage }}</v-alert
-          >
-          <v-card-title class="text-h5">
-            Tem certeza de que desejá a posição de motorisa?
-          </v-card-title>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-
-            <v-btn color="red darken-1" text @click="dialogDriver = false">
-              Cancelar
-            </v-btn>
-
-            <v-btn
-              color="green darken-1"
-              text
-              :loading="driverLoading"
-              :disabled="driverLoading"
-              @click="requestPositionDriver"
-            >
-              Aceitar
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-row>
+    
   </v-container>
 </template>
 
@@ -445,18 +253,6 @@ export default {
       userData: {
         Vehicle: [{ id_user: "", image: "", brand: "", model: "" }],
         Requisition: [{ id_user: "" }],
-
-        veiculos:['Moto','Carro'],
-      modalidade:['Colaborativa','Não-Colaborativa'],
-      frequencia:['Regular','Não-Regular'],
-      dias:['Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','sexta-feira','Sábado','Domingo'],
-      
-      type: 'number',
-      number: 9999,
-      regular:['segunda','terça','Quarta','Quinta','sexta',
-      'Sábado','Domingo'],
-      naoRegular:['segunda','terça','Quarta','Quinta','sexta'],
-
       },
       alertMessage: "Erro ao conectar-se ao banco de dados!",
       loading: false,
@@ -722,7 +518,6 @@ body {
 </style>
 
 
-
 <!-- <template> 
   <v-row justify="center">
     <v-col cols="12" sm="10" md="8" lg="6">
@@ -838,137 +633,6 @@ body {
     }),
     
   } 
-</script> -->
- 
- <!-- <template>
-   <v-card >
-        <div class="title">
-            <h2>Cadastramento de Caronas</h2>
-        </div> 
-        <v-card class="destino" color="#96b5bb5e">
-           <h2>Informações Pessoais</h2>
-           <v-text-field prepend-icon="mdi-map-marker" name="name" label="Digite seu nome Completo" type="text"/>
-            <v-text-field prepend-icon="mdi-map-marker" name="name" label="Número para Contato" type="number"/>
-            <v-text-field prepend-icon="home" name="name" label="Ocupação no Campus" type="text"/>
-        </v-card> <br>
-
-        <v-card class="origin" color="#96b5bb5e">
-           <h2>Origem da Carona</h2>
-            <v-text-field prepend-icon="mdi-map-marker" name="name" label="Bairro" type="text"/>
-            <v-text-field prepend-icon="home" name="name" label="Nome da Rua" type="text"/>
-            <v-text-field prepend-icon="home" name="name" label="Número/Casa" type="number"/>
-            <v-text-field prepend-icon="event" name="name" label="Data da Saída" type="Date"/>
-            <v-text-field prepend-icon="mdi-history" name="name" label="Horaria da Saída" type="Time"/>
-         
-        </v-card>  
-        <br>
-        <v-card class="destino" color="#96b5bb5e">
-           <h2>Destino Da Carona</h2>
-           <v-text-field prepend-icon="mdi-map-marker" name="name" label="Bairro" type="text"/>
-            <v-text-field prepend-icon="mdi-map-marker" name="name" label="Nome da Rua" type="text"/>
-            <v-text-field prepend-icon="home" name="name" label="Número/Casa" type="number"/>
-    
-        </v-card> 
-        <br>
-        
-        <v-card class="veiculo" color="#96b5bb5e">
-
-           <h2>Caracteristica do Veículo</h2>
-            <v-container fluid>
-                <v-row align="center">
-                    <v-col class="d-flex" cols="12" sm="12">
-                        <v-select prepend-icon="send" :items="transport" label="Tipo de Veículo"/>
-                    </v-col> 
-                </v-row>
-            </v-container>
-
-          <v-text-field prepend-icon="send" name="name" label="Digite a placa do Veículo" type="text"/>
-          <v-text-field prepend-icon="send" name="name" label="Digite a cor de seu transpote" type="text"/>
- 
-        </v-card> 
-        <br>
-        <v-card class="veiculo" color="#96b5bb5e" >
-
-            <h2>Modalidade</h2>
-            <v-container fluid>
-                <v-row align="center">
-                    <v-col class="d-flex" cols="12" sm="12">
-                        <v-select prepend-icon="send" :items="disponibilidade" label="Tipo da Carona"/>
-                    </v-col> 
-                </v-row>
-                <h2>Frequência da Rotas</h2>
-                    <v-col class="d-flex" cols="12" sm="12" >
-                        <v-select prepend-icon="send" :items="frequenciaRotas" label="Frequência da Rota" /> 
-                        <v-select prepend-icon="send" :items="diaSemanas"  label="Escolha os dias da semanas"/>
-                        
-                        
-                    </v-col>
-                <v-row>
-                  
-                </v-row>   
-            </v-container>
-        </v-card> <br>
-
-        <v-container>
-            <v-row align="center">
-                <v-col cols="12" sm="12">
-                <div class="text-center">
-                    <div class="my-2">
-                        <v-btn x-large color="primary" type="submit">Cadastrar Carona</v-btn>
-                    </div>
-                </div>
-                </v-col>
-            </v-row>
-        </v-container> 
-    </v-card>
-</template>
-
-
-<script>
-export default {
-    name: "Cadastrar-Carona",
-
-    data: () => ({
-    transport: ['Carro','Moto'],
-    disponibilidade:['Colaborativa','Não-Colaborativa'],
-    diaSemanas:['Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado','Domingo'],
-    frequenciaRotas:['Regular','Não-Regular'],
-    regular:true,
-    naoregular:false
-
-  }),
-      
-}
 </script>
-
-<style>
-    
-    .origin, .destino{
-        width: 100px;
-        text-align: center;
-        border: 3px solid rgba(63, 62, 62, 0.438);
-        width: 85%;
-        height: 85%;
-        background: #fff;
-        margin: auto;
-    }
-    .veiculo{
-        width: 200px;
-        height: 300px;
-        text-align: center;
-        border: 3px solid rgba(63, 62, 62, 0.438);
-        width: 85%;
-        height: 85%;
-        background: #fff;
-        margin: auto;
-       
-    }
-   
-    .title {
-        text-align: center;
-        padding: 23px;
-      
-    }
-  
-</style> -->
-
+ 
+  -->
