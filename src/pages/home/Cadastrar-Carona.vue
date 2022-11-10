@@ -18,13 +18,13 @@
                     <v-card-title>
                       <h2>Nome do Usuario</h2>
                     </v-card-title>
-                        <p>Status:Professor</p>
-                        <p>status da Carona:</p>
-                        <p>Quantidade de Vagas</p>
-                        <p>Data:12:00 as 14/11/2022</p>
-                        <p>Quantidade de Vagas : 3</p>
-                      </v-card>
-                      </v-col>
+                    <p>Status:Professor</p>
+                    <p>status da Carona:</p>
+                    <p>Quantidade de Vagas</p>
+                    <p>Data:12:00 as 14/11/2022</p>
+                    <p>Quantidade de Vagas : 3</p>
+                  </v-card>
+                </v-col>
                       <v-col cols="6">
                           <v-card color="#385F73" dark class="cards" >
                               <v-card-title>
