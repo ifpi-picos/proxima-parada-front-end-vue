@@ -235,7 +235,7 @@
                   type="number"
                   label="selecione os dia da semana">
 
-                  
+
                 </v-select>
               </v-col>
             </v-row>
@@ -445,6 +445,18 @@ export default {
       userData: {
         Vehicle: [{ id_user: "", image: "", brand: "", model: "" }],
         Requisition: [{ id_user: "" }],
+
+        veiculos:['Moto','Carro'],
+      modalidade:['Colaborativa','Não-Colaborativa'],
+      frequencia:['Regular','Não-Regular'],
+      dias:['Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','sexta-feira','Sábado','Domingo'],
+      
+      type: 'number',
+      number: 9999,
+      regular:['segunda','terça','Quarta','Quinta','sexta',
+      'Sábado','Domingo'],
+      naoRegular:['segunda','terça','Quarta','Quinta','sexta'],
+
       },
       alertMessage: "Erro ao conectar-se ao banco de dados!",
       loading: false,
