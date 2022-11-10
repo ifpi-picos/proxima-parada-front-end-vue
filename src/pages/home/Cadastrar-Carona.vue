@@ -2,23 +2,12 @@
 <template>
   <v-container>
     <v-row justify="center" fluid class="pa-3">
-      <v-progress-linear
-        :active="loading"
-        :indeterminate="loading"
-        absolute
-        top
-        height="6"
-      >
+      <v-progress-linear :active="loading" :indeterminate="loading" absolute top
+        height="6">
       </v-progress-linear>
+
       <v-col cols="12" xm="8" sm="8" md="8" lg="10">
-        <v-alert
-          :value="alertError"
-          color="red"
-          elevation="3"
-          outlined
-          :type="alertType"
-          >{{ alertMessage }}</v-alert
-        >
+        <v-alert :value="alertError" color="red" elevation="3" outlined :type="alertType">{{ alertMessage }}</v-alert>
         <v-card
           max-width="450px"
           min-width="400px"
@@ -78,9 +67,9 @@
                         </v-card>
                     </v-col>
                 </v-row>
-            </v-container>
-        </v-card>   
-    </div>
+             </v-container>
+           </v-card>   
+         </div>
 
           
           <v-container>
@@ -136,7 +125,7 @@
             >
             <v-form @submit.prevent="auht" v-model="valid">
               <v-row justify="center">
-    <v-col cols="12" sm="10" md="8" lg="6">
+      <v-col cols="12" sm="10" md="8" lg="6">
       <v-card ref="form">
 
         <v-card-text>
@@ -226,18 +215,14 @@
             <v-btn color="blue" text @click="submit"> Salvar Carona </v-btn>
           </v-card-actions>
       </v-card>
-    </v-col>
-  </v-row>
+     </v-col>
+      </v-row>
              
             </v-form>
           </v-card>
         </v-col>
       </v-dialog>
     </v-row>
-
-    
-
-    
   </v-container>
 </template>
 
