@@ -49,46 +49,43 @@
                     <p>Quantidade de Vagas : 1</p>
                   </v-card>
                 </v-col>
-                      <v-col cols="6">
-                          <v-card color="#385F73" dark class="cards" >
-                              <v-card-title>
-                                  <h2>Nome do Usuario</h2>
-                            </v-card-title>
-                                  <p>Status:Professor</p>
-                                  <p>status da Carona:</p>
-                                  <p>Quantidade de Vagas</p>
-                                  <p>Data:12:00 as 14/11/2022</p>
-                                  <p>Quantidade de Vagas : 4</p>
+                <v-col cols="6">
+                  <v-card color="#385F73" dark class="cards" >
+                    <v-card-title>
+                      <h2>Nome do Usuario</h2>
+                    </v-card-title>
+                    <p>Status:Professor</p>
+                    <p>status da Carona:</p>
+                    <p>Quantidade de Vagas</p>
+                    <p>Data:12:00 as 14/11/2022</p>
+                    <p>Quantidade de Vagas : 4</p>
                   </v-card>
                 </v-col>
               </v-row>
             </v-container>
           </v-card>   
         </div>
+        <v-container>
+          <v-row>
+            <v-col cols="12" md="6">
+              <v-card-subtitle class="pa-0">
+                <b class="ml-2 text-h6">{{ userData.phone_number }}</b>
+              </v-card-subtitle>
 
-          
-          <v-container>
-            <v-row>
-              <v-col cols="12" md="6">
-                <v-card-subtitle class="pa-0">
-                  <b class="ml-2 text-h6">{{ userData.phone_number }}</b>
-                </v-card-subtitle>
-                <v-card-subtitle class="pa-0">
-                  <b class="ml-2 text-h6">{{ userData.email }}</b>
-                </v-card-subtitle>
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-card-subtitle v-if="userData.Vehicle[0].brand" class="pa-0">
-                  <span class="card-subtitle"
-                    ><b>Veículo:</b> {{ userData.Vehicle[0].brand }},
-                    {{ userData.Vehicle[0].model }}</span
+              <v-card-subtitle class="pa-0">
+                <b class="ml-2 text-h6">{{ userData.email }}</b>
+              </v-card-subtitle>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-card-subtitle v-if="userData.Vehicle[0].brand" class="pa-0">
+                <span class="card-subtitle"><b>Veículo:</b> {{ userData.Vehicle[0].brand }},
+                    {{ userData.Vehicle[0].model }}
+                </span
                   >
-                </v-card-subtitle>
-
-                
-              </v-col>
-            </v-row>
-          </v-container>
+              </v-card-subtitle>  
+            </v-col>
+          </v-row>
+        </v-container>
 
           <v-card-actions>
             <v-row justify="center">
