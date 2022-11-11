@@ -48,7 +48,6 @@
                 <v-list-item-title>Area do Admin</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            
           </template>
         </v-list-item-group>
       </v-list>

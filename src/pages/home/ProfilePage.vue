@@ -30,15 +30,30 @@
               class="d-flex justify-center align-center pa-0"
               cols="12"
             >
-              <v-avatar size="165px" v-if="!userData.avatar">
+              <v-avatar size="165px">
+                <v-img v-if="userData.avatar" :src="userData.avatar" />
                 <v-img
+                  v-else
                   src="https://e7.pngegg.com/pngimages/178/595/png-clipart-user-profile-computer-icons-login-user-avatars-monochrome-black.png"
                 />
               </v-avatar>
-              <v-avatar size="165" v-else>
-                <v-img v-if="userData.avatar" :src="userData.avatar" />
-              </v-avatar>
+              <input
+                hidden
+                id="selectFileUser"
+                type="file"
+                @change="onFileChangedUser"
+              />
+              <v-btn class="upload-btn" x-large icon @click="chooseImageUser()">
+                <v-icon> mdi-camera </v-icon>
+              </v-btn>
             </v-col>
+            <v-btn
+              v-if="userFileChanged"
+              color="primary"
+              class="save-image-btn"
+              @click="uploadImageUser()"
+              >Salvar Imagen</v-btn
+            >
           </v-row>
           <v-list-item class="profile-text-name ml-2 pt-16">
             <v-list-item-content>
@@ -126,7 +141,7 @@
               </v-col>
               <v-col cols="12" md="6">
                 <v-btn
-                  :disabled="userData.Vehicle[0].id == null"
+                  :disabled="userData.Vehicle[0].id == ''"
                   color="primary"
                   block
                   outlined
@@ -142,7 +157,7 @@
     </v-row>
 
     <v-row justify="center">
-      <v-dialog v-model="dialog" persistent max-width="800px" scrollable>
+      <v-dialog v-model="dialog" persistent max-width="450px" scrollable>
         <v-col cols="12" xm="12" sm="16" md="16" lg="25">
           <v-card>
             <v-alert
@@ -156,31 +171,6 @@
             <v-form @submit.prevent="auht" v-model="valid">
               <v-container>
                 <v-row>
-                  <v-col cols="12" md="5">
-                    <v-row class="pa-2" align="center" justify="center">
-                      <v-avatar
-                        size="165px"
-                        v-if="!userData.avatar"
-                        class="grey"
-                      >
-                        <span>Escolha uma imagem</span>
-                      </v-avatar>
-                      <v-avatar size="165" v-else>
-                        <v-img v-if="userData.avatar" :src="userData.avatar" />
-                      </v-avatar>
-                    </v-row>
-                    <v-row class="pa-2" align="center" justify="center">
-                      <input
-                        hidden
-                        id="selectFile"
-                        type="file"
-                        @change="onFileChange"
-                      />
-                      <v-btn color="primary" @click="chooseImage()"
-                        >Nova Imagen</v-btn
-                      >
-                    </v-row>
-                  </v-col>
                   <v-col cols="12" md="7">
                     <v-text-field
                       prepend-icon="perm_identity"
@@ -236,7 +226,7 @@
                       color="primary"
                       block
                       type="submit"
-                      @click="saveChanges"
+                      @click="updateData('user')"
                     >
                       Salvar
                     </v-btn>
@@ -279,15 +269,15 @@
                       <v-avatar
                         tile
                         size="165px"
-                        v-if="!userData.Vehicle[0].image"
+                        v-if="!userData.Vehicle[0].avatar"
                         class="grey"
                       >
                         <span>Escolha uma imagem</span>
                       </v-avatar>
                       <v-avatar tile size="165" v-else>
                         <v-img
-                          v-if="userData.Vehicle[0].image"
-                          :src="userData.Vehicle[0].image"
+                          v-if="userData.Vehicle[0].avatar"
+                          :src="userData.Vehicle[0].avatar"
                         />
                       </v-avatar>
                     </v-row>
@@ -296,7 +286,7 @@
                         hidden
                         id="selectFileCar"
                         type="file"
-                        @change="onFileCarChange"
+                        @change="onFileChangedCar"
                       />
                       <v-btn color="primary" @click="chooseImageCar()"
                         >Escolher Imagen</v-btn
@@ -331,7 +321,7 @@
                       color="primary"
                       block
                       type="submit"
-                      @click="newVehicle"
+                      @click="updateData('vehicle')"
                     >
                       Salvar
                     </v-btn>
@@ -396,13 +386,19 @@
 import User from "../../services/user";
 import Vehicle from "../../services/vehicle";
 import Requisition from "../../services/requisition";
+import UploadImage from "../../services/upload";
 
 export default {
   data() {
     return {
       items: ["Aluno(a)", "Professor(a)", "Outro(a)"],
+      userFile: "",
+      vehicleFile: "",
+      userFileChanged: false,
+      vehicleFileChanged: false,
       userData: {
-        Vehicle: [{ id_user: "", image: "", brand: "", model: "" }],
+        avatar: "",
+        Vehicle: [{ id_user: "", avatar: "", brand: "", model: "" }],
         Requisition: [{ id_user: "" }],
       },
       alertMessage: "Erro ao conectar-se ao banco de dados!",
@@ -427,7 +423,7 @@ export default {
         minPhone: (value) => value.length >= 16 || "Mínimo 16 caracteres",
         email: (value) => {
           const pattern =
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            /^(([^<script>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || "E-mail inválido.";
         },
         matchPassword: () =>
@@ -437,24 +433,30 @@ export default {
     };
   },
   methods: {
-    chooseImage() {
-      document.getElementById("selectFile").click();
+    chooseImageUser() {
+      document.getElementById("selectFileUser").click();
     },
-    onFileChange(e) {
-      const file = e.target.files[0];
-      this.userData.avatar = URL.createObjectURL(file);
+    onFileChangedUser(e) {
+      this.userFile = e.target.files[0];
+      this.userData.avatar = URL.createObjectURL(this.userFile);
+      this.userFileChanged = true;
     },
     chooseImageCar() {
       document.getElementById("selectFileCar").click();
     },
-    onFileCarChange(e) {
-      const file = e.target.files[0];
-      this.userData.Vehicle[0].image = URL.createObjectURL(file);
+    onFileChangedCar(e) {
+      this.vehicleFile = e.target.files[0];
+      this.userData.Vehicle[0].image = URL.createObjectURL(this.vehicleFile);
     },
 
-    async uploadImage() {},
+    async uploadImageUser() {
+      let formData = new FormData();
+      formData.append("file", this.userFile);
+      // eslint-disable-next-line no-unused-vars
+      const res = await UploadImage.uploadImage(formData);
+    },
 
-    async saveChanges() {
+    async saveDataUser() {
       this.updateLoading = true;
       this.loader = this.updateLoading;
       try {
@@ -463,6 +465,26 @@ export default {
         this.showSuccesAlert(
           true,
           "Informações aletradas com Sucesso!!!",
+          "warning"
+        );
+      } catch (error) {
+        this.finishLoading();
+        this.showErrorAlert(true, error.response.data.message, "warning");
+        //console.log(response.data);
+      }
+    },
+
+    async saveDataVehicle() {
+      this.newCarLoading = true;
+      this.loader = this.newCarLoading;
+      this.userData.Vehicle[0].id_user = this.userData.id;
+      try {
+        const res = await Vehicle.createNewVehicle(this.userData.Vehicle[0]);
+        this.userData.Vehicle[0] = res.data;
+        sessionStorage.setItem("userLocal", JSON.stringify(this.userData));
+        this.showSuccesAlert(
+          true,
+          "Veiculo cadastrado com Sucesso.",
           "warning"
         );
       } catch (error) {
@@ -489,26 +511,6 @@ export default {
       } catch (error) {
         this.finishLoading();
         this.showErrorAlert(true, error.response.data.message, "warning");
-      }
-    },
-
-    async newVehicle() {
-      this.newCarLoading = true;
-      this.loader = this.newCarLoading;
-      this.userData.Vehicle[0].id_user = this.userData.id;
-      try {
-        const res = await Vehicle.createNewVehicle(this.userData.Vehicle[0]);
-        this.userData.Vehicle[0] = res.data;
-        sessionStorage.setItem("userLocal", JSON.stringify(this.userData));
-        this.showSuccesAlert(
-          true,
-          "Veiculo cadastrado com Sucesso.",
-          "warning"
-        );
-      } catch (error) {
-        this.finishLoading();
-        this.showErrorAlert(true, error.response.data.message, "warning");
-        //console.log(response.data);
       }
     },
 
@@ -548,7 +550,7 @@ export default {
         this.userData.Vehicle[0] = {
           id: "",
           id_user: "",
-          image: "",
+          avatar: "",
           brand: "",
           model: "",
         };
@@ -570,11 +572,30 @@ export default {
       setTimeout(() => (this.alertError = false), 3000);
     },
   },
+  comments: {
+    UploadImage,
+  },
 };
 </script>
 <style lang="css" scoped>
 .border {
   border: 1px red solid;
+}
+
+.upload-btn {
+  position: absolute !important;
+  z-index: 1;
+  top: 165px;
+  background: #1976d2;
+}
+
+.save-image-btn {
+  top: 35px;
+  z-index: 1;
+}
+
+.theme--light.v-btn.v-btn--icon {
+  color: #ffffff;
 }
 
 .card-subtitle {
