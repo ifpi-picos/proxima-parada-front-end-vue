@@ -171,7 +171,7 @@
             <v-form @submit.prevent="auht" v-model="valid">
               <v-container>
                 <v-row>
-                  <v-col cols="12" md="7">
+                  <v-col cols="12">
                     <v-text-field
                       prepend-icon="perm_identity"
                       name="name"
@@ -200,12 +200,6 @@
                       type="phone"
                       v-model="userData.phone_number"
                     />
-                  </v-col>
-                </v-row>
-              </v-container>
-              <v-container>
-                <v-row>
-                  <v-col cols="12">
                     <v-text-field
                       prepend-icon="mail_outline"
                       name="email"

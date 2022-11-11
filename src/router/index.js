@@ -31,13 +31,8 @@ const routes = [
       {
         path: "ride",
         name: "ride",
-        component: () => import("../pages/home/Cadastrar-Carona.vue"),
+        component: () => import("../pages/home/PostsPage.vue"),
       },
-      // {
-      //   path: "ride2",
-      //   name: "ride2",
-      //   component: () => import("../pages/home/TelaCaronas.vue"),
-      // },
     ],
   },
   {

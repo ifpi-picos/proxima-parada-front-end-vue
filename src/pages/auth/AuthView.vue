@@ -7,7 +7,7 @@
       right
       top
       absolute
-      class="btn-signi-admin"
+      class="btn-signin-admin"
       @click="dialogSigninAdmin = true"
       >entrar com Administrador</v-btn
     >
@@ -152,7 +152,7 @@ export default {
   min-width: 360px;
 }
 
-.btn-signi-admin {
+.btn-signin-admin {
   right: 5px;
   top: 5px;
 }
