@@ -132,17 +132,9 @@ export default {
       this.loading = true;
       try {
         const res = await Auth.signupUser(this.userData);
-        if (res.status == 200) {
-          this.loading = false;
-
-          const { name, email, occupation } = this.userData;
-          localStorage.setItem(
-            "userData",
-            JSON.stringify({ name, email, occupation })
-          );
-
-          this.$router.push({ name: "HomeView" });
-        }
+        this.loading = false;
+        sessionStorage.setItem("userLocal", JSON.stringify(res.data));
+        this.$router.push({ name: "feed" });
       } catch (error) {
         const response = error.response;
         this.loading = false;

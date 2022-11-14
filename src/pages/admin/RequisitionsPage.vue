@@ -207,7 +207,7 @@
   </v-container>
 </template>
 <script>
-import Requisition from "../../services/requisition";
+import Requisition from "../../services/statusRequest";
 export default {
   data: () => ({
     requisitions: [

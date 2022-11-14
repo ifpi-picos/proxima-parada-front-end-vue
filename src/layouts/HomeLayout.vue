@@ -58,7 +58,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-title>Próxima Parada</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon @click="signup">
+      <v-btn icon @click="signout">
         <v-icon>logout</v-icon>
       </v-btn>
     </v-app-bar>

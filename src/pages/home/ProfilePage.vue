@@ -97,10 +97,7 @@
                     ><b>Veículo:</b> Nenhum veículo cadastrado</span
                   >
                 </v-card-subtitle>
-                <v-card-actions
-                  v-if="userData.Vehicle[0].id"
-                  class="pa-0 mt-2"
-                >
+                <v-card-actions v-if="userData.Vehicle[0].id" class="pa-0 mt-2">
                   <v-btn
                     v-if="!userData.StatusRequest[0].id"
                     color="primary"
@@ -149,7 +146,7 @@
               </v-col>
               <v-col cols="12" md="6">
                 <v-btn
-                  :disabled="userData.Vehicle[0].id"
+                  :disabled="userData.Vehicle[0].id != false"
                   color="primary"
                   block
                   outlined
@@ -176,7 +173,7 @@
               type="success"
               >{{ alertMessage }}</v-alert
             >
-            <v-form @submit.prevent="auht" v-model="valid">
+            <v-form @submit.prevent="userForm" v-model="valid">
               <v-container>
                 <v-row>
                   <v-col>
@@ -186,7 +183,6 @@
                       label="Nome Completo"
                       type="text"
                       :rules="[rules.required]"
-                      password
                       v-model="userData.name"
                     />
 
@@ -203,7 +199,7 @@
                       prepend-icon="perm_device_information"
                       name="phone_number"
                       label="Número de Whatsapp"
-                      :rules="[rules.required, rules.minPhone]"
+                      :rules="[rules.minPhone]"
                       v-mask="'(##) # ####-####'"
                       type="phone"
                       v-model="userData.phone_number"
@@ -228,7 +224,6 @@
                       color="primary"
                       block
                       type="submit"
-                      @click="updateData('user')"
                     >
                       Salvar
                     </v-btn>
@@ -252,7 +247,7 @@
     </v-row>
 
     <v-row justify="center">
-      <v-dialog v-model="dialogCar" persistent max-width="800px" scrollable>
+      <v-dialog v-model="dialogCar" persistent max-width="400px" scrollable>
         <v-col cols="12" xm="12" sm="16" md="16" lg="25">
           <v-card>
             <v-alert
@@ -268,18 +263,11 @@
                 <v-row>
                   <v-col cols="12" md="5">
                     <v-row class="pa-2" align="center" justify="center">
-                      <v-avatar
-                        tile
-                        size="165px"
-                        v-if="!userData.Vehicle[0].avatar"
-                        class="grey"
-                      >
-                        <span>Escolha uma imagem</span>
-                      </v-avatar>
-                      <v-avatar tile size="165" v-else>
+                      <v-avatar size="190px" tile>
+                        <v-img v-if="vehicleAvatar" :src="vehicleAvatar" />
                         <v-img
-                          v-if="userData.Vehicle[0].avatar"
-                          :src="userData.Vehicle[0].avatar"
+                          v-else
+                          src="https://cdn-icons-png.flaticon.com/512/70/70310.png"
                         />
                       </v-avatar>
                     </v-row>
@@ -313,7 +301,6 @@
                   </v-col>
                 </v-row>
               </v-container>
-
               <v-container>
                 <v-row>
                   <v-col cols="12" md="6">
@@ -323,7 +310,6 @@
                       color="primary"
                       block
                       type="submit"
-                      @click="updateData('vehicle')"
                     >
                       Salvar
                     </v-btn>
@@ -373,7 +359,7 @@
               text
               :loading="driverLoading"
               :disabled="driverLoading"
-              @click="requestPositionDriver"
+              @click="statusRequestPositionDriver()"
             >
               Aceitar
             </v-btn>
@@ -387,8 +373,7 @@
 <script>
 import User from "../../services/user";
 import Vehicle from "../../services/vehicle";
-import Requisition from "../../services/requisition";
-import UploadImage from "../../services/upload";
+import Requisition from "../../services/statusRequest";
 
 export default {
   data() {
@@ -399,10 +384,10 @@ export default {
       userFileChanged: false,
       vehicleFileChanged: false,
       userData: {
-        avatar: "",
         Vehicle: [{ id_user: "", avatar: "", brand: "", model: "" }],
         StatusRequest: [{ id_user: "" }],
       },
+      vehicleAvatar: null,
       alertMessage: "Erro ao conectar-se ao banco de dados!",
       loading: false,
       updateLoading: false,
@@ -421,16 +406,7 @@ export default {
       valid: false,
       rules: {
         required: (value) => !!value || "Obrigatório.",
-        min: (value) => value.length >= 6 || "Mínimo 6 caracteres",
         minPhone: (value) => value.length >= 16 || "Mínimo 16 caracteres",
-        email: (value) => {
-          const pattern =
-            /^(([^<script>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          return pattern.test(value) || "E-mail inválido.";
-        },
-        matchPassword: () =>
-          this.userData.password === this.userData.samePasswords ||
-          `Senhas diferentes`,
       },
     };
   },
@@ -448,66 +424,77 @@ export default {
     },
     onFileChangedCar(e) {
       this.vehicleFile = e.target.files[0];
-      this.userData.Vehicle[0].image = URL.createObjectURL(this.vehicleFile);
+      this.vehicleAvatar = URL.createObjectURL(this.vehicleFile);
     },
 
     async uploadImageUser() {
       this.loading = true;
       let formData = new FormData();
       //formData.append("id", this.userData.id);
-      formData.append("avatarFilename", this.userFile);
+      formData.append("userAvatarFileName", this.userFile);
       try {
-        const res = await UploadImage.uploadImage(formData);
-        sessionStorage.setItem("userLocal", JSON.stringify(res.data));
+        const res = await User.uploadImage(formData);
+        this.setItemLocalStorage(res.data);
+        //console.log(res.data);
         this.finishLoading();
         this.showSuccessAlert(true, "Image salva com Sucesso!!!");
       } catch (error) {
         this.finishLoading();
         this.showErrorAlert(true, error.response.data.message);
-        console.log(error.response.data);
+        //console.log(error.response.data);
       }
     },
 
-    async saveDataUser() {
+    async userForm() {
       this.updateLoading = true;
       this.loader = this.updateLoading;
+      /* console.log(
+        "testando o userData antes de enviar para api: ",
+        this.userData
+      ); */
       try {
+        // eslint-disable-next-line no-unused-vars
         const res = await User.updateUserData(this.userData);
-        this.userData = res.data;
+        console.log(res);
+        this.finishLoading();
         this.showSuccessAlert(true, "Informações aletradas com Sucesso!!!");
       } catch (error) {
         this.finishLoading();
         this.showErrorAlert(true, error.response.data.message);
-        //console.log(response.data);
+        console.log(error.response.data);
       }
     },
 
     async uploadImageCar() {
       this.loading = true;
       let formData = new FormData();
-      //formData.append("id", this.userData.id);
-      formData.append("avatarFilename", this.userFile);
+      formData.append("vehicleAvatarFileName", this.vehicleFile);
       try {
-        const res = await UploadImage.uploadImage(formData);
-        sessionStorage.setItem("userLocal", JSON.stringify(res.data));
+        const res = await Vehicle.uploadImageCar(
+          this.userData.Vehicle[0].id,
+          formData
+        );
+        this.userData.Vehicle[0] = res.data;
+        this.setItemLocalStorage(this.userData);
         this.finishLoading();
-        this.showSuccessAlert(true, "Image salva com Sucesso!!!");
+        this.showSuccessAlert(true, "Veiculo cadastrado com Sucesso.");
       } catch (error) {
         this.finishLoading();
         this.showErrorAlert(true, error.response.data.message);
-        console.log(error.response.data);
+        //console.log(error.response.data);
       }
     },
 
-    async saveDataVehicle() {
+    async carForm() {
       this.newCarLoading = true;
       this.loader = this.newCarLoading;
       this.userData.Vehicle[0].id_user = this.userData.id;
       try {
         const res = await Vehicle.createNewVehicle(this.userData.Vehicle[0]);
+        //console.log(res.data);
         this.userData.Vehicle[0] = res.data;
-        sessionStorage.setItem("userLocal", JSON.stringify(this.userData));
-        this.showSuccessAlert(true, "Veiculo cadastrado com Sucesso.");
+        //console.log("Testando a resposta do carForm ", res.data);
+        this.uploadImageCar();
       } catch (error) {
         this.finishLoading();
         this.showErrorAlert(true, error.response.data.message);
@@ -515,15 +502,15 @@ export default {
       }
     },
 
-    async requestPositionDriver() {
+    async statusRequestPositionDriver() {
       this.driverLoading = true;
       this.loader = this.driverLoading;
       try {
-        const res = await Requisition.createNewRequisition({
-          id: this.userData.id,
-        });
+        // eslint-disable-next-line no-unused-vars
+        const res = await Requisition.createNewStatusRequest(this.userData.id);
         this.userData.StatusRequest[0] = res.data;
-        sessionStorage.setItem("userLocal", JSON.stringify(this.userData));
+        this.setItemLocalStorage(this.userData);
+        this.dialogDriver = false
         this.showSuccessAlert(true, "Requisição solicitada com Sucesso.");
       } catch (error) {
         this.finishLoading();
@@ -555,10 +542,38 @@ export default {
       }, 3000);
     },
 
-    finishiProcess(){
-        this.finishLoading();
-        this.alertSuccess = false;
-        //this.refresh();
+    finishiProcess() {
+      this.finishLoading();
+      this.alertSuccess = false;
+      //this.refresh();
+    },
+
+    prepareData(data) {
+      this.userData = data;
+      if (!this.userData.Vehicle[0]) {
+        this.userData.Vehicle[0] = {
+          id: false,
+          id_user: false,
+          avatar: null,
+          brand: "",
+          model: "",
+        };
+      }
+      if (!this.userData.StatusRequest[0]) {
+        this.userData.StatusRequest[0] = {
+          id: false,
+          status: false,
+          readed: false,
+        };
+      }
+      /* if (!this.userData.phone_number) {
+        this.userData.phone_number = " ";
+      } */
+      console.log("testand o user loca no Profile: ", this.userData);
+    },
+
+    setItemLocalStorage(data) {
+      sessionStorage.setItem("userLocal", JSON.stringify(data));
     },
 
     refresh() {
@@ -569,25 +584,9 @@ export default {
   created() {
     //console.log("testand o user loca no Profile: ", this.userData);
     if (sessionStorage.getItem("userLocal")) {
-      this.userData = JSON.parse(sessionStorage.getItem("userLocal"));
-      if (!this.userData.Vehicle[0]) {
-        this.userData.Vehicle[0] = {
-          id: false,
-          id_user: false,
-          avatar: false,
-          brand: false,
-          model: false,
-        };
-      }
-      if (!this.userData.StatusRequest[0]) {
-        this.userData.StatusRequest[0] = {
-          id: false,
-          status: false,
-          readed: false,
-        };
-      }
+      this.prepareData(JSON.parse(sessionStorage.getItem("userLocal")));
     }
-    console.log("testand o user loca no Profile: ", this.userData);
+    //console.log("testand o user loca no Profile: ", this.userData);
   },
   watch: {
     alertError(val) {
