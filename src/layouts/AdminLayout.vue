@@ -44,7 +44,7 @@
     }
   },
   created() {
-    this.resume();
+    //this.resume();
     if (sessionStorage.getItem("userLocal")) {
       this.userLocal = JSON.parse(sessionStorage.getItem("userLocal"));
       //console.log("testand o user loca: ", this.userLocal);

@@ -371,9 +371,8 @@
 </template>
 
 <script>
+
 import User from "../../services/user";
-import Vehicle from "../../services/vehicle";
-import Requisition from "../../services/statusRequest";
 
 export default {
   data() {
@@ -470,7 +469,7 @@ export default {
       let formData = new FormData();
       formData.append("vehicleAvatarFileName", this.vehicleFile);
       try {
-        const res = await Vehicle.uploadImageCar(
+        const res = await User.uploadImageCar(
           this.userData.Vehicle[0].id,
           formData
         );
@@ -490,7 +489,7 @@ export default {
       this.loader = this.newCarLoading;
       this.userData.Vehicle[0].id_user = this.userData.id;
       try {
-        const res = await Vehicle.createNewVehicle(this.userData.Vehicle[0]);
+        const res = await User.createNewVehicle(this.userData.Vehicle[0]);
         //console.log(res.data);
         this.userData.Vehicle[0] = res.data;
         //console.log("Testando a resposta do carForm ", res.data);
@@ -507,7 +506,7 @@ export default {
       this.loader = this.driverLoading;
       try {
         // eslint-disable-next-line no-unused-vars
-        const res = await Requisition.createNewStatusRequest(this.userData.id);
+        const res = await User.createNewStatusRequest(this.userData.id);
         this.userData.StatusRequest[0] = res.data;
         this.setItemLocalStorage(this.userData);
         this.dialogDriver = false
