@@ -15,7 +15,15 @@
           color="red"
           elevation="3"
           outlined
-          :type="alertType"
+          type="warning"
+          >{{ alertMessage }}</v-alert
+        >
+        <v-alert
+          :value="alertSuccess"
+          color="green"
+          elevation="3"
+          outlined
+          type="success"
           >{{ alertMessage }}</v-alert
         >
         <v-card
@@ -77,24 +85,24 @@
                 </v-card-subtitle>
               </v-col>
               <v-col cols="12" md="6">
-                <v-card-subtitle v-if="userData.Vehicle[0].brand" class="pa-0">
+                <v-card-subtitle v-if="userData.Vehicle[0].id" class="pa-0">
                   <span class="card-subtitle"
                     ><b>Veículo:</b> {{ userData.Vehicle[0].brand }},
                     {{ userData.Vehicle[0].model }}</span
                   >
                 </v-card-subtitle>
 
-                <v-card-subtitle v-if="!userData.Vehicle[0].brand" class="pa-0">
+                <v-card-subtitle v-if="!userData.Vehicle[0].id" class="pa-0">
                   <span class="card-subtitle"
                     ><b>Veículo:</b> Nenhum veículo cadastrado</span
                   >
                 </v-card-subtitle>
                 <v-card-actions
-                  v-if="userData.Vehicle[0].id == null"
+                  v-if="userData.Vehicle[0].id"
                   class="pa-0 mt-2"
                 >
                   <v-btn
-                    v-if="userData.Requisition[0].exist"
+                    v-if="!userData.StatusRequest[0].id"
                     color="primary"
                     block
                     @click="dialogDriver = true"
@@ -102,24 +110,24 @@
                     Oferecer caronas
                   </v-btn>
 
-                  <v-card v-if="userData.Requisition[0].id" class="wmp">
+                  <v-card v-if="userData.StatusRequest[0].id" class="wmp">
                     <v-card-title
-                      v-if="!userData.Requisition[0].readed"
+                      v-if="!userData.StatusRequest[0].readed"
                       class="card-result wmp warning"
                       block
                     >
                       Sual solicitação está em processamento.
                     </v-card-title>
-                    <div v-if="userData.Requisition[0].readed" class="wmp">
+                    <div v-if="userData.StatusRequest[0].readed" class="wmp">
                       <v-card-title
-                        v-if="!userData.Requisition[0].status"
+                        v-if="!userData.StatusRequest[0].status"
                         class="card-result wmp error"
                         block
                       >
                         Sual solicitação foi recusada.
                       </v-card-title>
                       <v-card-title
-                        v-if="userData.Requisition[0].status"
+                        v-if="userData.StatusRequest[0].status"
                         class="card-result wmp success"
                         block
                       >
@@ -141,7 +149,7 @@
               </v-col>
               <v-col cols="12" md="6">
                 <v-btn
-                  :disabled="userData.Vehicle[0].id == ''"
+                  :disabled="userData.Vehicle[0].id"
                   color="primary"
                   block
                   outlined
@@ -158,20 +166,20 @@
 
     <v-row justify="center">
       <v-dialog v-model="dialog" persistent max-width="450px" scrollable>
-        <v-col cols="12" xm="12" sm="16" md="16" lg="25">
+        <v-col>
           <v-card>
             <v-alert
               :value="alertSuccess"
-              color="red"
+              color="green"
               elevation="3"
               outlined
-              :type="alertType"
+              type="success"
               >{{ alertMessage }}</v-alert
             >
             <v-form @submit.prevent="auht" v-model="valid">
               <v-container>
                 <v-row>
-                  <v-col cols="12">
+                  <v-col>
                     <v-text-field
                       prepend-icon="perm_identity"
                       name="name"
@@ -249,13 +257,13 @@
           <v-card>
             <v-alert
               :value="alertSuccess"
-              color="red"
+              color="green"
               elevation="3"
               outlined
-              :type="alertType"
+              type="success"
               >{{ alertMessage }}</v-alert
             >
-            <v-form @submit.prevent="car" v-model="valid">
+            <v-form @submit.prevent="carForm" v-model="valid">
               <v-container>
                 <v-row>
                   <v-col cols="12" md="5">
@@ -343,10 +351,10 @@
         <v-card>
           <v-alert
             :value="alertSuccess"
-            color="red"
+            color="green"
             elevation="3"
             outlined
-            :type="alertType"
+            type="success"
             >{{ alertMessage }}</v-alert
           >
           <v-card-title class="text-h5">
@@ -393,7 +401,7 @@ export default {
       userData: {
         avatar: "",
         Vehicle: [{ id_user: "", avatar: "", brand: "", model: "" }],
-        Requisition: [{ id_user: "" }],
+        StatusRequest: [{ id_user: "" }],
       },
       alertMessage: "Erro ao conectar-se ao banco de dados!",
       loading: false,
@@ -444,10 +452,20 @@ export default {
     },
 
     async uploadImageUser() {
+      this.loading = true;
       let formData = new FormData();
-      formData.append("file", this.userFile);
-      // eslint-disable-next-line no-unused-vars
-      const res = await UploadImage.uploadImage(formData);
+      //formData.append("id", this.userData.id);
+      formData.append("avatarFilename", this.userFile);
+      try {
+        const res = await UploadImage.uploadImage(formData);
+        sessionStorage.setItem("userLocal", JSON.stringify(res.data));
+        this.finishLoading();
+        this.showSuccessAlert(true, "Image salva com Sucesso!!!");
+      } catch (error) {
+        this.finishLoading();
+        this.showErrorAlert(true, error.response.data.message);
+        console.log(error.response.data);
+      }
     },
 
     async saveDataUser() {
@@ -456,15 +474,28 @@ export default {
       try {
         const res = await User.updateUserData(this.userData);
         this.userData = res.data;
-        this.showSuccesAlert(
-          true,
-          "Informações aletradas com Sucesso!!!",
-          "warning"
-        );
+        this.showSuccessAlert(true, "Informações aletradas com Sucesso!!!");
       } catch (error) {
         this.finishLoading();
-        this.showErrorAlert(true, error.response.data.message, "warning");
+        this.showErrorAlert(true, error.response.data.message);
         //console.log(response.data);
+      }
+    },
+
+    async uploadImageCar() {
+      this.loading = true;
+      let formData = new FormData();
+      //formData.append("id", this.userData.id);
+      formData.append("avatarFilename", this.userFile);
+      try {
+        const res = await UploadImage.uploadImage(formData);
+        sessionStorage.setItem("userLocal", JSON.stringify(res.data));
+        this.finishLoading();
+        this.showSuccessAlert(true, "Image salva com Sucesso!!!");
+      } catch (error) {
+        this.finishLoading();
+        this.showErrorAlert(true, error.response.data.message);
+        console.log(error.response.data);
       }
     },
 
@@ -476,14 +507,10 @@ export default {
         const res = await Vehicle.createNewVehicle(this.userData.Vehicle[0]);
         this.userData.Vehicle[0] = res.data;
         sessionStorage.setItem("userLocal", JSON.stringify(this.userData));
-        this.showSuccesAlert(
-          true,
-          "Veiculo cadastrado com Sucesso.",
-          "warning"
-        );
+        this.showSuccessAlert(true, "Veiculo cadastrado com Sucesso.");
       } catch (error) {
         this.finishLoading();
-        this.showErrorAlert(true, error.response.data.message, "warning");
+        this.showErrorAlert(true, error.response.data.message);
         //console.log(response.data);
       }
     },
@@ -495,16 +522,12 @@ export default {
         const res = await Requisition.createNewRequisition({
           id: this.userData.id,
         });
-        this.userData.Requisition[0] = res.data;
+        this.userData.StatusRequest[0] = res.data;
         sessionStorage.setItem("userLocal", JSON.stringify(this.userData));
-        this.showSuccesAlert(
-          true,
-          "Requisição solicitada com Sucesso.",
-          "warning"
-        );
+        this.showSuccessAlert(true, "Requisição solicitada com Sucesso.");
       } catch (error) {
         this.finishLoading();
-        this.showErrorAlert(true, error.response.data.message, "warning");
+        this.showErrorAlert(true, error.response.data.message);
       }
     },
 
@@ -517,57 +540,60 @@ export default {
       this.newCarLoading = false;
       this.loading = false;
     },
-    showErrorAlert(status, message, type) {
+
+    showErrorAlert(status, message) {
       this.alertError = status;
-      this.alertType = type;
-      this.messageError = message;
+      this.alertMessage = message;
     },
 
-    showSuccesAlert(status, message, type) {
+    showSuccessAlert(status, message) {
+      this.alertMessage = message;
       this.alertSuccess = status;
-      this.alertType = type;
-      this.messageError = message;
-      setTimeout(() => (this.alertSuccess = false), 3000);
-      this.finishLoading();
-      this.refresh();
+      this.userFileChanged = false;
+      setTimeout(() => {
+        this.finishiProcess();
+      }, 3000);
+    },
+
+    finishiProcess(){
+        this.finishLoading();
+        this.alertSuccess = false;
+        //this.refresh();
     },
 
     refresh() {
       this.$router.go();
     },
   },
+
   created() {
+    //console.log("testand o user loca no Profile: ", this.userData);
     if (sessionStorage.getItem("userLocal")) {
       this.userData = JSON.parse(sessionStorage.getItem("userLocal"));
-      //this.userData.Requisition[0].id_user = this.userData.id;
       if (!this.userData.Vehicle[0]) {
         this.userData.Vehicle[0] = {
-          id: "",
-          id_user: "",
-          avatar: "",
-          brand: "",
-          model: "",
+          id: false,
+          id_user: false,
+          avatar: false,
+          brand: false,
+          model: false,
         };
       }
-      if (!this.userData.Requisition[0]) {
-        this.userData.Requisition[0] = {
-          id: "",
-          exist: true,
+      if (!this.userData.StatusRequest[0]) {
+        this.userData.StatusRequest[0] = {
+          id: false,
           status: false,
           readed: false,
         };
       }
-      console.log("testand o user loca no Profile: ", this.userData);
     }
+    console.log("testand o user loca no Profile: ", this.userData);
   },
   watch: {
     alertError(val) {
       if (!val) return;
       setTimeout(() => (this.alertError = false), 3000);
     },
-  },
-  comments: {
-    UploadImage,
   },
 };
 </script>

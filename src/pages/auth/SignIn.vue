@@ -23,7 +23,7 @@
         contain
         height="260"
       />
-      <v-form @submit.prevent="auth" v-model="valid">
+      <v-form @submit.prevent="authUser" v-model="valid">
         <v-text-field
           prepend-icon="mail_outline"
           name="email"
@@ -85,11 +85,11 @@ export default {
     };
   },
   methods: {
-    async auth() {
+    async authUser() {
       this.loading = true;
       try {
-        const res = await Auth.signin(this.userAuth);
-        this.userLocal = res.data.userReturn;
+        const res = await Auth.signinUser(this.userAuth);
+        this.userLocal = res.data;
         sessionStorage.setItem("userLocal", JSON.stringify(this.userLocal));
         this.loading = false;
         this.$router.push({ name: "feed" });

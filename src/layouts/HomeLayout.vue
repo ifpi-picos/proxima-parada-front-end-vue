@@ -85,9 +85,10 @@ export default {
     };
   },
   methods: {
-    async signup() {
+    async signout() {
       sessionStorage.removeItem("userLocal");
-      try {
+      this.$router.push({ name: "authMain" });
+      /* try {
         const res = await Auth.logout();
         if (res.status == 200) {
           this.$router.push({ name: "authMain" });
@@ -97,8 +98,9 @@ export default {
         if (response.data.message) {
           this.messageError = response.data.message;
         }
+        this.$router.push({ name: "authMain" });
         console.log(response);
-      }
+      } */
     },
     async resume() {
       try {

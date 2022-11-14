@@ -30,7 +30,7 @@
 
     <v-row justify="center">
       <v-dialog v-model="dialogNewPost" persistent max-width="450px" scrollable>
-        <v-col cols="12">
+        <v-col>
           <v-card>
             <v-alert
               :value="false"

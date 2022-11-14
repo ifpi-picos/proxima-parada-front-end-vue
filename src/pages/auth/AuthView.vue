@@ -1,16 +1,20 @@
 <template>
   <v-container fluid fill-height>
-    <v-btn
-      color="primary"
-      elevation="2"
-      outlined
-      right
-      top
-      absolute
-      class="btn-signin-admin"
-      @click="dialogSigninAdmin = true"
-      >entrar com Administrador</v-btn
-    >
+
+    <v-hover v-slot:default="{ hover }" open-delay="200">
+      <v-btn
+        color="primary"
+        elevation="2"
+        rounded
+        class="fab-new-post ma-2"
+        @click="dialogSigninAdmin = true"
+      >
+        <v-icon>admin_panel_settings</v-icon>
+        <v-expand-x-transition>
+          <span v-if="hover" class="ml-2">Entrar com Administrador</span>
+        </v-expand-x-transition>
+      </v-btn>
+    </v-hover>
     <v-row justify="center">
       <v-dialog v-model="dialogSigninAdmin" persistent max-width="400px">
         <v-card class="pa-2">
@@ -37,7 +41,7 @@
               contain
               height="260"
             />
-            <v-form @submit.prevent="adminAuthForm" v-model="valid">
+            <v-form @submit.prevent="authAdmin" v-model="valid">
               <v-text-field
                 prepend-icon="mail_outline"
                 name="email"
@@ -66,7 +70,8 @@
                 type="submit"
                 >Login</v-btn
               >
-              <v-btn class="mt-2"
+              <v-btn
+                class="mt-2"
                 color="red darken-1"
                 outlined
                 block
@@ -109,6 +114,8 @@
 <script>
 import SignIn from "./SignIn.vue";
 import SignUp from "./SignUp.vue";
+import Auth from "../../services/auth";
+
 export default {
   name: "Auth-main",
   components: {
@@ -139,6 +146,24 @@ export default {
       },
     };
   },
+  methods: {
+    async authAdmin() {
+      this.loading = true;
+      try {
+        const res = await Auth.signinAdmin(this.adminAuth);
+        this.userLocal = res.data;
+        sessionStorage.setItem("userLocal", JSON.stringify(this.userLocal));
+        this.loading = false;
+        this.$router.push({ name: "dashboard" });
+      } catch (error) {
+        const response = error.response;
+        this.loading = false;
+        this.erroAlert = true;
+        this.messageError = response.data.message;
+        console.log(response);
+      }
+    },
+  },
 };
 </script>
 <style lang="css" scoped>
@@ -155,5 +180,12 @@ export default {
 .btn-signin-admin {
   right: 5px;
   top: 5px;
+}
+
+.fab-new-post {
+  z-index: 4;
+  position: fixed;
+  top: 16px;
+  right: 16px;
 }
 </style>

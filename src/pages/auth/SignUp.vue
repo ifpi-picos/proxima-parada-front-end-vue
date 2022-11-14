@@ -17,7 +17,7 @@
         height="6"
       >
       </v-progress-linear>
-      <v-form @submit.prevent="auht" v-model="valid">
+      <v-form @submit.prevent="auhtUser" v-model="valid">
         <v-text-field
           prepend-icon="perm_identity"
           name="name"
@@ -128,10 +128,10 @@ export default {
     };
   },
   methods: {
-    async auht() {
+    async auhtUser() {
       this.loading = true;
       try {
-        const res = await Auth.signup(this.userData);
+        const res = await Auth.signupUser(this.userData);
         if (res.status == 200) {
           this.loading = false;
 
@@ -141,10 +141,7 @@ export default {
             JSON.stringify({ name, email, occupation })
           );
 
-          this.$router.push({
-            name: "HomeView",
-            query: { usuario: res.data["name"] },
-          });
+          this.$router.push({ name: "HomeView" });
         }
       } catch (error) {
         const response = error.response;
