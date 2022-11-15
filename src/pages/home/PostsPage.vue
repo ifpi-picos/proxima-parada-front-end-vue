@@ -40,7 +40,7 @@
               :type="alertType"
               >{{ alertMessage }}</v-alert
             >
-            <v-form @submit.prevent="post" v-model="valid">
+            <v-form @submit.prevent="postForm" v-model="valid">
               <v-container>
                 <v-row>
                   <v-col>
@@ -52,55 +52,57 @@
                       <h2>De onde estou Saindo</h2>
 
                       <v-text-field
-                        ref="address"
-                        v-model="address"
-                        :rules="[() => !!address || 'Esse Campo e Obrigatorio']"
+                        v-model="publication.origin_district"
+                        :rules="[rules.required]"
                         label="Nome do Bairro"
                         placeholder="Bairro Junco "
                       />
 
                       <v-text-field
-                        ref="address"
-                        :rules="[() => !!address || 'Esse Campo e Obrigatorio']"
+                        v-model="publication.origin_road"
+                        :rules="[rules.required]"
                         label="Nome da Rua "
-                        placeholder="Rua do pcc "
+                        placeholder="Rua do pcc"
                       />
 
                       <v-text-field
-                        label="Número da Casa "
+                        v-model="publication.origin_number"
                         placeholder="288"
                         type="number"
                       />
 
                       <v-text-field
-                        v-model="time"
+                        v-model="publication.departure_date"
                         label="Digite o Dia Mes e Ano "
                         placeholder=" 01/02/2022"
                         type="date"
                       />
 
-                      <v-text-field
+                      <!-- <v-text-field
                         v-model="time"
                         label="Digite a hora da Saída"
                         placeholder=" 12:00"
                         type="time"
-                      />
+                      /> -->
                     </v-card-text>
 
                     <v-card-text>
                       <h2>Pra onde vou</h2>
                       <v-text-field
                         ref="address"
+                        v-model="publication.destination_district"
                         label="Digite o nome do Bairro "
                         placeholder="Bairro pantanal"
                       />
 
                       <v-text-field
+                        v-model="publication.destination_road"
                         label="Digite o nome da rua "
                         placeholder="Qudra 04 "
                       />
 
                       <v-text-field
+                        v-model="publication.destination_number"
                         type="number"
                         label="Digite o numero da casa"
                         placeholder=" 265 "
@@ -116,12 +118,6 @@
                       />
 
                       <v-text-field label="informe a Cor de Seu Veículo" />
-
-                      <v-text-field
-                        type="text"
-                        label="Digite os numeros da placa de seu veículo"
-                        placeholder="xxx-xxxx"
-                      />
 
                       <h2>Modalidade da carona</h2>
                       <v-select
@@ -173,7 +169,9 @@
               <v-container>
                 <v-row>
                   <v-col cols="12" md="6" sm="6" xm="6">
-                    <v-btn color="primary" block type="submit"> Salvar Carona </v-btn>
+                    <v-btn color="primary" block type="submit">
+                      Salvar Carona
+                    </v-btn>
                   </v-col>
                   <v-col cols="12" md="6" sm="6" xm="6">
                     <v-btn
@@ -196,6 +194,8 @@
 </template>
 
 <script>
+import User from "../../services/user";
+
 export default {
   data() {
     return {
@@ -237,24 +237,53 @@ export default {
           driver: "Pedro",
         },
       ],
+      publications: [],
+      publication: {
+        id_user: "1",
+        origin_city: "Picos",
+        origin_district: "",
+        origin_road: "",
+        origin_number: "",
+        origin_longitude: "0000",
+        origin_latitude: "0000",
+        departure_date: "",
+        destination_city: "Picos",
+        destination_district: "",
+        destination_road: "",
+        destination_number: "",
+        destination_longitude: "0000",
+        destination_latitude: "0000",
+        regular: false,
+        vacancies: "há vagas",
+        modality: "Livre",
+      },
+      userData: {
+        id: "1",
+        Vehicle: [{ id_user: "", avatar: "", brand: "", model: "" }],
+        StatusRequest: [{ id_user: "" }],
+      },
       dialogNewPost: false,
       rules: {
         required: (value) => !!value || "Obrigatório.",
-        min: (value) => value.length >= 6 || "Mínimo 6 caracteres",
-        minPhone: (value) => value.length >= 16 || "Mínimo 16 caracteres",
-        email: (value) => {
-          const pattern =
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          return pattern.test(value) || "E-mail inválido.";
-        },
-        matchPassword: () =>
-          this.userData.password === this.userData.samePasswords ||
-          `Senhas diferentes`,
       },
     };
   },
-  methods: {},
-  created() {},
+  methods: {
+    async postForm() {
+      this.publication.id_user = this.userData.id;
+      try {
+        const res = await User.createNewPost(this.publication);
+        console.log(res);
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    },
+  },
+  created() {
+    if (sessionStorage.getItem("userLocal")) {
+      this.userData = JSON.parse(sessionStorage.getItem("userLocal"));
+    }
+  },
   watch: {},
 };
 </script>

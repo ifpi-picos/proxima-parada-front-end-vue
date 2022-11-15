@@ -25,4 +25,11 @@ export default {
     return http.post("/statusRequest/" + id_user);
   },
 
+  createNewPost: (postData) => {
+    return http.post("/publications", postData);
+  },
+
+  getAllPosts: () => {
+    return http.get("/publications");
+  },
 };
