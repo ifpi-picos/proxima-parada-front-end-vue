@@ -1,11 +1,24 @@
 import { http } from "./config";
 
 export default {
-  signin: (userAuth) => {
-    return http.post("/sessions", userAuth);
+  signinUser: (userAuth) => {
+    return http.post("/user/session", userAuth);
   },
 
-  signup: (userData) => {
+  signinAdmin: (adminAuth) => {
+    return http.post("/admin/session", adminAuth);
+  },
+
+
+  signupUser: (userData) => {
     return http.post("/users", userData);
+  },
+
+  logout: () => {
+    return http.post("/sessions/logout");
+  },
+
+  resume: () => {
+    return http.post("/sessions/resume");
   },
 };

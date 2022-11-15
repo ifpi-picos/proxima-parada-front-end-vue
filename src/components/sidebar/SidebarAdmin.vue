@@ -43,6 +43,11 @@ export default {
           icon: "groups",
         },
         {
+          href: "requisitions",
+          title: "Requisições",
+          icon: "add_to_home_screen",
+        },
+        {
           href: "profile-admin",
           title: "Perfil",
           icon: "account_box",

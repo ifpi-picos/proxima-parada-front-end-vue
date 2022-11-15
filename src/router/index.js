@@ -1,13 +1,9 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: "*",
-    redirect: { name: "feed" },
-  },
   {
     path: "/",
     name: "authMain",
@@ -18,10 +14,6 @@ const routes = [
     name: "home",
     component: () => import("../layouts/HomeLayout.vue"),
     children: [
-      {
-        path: "*",
-        redirect: { name: "feed" },
-      },
       {
         path: "",
         redirect: { name: "feed" },
@@ -36,6 +28,11 @@ const routes = [
         name: "profile",
         component: () => import("../pages/home/ProfilePage.vue"),
       },
+      {
+        path: "ride",
+        name: "ride",
+        component: () => import("../pages/home/PostsPage.vue"),
+      },
     ],
   },
   {
@@ -43,10 +40,6 @@ const routes = [
     name: "admin",
     component: () => import("../layouts/AdminLayout.vue"),
     children: [
-      {
-        path: "*",
-        redirect: { name: "dashboard" },
-      },
       {
         path: "",
         redirect: { name: "dashboard" },
@@ -62,6 +55,11 @@ const routes = [
         component: () => import("../pages/admin/UsersPage.vue"),
       },
       {
+        path: "requisitions",
+        name: "requisitions",
+        component: () => import("../pages/admin/RequisitionsPage.vue"),
+      },
+      {
         path: "profile-admin",
         name: "profile-admin",
         component: () => import("../pages/admin/ProfileAdminPage.vue"),
@@ -72,7 +70,7 @@ const routes = [
 
 const router = new VueRouter({
   mode: "history",
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
