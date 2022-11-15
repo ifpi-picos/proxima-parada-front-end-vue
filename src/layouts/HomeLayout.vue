@@ -39,15 +39,6 @@
                 <v-list-item-title>Caronas</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            
-            <v-list-item  :to="{ name: 'dashboard' }">
-              <v-list-item-action>
-                <v-icon light>dashboard</v-icon>
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title>Area do Admin</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
           </template>
         </v-list-item-group>
       </v-list>

@@ -32,4 +32,8 @@ export default {
   getAllPosts: () => {
     return http.get("/publications");
   },
+
+  getAllPostsByIdUser: (idUser) => {
+    return http.get("/users/publications/" + idUser);
+  },
 };

@@ -1,8 +1,31 @@
 <template>
   <v-container fluid>
+    <v-progress-linear
+      :active="loading"
+      :indeterminate="loading"
+      absolute
+      top
+      height="6"
+    >
+    </v-progress-linear>
+    <v-alert
+      :value="erroAlert"
+      color="red"
+      elevation="3"
+      outlined
+      type="warning"
+      >{{ messageError }}</v-alert
+    >
     <v-row dense>
-      <v-col v-for="(publication, index) in publications" :key="index" cols="12" sm="6" md="4" lg="3">
-        <v-card>
+      <v-col
+        v-for="(publication, index) in publications"
+        :key="index"
+        cols="12"
+        sm="6"
+        md="4"
+        lg="3"
+      >
+        <v-card color="#67f5ffb2">
           <v-container>
             <v-row>
               <v-col cols="9" class="pb-0 pt-0">
@@ -64,15 +87,6 @@
           </v-container>
         </v-card>
       </v-col>
-      <!-- <v-col v-for="(item, i) in items" :key="i" cols="12" sm="6" md="4" lg="3">
-        <v-card :color="item.color" dark>
-          <v-card-title class="text-h5" v-text="item.bairro"></v-card-title>
-          <v-card-subtitle v-text="item.driver"></v-card-subtitle>
-          <v-card-actions>
-            <v-btn outlined small> Conversar com o motorista </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col> -->
     </v-row>
   </v-container>
 </template>
@@ -82,46 +96,9 @@ import User from "@/services/user";
 export default {
   data: () => ({
     publications: [],
-
-    items: [
-      {
-        color: "#a8a8a8",
-        src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
-        bairro: "Centro",
-        driver: "Afonso",
-      },
-      {
-        color: "#a8a8a8",
-        src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
-        bairro: "Pantanal",
-        driver: "Roberto",
-      },
-      {
-        color: "#a8a8a8",
-        src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
-        bairro: "Balao",
-        driver: "CArlos",
-      },
-      {
-        color: "#a8a8a8",
-        src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
-        bairro: "Morrinhos",
-        driver: "Amanda",
-      },
-      {
-        color: "#a8a8a8",
-        src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
-        bairro: "Catavento",
-        driver: "Maria",
-      },
-      {
-        color: "#a8a8a8",
-        src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
-        bairro: "Cohab",
-        driver: "Pedro",
-      },
-    ],
-
+    messageError: "Erro ao conectar-se ao banco de dados!",
+    loading: false,
+    erroAlert: false,
     userData: {
       id: "1",
       Vehicle: [{ id_user: "", avatar: "", brand: "", model: "" }],
@@ -130,10 +107,16 @@ export default {
   }),
   methods: {
     async getAllPosts() {
+      this.loading = true;
       try {
         const res = await User.getAllPosts();
         this.publications = res.data;
+        this.loading = false;
       } catch (error) {
+        this.erroAlert = true;
+        this.loading = false;
+        this.messageError = error.response.data.message;
+        this.loading = false;
         console.log(error.response.message);
       }
     },
