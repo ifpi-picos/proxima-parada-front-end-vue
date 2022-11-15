@@ -22,20 +22,20 @@
         :key="index"
         cols="12"
         sm="6"
-        md="4"
-        lg="3"
+        md="6"
+        lg="4"
+        xl="4"
       >
-        <v-card color="#67f5ffb2">
+        <v-card elevation="6" min-width="360px">
           <v-container>
             <v-row>
-              <v-col cols="9" class="pb-0 pt-0">
-                <v-card-title
-                  class="text-h5"
-                  v-text="publication.User.name"
-                ></v-card-title>
-                <v-card-subtitle
-                  v-text="publication.User.occupation"
-                ></v-card-subtitle>
+              <v-col cols="9" class="column-header">
+                <v-card-title class="text-title">
+                  {{ publication.User.name }}
+                </v-card-title>
+                <v-card-subtitle class="text-subtitle">
+                  {{ publication.User.occupation }}
+                </v-card-subtitle>
               </v-col>
               <v-col cols="3" class="d-flex justify-center align-center pa-0">
                 <v-avatar size="70px">
@@ -43,45 +43,45 @@
                 </v-avatar>
               </v-col>
             </v-row>
-            <v-divider></v-divider>
-            <v-row>
-              <v-col cols="6">
-                <v-card-title>Origem</v-card-title>
-                <v-card-text>
-                  <p>
-                    {{ publication.OriginAddress.city }} -
-                    {{ publication.OriginAddress.district }}
-                  </p>
-                  <p>
-                    {{ publication.OriginAddress.road }} -
-                    {{ publication.OriginAddress.number }}
-                  </p>
+            <v-divider class="mt-3"></v-divider>
+            <v-row class="mt-0 mb-0">
+              <v-col cols="6" class="pa-0 ma-0">
+                <v-card-title class="text-title">Origem</v-card-title>
+                <v-card-text class="text-content">
+                  <p>Cidade: {{ publication.OriginAddress.city }}</p>
+                  <p>Bairro: {{ publication.OriginAddress.district }}</p>
+                  <p>Rua: {{ publication.OriginAddress.road }}</p>
+                  <p>Nº: {{ publication.OriginAddress.number }}</p>
                 </v-card-text>
               </v-col>
-              <v-col cols="6">
-                <v-card-title>Destino</v-card-title>
-                <v-card-text>
-                  <p>
-                    {{ publication.DestinationAddress.city }} -
-                    {{ publication.DestinationAddress.district }}
-                  </p>
-                  <p>
-                    {{ publication.DestinationAddress.road }} -
-                    {{ publication.DestinationAddress.number }}
-                  </p>
+              <v-divider vertical class="mt-2"></v-divider>
+              <v-col cols="6" class="pa-0 ma-0">
+                <v-card-title class="text-title">Destino</v-card-title>
+                <v-card-text class="text-content">
+                  <p>Cidade: {{ publication.DestinationAddress.city }}</p>
+                  <p>Bairro: {{ publication.DestinationAddress.district }}</p>
+                  <p>Rua: {{ publication.DestinationAddress.road }}</p>
+                  <p>Nº: {{ publication.DestinationAddress.number }}</p>
                 </v-card-text>
               </v-col>
             </v-row>
-            <v-divider></v-divider>
-            <v-row>
-              <v-card-text>
+            <v-divider class="mt-2"></v-divider>
+            <v-row class="mt-0 mb-0">
+              <v-card-text class="text-content">
                 <p>Hora de saida - {{ publication.departure_date }}</p>
-                <p>Disponibilidade - {{ publication.vacancies }}</p>
+                <p>Modalidade - {{ publication.modality }}</p>
               </v-card-text>
             </v-row>
             <v-row>
               <v-card-actions>
-                <v-btn outlined small> Conversar com o motorista </v-btn>
+                <v-btn
+                  color="blue darken-2"
+                  elevation="2"
+                  outlined
+                  rounded
+                >
+                  Conversar com o motorista
+                </v-btn>
               </v-card-actions>
             </v-row>
           </v-container>
@@ -129,9 +129,47 @@ export default {
   },
 };
 </script>
-<style>
-.border {
+<style lang="scss" scoped>
+.border-red {
   border: 1px solid red;
+}
+
+.border-black {
+  border: 1px solid black;
+}
+
+.border-blue {
+  border: 1px solid blue;
+}
+
+
+.column-header {
+  padding: 0;
+  min-height: 80px;
+}
+
+.text-title {
+  margin: 5px 5px 5px 16px;
+  padding: 0;
+  font-size: 1.5rem !important;
+  font-weight: 400;
+}
+
+.text-content {
+  margin: 5px 5px 5px 16px;
+  padding: 0;
+  width: auto;
+  font-size: 1rem !important;
+}
+
+.text-content p {
+  margin-bottom: 2px;
+}
+
+.text-subtitle {
+  margin: 5px 5px 5px 16px;
+  padding: 0;
+  font-size: 1.2rem !important;
 }
 
 .container {

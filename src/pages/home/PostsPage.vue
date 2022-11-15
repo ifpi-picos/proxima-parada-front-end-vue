@@ -9,12 +9,20 @@
     >
     </v-progress-linear>
     <v-alert
-      :value="erroAlert"
+      :value="alertError"
       color="red"
       elevation="3"
       outlined
       type="warning"
-      >{{ messageError }}</v-alert
+      >{{ alertMessage }}</v-alert
+    >
+    <v-alert
+      :value="alertSuccess"
+      color="green"
+      elevation="3"
+      outlined
+      type="success"
+      >{{ alertMessage }}</v-alert
     >
     <v-hover v-slot:default="{ hover }" open-delay="200">
       <v-btn
@@ -37,49 +45,66 @@
         :key="index"
         cols="12"
         sm="6"
-        md="4"
-        lg="3"
+        md="6"
+        lg="4"
+        xl="4"
       >
-        <v-card color="#67f5ffb2">
+        <v-card elevation="6" min-width="360px">
           <v-container>
             <v-row>
-              <v-col cols="6">
-                <v-card-title>Origem</v-card-title>
-                <v-card-text>
-                  <p>
-                    {{ publication.OriginAddress.city }} -
-                    {{ publication.OriginAddress.district }}
-                  </p>
-                  <p>
-                    {{ publication.OriginAddress.road }} -
-                    {{ publication.OriginAddress.number }}
-                  </p>
+              <v-card-title class="text-title text-h5">
+                Informacções da carona
+              </v-card-title>
+            </v-row>
+            <v-divider class="mt-3"></v-divider>
+            <v-row class="mt-0 mb-0">
+              <v-col cols="6" class="pa-0 ma-0">
+                <v-card-title class="text-title">Origem</v-card-title>
+                <v-card-text class="text-content">
+                  <p>Cidade: {{ publication.OriginAddress.city }}</p>
+                  <p>Bairro: {{ publication.OriginAddress.district }}</p>
+                  <p>Rua: {{ publication.OriginAddress.road }}</p>
+                  <p>Nº: {{ publication.OriginAddress.number }}</p>
                 </v-card-text>
               </v-col>
-              <v-col cols="6">
-                <v-card-title>Destino</v-card-title>
-                <v-card-text>
-                  <p>
-                    {{ publication.DestinationAddress.city }} -
-                    {{ publication.DestinationAddress.district }}
-                  </p>
-                  <p>
-                    {{ publication.DestinationAddress.road }} -
-                    {{ publication.DestinationAddress.number }}
-                  </p>
+              <v-divider vertical class="mt-2"></v-divider>
+              <v-col cols="6" class="pa-0 ma-0">
+                <v-card-title class="text-title">Destino</v-card-title>
+                <v-card-text class="text-content">
+                  <p>Cidade: {{ publication.DestinationAddress.city }}</p>
+                  <p>Bairro: {{ publication.DestinationAddress.district }}</p>
+                  <p>Rua: {{ publication.DestinationAddress.road }}</p>
+                  <p>Nº: {{ publication.DestinationAddress.number }}</p>
                 </v-card-text>
               </v-col>
             </v-row>
-            <v-divider></v-divider>
-            <v-row>
-              <v-card-text>
+            <v-divider class="mt-2"></v-divider>
+            <v-row class="mt-0 mb-0">
+              <v-card-text class="text-content">
                 <p>Hora de saida - {{ publication.departure_date }}</p>
-                <p>Disponibilidade - {{ publication.vacancies }}</p>
+                <p>Modalidade - {{ publication.modality }}</p>
               </v-card-text>
             </v-row>
             <v-row>
               <v-card-actions>
-                <v-btn outlined small> Conversar com o motorista </v-btn>
+                <v-btn
+                  color="blue darken-2"
+                  block
+                  elevation="2"
+                  outlined
+                  rounded
+                >
+                  Editar
+                </v-btn>
+                <v-btn
+                  color="red darken-2"
+                  block
+                  elevation="2"
+                  outlined
+                  rounded
+                >
+                  Encerrar
+                </v-btn>
               </v-card-actions>
             </v-row>
           </v-container>
@@ -91,15 +116,7 @@
       <v-dialog v-model="dialogNewPost" persistent max-width="450px" scrollable>
         <v-col>
           <v-card>
-            <v-alert
-              :value="false"
-              color="red"
-              elevation="3"
-              outlined
-              :type="alertType"
-              >{{ alertMessage }}</v-alert
-            >
-            <v-form @submit.prevent="postForm" v-model="valid">
+            <v-form @submit.prevent="postForm">
               <v-container>
                 <v-row>
                   <v-col>
@@ -135,12 +152,12 @@
                         type="number"
                       />
 
-                      <v-text-field
+                     <!--  <v-text-field
                         v-model="publication.departure_date"
                         :rules="[rules.required]"
                         label="Digite o Dia Mes e Ano "
                         type="date"
-                      />
+                      /> -->
                     </v-card-text>
 
                     <v-card-text>
@@ -186,7 +203,13 @@
               <v-container>
                 <v-row>
                   <v-col cols="12" md="6" sm="6" xm="6">
-                    <v-btn color="primary" block type="submit">
+                    <v-btn
+                      :loading="saveLoading"
+                      :disabled="saveLoading"
+                      color="primary"
+                      block
+                      type="submit"
+                    >
                       Salvar Carona
                     </v-btn>
                   </v-col>
@@ -217,21 +240,16 @@ export default {
   data() {
     return {
       modalidade: ["Livre", "Contribuitiva"],
-
       publications: [],
-      messageError: "Erro ao conectar-se ao banco de dados!",
-      loading: false,
-      erroAlert: false,
       publication: {
         id_user: "1",
-        origin_city: "Picos",
+        origin_city: "",
         origin_district: "",
         origin_road: "",
         origin_number: "",
         origin_longitude: "0000",
         origin_latitude: "0000",
-        departure_date: "",
-        destination_city: "Picos",
+        destination_city: "",
         destination_district: "",
         destination_road: "",
         destination_number: "",
@@ -246,7 +264,13 @@ export default {
         Vehicle: [{ id_user: "", avatar: "", brand: "", model: "" }],
         StatusRequest: [{ id_user: "" }],
       },
+      alertMessage: "Erro ao conectar-se ao banco de dados!",
       dialogNewPost: false,
+      saveLoading: false,
+      alertError: false,
+      alertSuccess: false,
+      loading: false,
+      loader: null,
       rules: {
         required: (value) => !!value || "Obrigatório.",
       },
@@ -254,12 +278,20 @@ export default {
   },
   methods: {
     async postForm() {
+      this.saveLoading = true;
+      this.loader = this.saveLoading;
       this.publication.id_user = this.userData.id;
       try {
+        // eslint-disable-next-line no-unused-vars
         const res = await User.createNewPost(this.publication);
-        console.log(res);
+        this.loader = null;
+        this.dialogNewPost = false;
+        this.showSuccessAlert(true, "Carona criada com Sucesso.");
       } catch (error) {
-        console.log(error.response.data);
+        this.loader = null;
+        console.log(error.response);
+        this.dialogNewPost = false;
+        this.showErrorAlert(true, error.response.data.message);
       }
     },
     async getAllPosts(idUser) {
@@ -271,16 +303,34 @@ export default {
       } catch (error) {
         this.erroAlert = true;
         this.loading = false;
-        this.messageError = error.response.data.message;
+        this.messageError = error.response.message;
         this.loading = false;
         console.log(error.response.message);
       }
+    },
+
+    showErrorAlert(status, message) {
+      this.alertError = status;
+      this.alertMessage = message;
+    },
+
+    showSuccessAlert(status, message) {
+      this.alertMessage = message;
+      this.alertSuccess = status;
+      setTimeout(() => {
+        this.finishiProcess();
+      }, 3000);
+    },
+
+    finishiProcess() {
+      this.alertSuccess = false;
+      this.$router.go();
     },
   },
   created() {
     if (sessionStorage.getItem("userLocal")) {
       this.userData = JSON.parse(sessionStorage.getItem("userLocal"));
-      this.getAllPosts(this.userData.id)
+      this.getAllPosts(this.userData.id);
     }
   },
   watch: {},
@@ -296,5 +346,60 @@ export default {
   position: fixed;
   bottom: 16px;
   right: 16px;
+}
+
+.text-title {
+  margin: 5px 5px 5px 16px;
+  padding: 0;
+  font-size: 1.5rem !important;
+  font-weight: 400;
+}
+
+.text-content {
+  margin: 5px 5px 5px 16px;
+  padding: 0;
+  width: auto;
+  font-size: 1rem !important;
+}
+
+.text-content p {
+  margin-bottom: 2px;
+}
+
+.custom-loader {
+  animation: loader 1s infinite;
+  display: flex;
+}
+@-moz-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>

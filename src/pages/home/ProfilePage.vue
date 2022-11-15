@@ -97,6 +97,10 @@
                     ><b>Veículo:</b> Nenhum veículo cadastrado</span
                   >
                 </v-card-subtitle>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
                 <v-card-actions v-if="userData.Vehicle[0].id" class="pa-0 mt-2">
                   <v-btn
                     v-if="!userData.StatusRequest[0].id"
@@ -173,7 +177,7 @@
               type="success"
               >{{ alertMessage }}</v-alert
             >
-            <v-form @submit.prevent="userForm" v-model="valid">
+            <v-form @submit.prevent="userForm">
               <v-container>
                 <v-row>
                   <v-col>
@@ -248,7 +252,7 @@
 
     <v-row justify="center">
       <v-dialog v-model="dialogCar" persistent max-width="400px" scrollable>
-        <v-col cols="12" xm="12" sm="16" md="16" lg="25">
+        <v-col>
           <v-card>
             <v-alert
               :value="alertSuccess"
@@ -261,7 +265,7 @@
             <v-form @submit.prevent="carForm" v-model="valid">
               <v-container>
                 <v-row>
-                  <v-col cols="12" md="5">
+                  <v-col>
                     <v-row class="pa-2" align="center" justify="center">
                       <v-avatar size="190px" tile>
                         <v-img v-if="vehicleAvatar" :src="vehicleAvatar" />
@@ -282,8 +286,6 @@
                         >Escolher Imagen</v-btn
                       >
                     </v-row>
-                  </v-col>
-                  <v-col cols="12" md="7">
                     <v-text-field
                       name="brand"
                       label="Marca"
@@ -371,7 +373,6 @@
 </template>
 
 <script>
-
 import User from "../../services/user";
 
 export default {
@@ -432,9 +433,10 @@ export default {
       //formData.append("id", this.userData.id);
       formData.append("userAvatarFileName", this.userFile);
       try {
-        const res = await User.uploadImage(formData);
+        // eslint-disable-next-line no-unused-vars
+        const res = await User.uploadImageUser(formData);
         this.setItemLocalStorage(res.data);
-        //console.log(res.data);
+        console.log(res.data);
         this.finishLoading();
         this.showSuccessAlert(true, "Image salva com Sucesso!!!");
       } catch (error) {
@@ -509,7 +511,7 @@ export default {
         const res = await User.createNewStatusRequest(this.userData.id);
         this.userData.StatusRequest[0] = res.data;
         this.setItemLocalStorage(this.userData);
-        this.dialogDriver = false
+        this.dialogDriver = false;
         this.showSuccessAlert(true, "Requisição solicitada com Sucesso.");
       } catch (error) {
         this.finishLoading();
@@ -568,7 +570,7 @@ export default {
       /* if (!this.userData.phone_number) {
         this.userData.phone_number = " ";
       } */
-      console.log("testand o user loca no Profile: ", this.userData);
+      //console.log("testand o user loca no Profile: ", this.userData);
     },
 
     setItemLocalStorage(data) {
