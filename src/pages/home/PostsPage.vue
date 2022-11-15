@@ -324,7 +324,7 @@ export default {
 
     finishiProcess() {
       this.alertSuccess = false;
-      this.$router.go();
+      //this.$router.go();
     },
   },
   created() {

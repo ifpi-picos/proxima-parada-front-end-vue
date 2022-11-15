@@ -256,7 +256,7 @@ export default {
         const res = await Admin.updateStatusRequest(data);
         console.log(res);
         this.statusLoading = false;
-        this.$router.go();
+        //this.$router.go();
       } catch (error) {
         //const response = error.response;
         this.statusLoading = false;
