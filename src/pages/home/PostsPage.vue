@@ -39,6 +39,23 @@
       </v-btn>
     </v-hover>
 
+    <v-card>
+      <h2>Card-01</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus assumenda consectetur corrupti numquam, eligendi consequatur! Repellendus quas necessitatibus praesentium non et amet dicta aperiam dolorem, ullam neque. Placeat, suscipit voluptates.</p>
+    </v-card>
+
+    <v-card>
+      <h2>Card-02</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus assumenda consectetur corrupti numquam, eligendi consequatur! Repellendus quas necessitatibus praesentium non et amet dicta aperiam dolorem, ullam neque. Placeat, suscipit voluptates.</p>
+    </v-card>
+
+    <v-card>
+      <h2>Card-03</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus assumenda consectetur corrupti numquam, eligendi consequatur! Repellendus quas necessitatibus praesentium non et amet dicta aperiam dolorem, ullam neque. Placeat, suscipit voluptates.</p>
+    </v-card>
+    
+    
+
     <v-row dense>
       <v-col
         v-for="(publication, index) in publications"
