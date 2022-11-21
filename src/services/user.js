@@ -17,6 +17,10 @@ export default {
     return http.post("/vehicles", carData);
   },
 
+  updateVehicle: (carData) => {
+    return http.put("/vehicles/" + carData.id_user, carData);
+  },
+
   uploadImageCar: (id, file) => {
     return http.patch("/vehicles/avatar/" + id, file);
   },

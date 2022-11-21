@@ -149,14 +149,11 @@
                 </v-btn>
               </v-col>
               <v-col cols="12" md="6">
-                <v-btn
-                  :disabled="userData.Vehicle[0].id != false"
-                  color="primary"
-                  block
-                  outlined
-                  @click="dialogCar = true"
-                >
-                  Cadastrar veiculo
+                <v-btn color="primary" block outlined @click="dialogCar = true">
+                  <span v-if="userData.Vehicle[0].id == false"
+                    >Cadastrar veiculo</span
+                  >
+                  <span v-else>Editar veiculo</span>
                 </v-btn>
               </v-col>
             </v-row>
@@ -183,7 +180,6 @@
                   <v-col>
                     <v-text-field
                       prepend-icon="perm_identity"
-                      name="name"
                       label="Nome Completo"
                       type="text"
                       :rules="[rules.required]"
@@ -192,7 +188,6 @@
 
                     <v-select
                       prepend-icon="work_outline"
-                      name="occupation"
                       label="Ocupação no IFPI"
                       :items="items"
                       v-model="userData.occupation"
@@ -201,7 +196,6 @@
 
                     <v-text-field
                       prepend-icon="perm_device_information"
-                      name="phone_number"
                       label="Número de Whatsapp"
                       :rules="[rules.minPhone]"
                       v-mask="'(##) # ####-####'"
@@ -210,7 +204,6 @@
                     />
                     <v-text-field
                       prepend-icon="mail_outline"
-                      name="email"
                       label="E-mail"
                       type="text"
                       readonly
@@ -222,13 +215,7 @@
               <v-container>
                 <v-row>
                   <v-col cols="12" md="6">
-                    <v-btn
-                      :loading="updateLoading"
-                      :disabled="updateLoading"
-                      color="primary"
-                      block
-                      type="submit"
-                    >
+                    <v-btn :loading="updateLoading" color="primary" block>
                       Salvar
                     </v-btn>
                   </v-col>
@@ -251,9 +238,9 @@
     </v-row>
 
     <v-row justify="center">
-      <v-dialog v-model="dialogCar" persistent max-width="400px" scrollable>
+      <v-dialog v-model="dialogCar" persistent scrollable>
         <v-col>
-          <v-card>
+          <v-card min-width="360px">
             <v-alert
               :value="alertSuccess"
               color="green"
@@ -265,10 +252,13 @@
             <v-form @submit.prevent="carForm" v-model="valid">
               <v-container>
                 <v-row>
-                  <v-col>
+                  <v-col cols="12" xs="12" sm="12" md="4" lg="4">
                     <v-row class="pa-2" align="center" justify="center">
                       <v-avatar size="190px" tile>
-                        <v-img v-if="vehicleAvatar" :src="vehicleAvatar" />
+                        <v-img
+                          v-if="userData.Vehicle[0].avatar"
+                          :src="userData.Vehicle[0].avatar"
+                        />
                         <v-img
                           v-else
                           src="https://cdn-icons-png.flaticon.com/512/70/70310.png"
@@ -286,20 +276,65 @@
                         >Escolher Imagen</v-btn
                       >
                     </v-row>
-                    <v-text-field
-                      name="brand"
-                      label="Marca"
-                      type="text"
-                      :rules="[rules.required]"
-                      v-model="userData.Vehicle[0].brand"
-                    />
-
-                    <v-text-field
-                      name="model"
-                      label="Modelo"
-                      v-model="userData.Vehicle[0].model"
-                      :rules="[rules.required]"
-                    />
+                  </v-col>
+                  <v-col cols="12" xs="12" sm="12" md="8" lg="8">
+                    <v-row class="car-specification">
+                      <h1>Especificações do veículo</h1>
+                      <v-radio-group
+                        v-model="userData.Vehicle[0].vehicle_type"
+                        row
+                        class="car-radio-group"
+                      >
+                        <v-radio class="car-radio" value="Carro">
+                          <template v-slot:label>
+                            <div><p>Carro</p></div>
+                          </template>
+                        </v-radio>
+                        <v-radio class="car-radio" value="Moto">
+                          <template v-slot:label>
+                            <div><p>Moto</p></div>
+                          </template>
+                        </v-radio>
+                      </v-radio-group>
+                    </v-row>
+                    <v-row>
+                      <v-col cols="6">
+                        <v-text-field
+                          class="pt-0"
+                          label="Marca"
+                          type="text"
+                          :rules="[rules.required]"
+                          v-model="userData.Vehicle[0].brand"
+                        />
+                      </v-col>
+                      <v-col cols="6">
+                        <v-text-field
+                          class="pt-0"
+                          label="Modelo"
+                          v-model="userData.Vehicle[0].model"
+                          :rules="[rules.required]"
+                        />
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col cols="6">
+                        <v-text-field
+                          class="pt-0"
+                          label="Cor"
+                          type="text"
+                          :rules="[rules.required]"
+                          v-model="userData.Vehicle[0].vehicle_color"
+                        />
+                      </v-col>
+                      <v-col cols="6">
+                        <v-text-field
+                          class="pt-0"
+                          label="Placa"
+                          v-model="userData.Vehicle[0].license_plate"
+                          :rules="[rules.required]"
+                        />
+                      </v-col>
+                    </v-row>
                   </v-col>
                 </v-row>
               </v-container>
@@ -307,8 +342,8 @@
                 <v-row>
                   <v-col cols="12" md="6">
                     <v-btn
+                      :disabled="!valid"
                       :loading="newCarLoading"
-                      :disabled="newCarLoading"
                       color="primary"
                       block
                       type="submit"
@@ -383,8 +418,19 @@ export default {
       vehicleFile: "",
       userFileChanged: false,
       vehicleFileChanged: false,
+      vehicleType: "Carro",
       userData: {
-        Vehicle: [{ id_user: "", avatar: "", brand: "", model: "" }],
+        Vehicle: [
+          {
+            id_user: "",
+            avatar: "",
+            brand: "",
+            model: "",
+            vehicle_type: "Carro",
+            vehicle_color: "",
+            license_plate: "",
+          },
+        ],
         StatusRequest: [{ id_user: "" }],
       },
       vehicleAvatar: null,
@@ -424,7 +470,8 @@ export default {
     },
     onFileChangedCar(e) {
       this.vehicleFile = e.target.files[0];
-      this.vehicleAvatar = URL.createObjectURL(this.vehicleFile);
+      this.userData.Vehicle[0].avatar = URL.createObjectURL(this.vehicleFile);
+      this.vehicleFileChanged = true;
     },
 
     async uploadImageUser() {
@@ -466,7 +513,7 @@ export default {
       }
     },
 
-    async uploadImageCar() {
+    async uploadImageCar( message) {
       this.loading = true;
       let formData = new FormData();
       formData.append("vehicleAvatarFileName", this.vehicleFile);
@@ -478,7 +525,7 @@ export default {
         this.userData.Vehicle[0] = res.data;
         this.setItemLocalStorage(this.userData);
         this.finishLoading();
-        this.showSuccessAlert(true, "Veiculo cadastrado com Sucesso.");
+        this.showSuccessAlert(true, message);
       } catch (error) {
         this.finishLoading();
         this.showErrorAlert(true, error.response.data.message);
@@ -487,19 +534,50 @@ export default {
     },
 
     async carForm() {
-      this.newCarLoading = true;
-      this.loader = this.newCarLoading;
-      this.userData.Vehicle[0].id_user = this.userData.id;
-      try {
-        const res = await User.createNewVehicle(this.userData.Vehicle[0]);
-        //console.log(res.data);
-        this.userData.Vehicle[0] = res.data;
-        //console.log("Testando a resposta do carForm ", res.data);
-        this.uploadImageCar();
-      } catch (error) {
-        this.finishLoading();
-        this.showErrorAlert(true, error.response.data.message);
-        //console.log(response.data);
+      if (this.userData.Vehicle[0].id == false) {
+        //console.log("Cadastrando informações do carro");
+        this.newCarLoading = true;
+        this.loader = this.newCarLoading;
+        this.userData.Vehicle[0].id_user = this.userData.id;
+        try {
+          const res = await User.createNewVehicle(this.userData.Vehicle[0]);
+          //console.log(res.data);
+          this.userData.Vehicle[0] = res.data;
+          //console.log("Testando a resposta do carForm ", res.data);
+          if (this.vehicleFileChanged) {
+            this.uploadImageCar("Veiculo cadastrado com Sucesso.");
+          } else {
+            this.setItemLocalStorage(this.userData);
+            this.finishLoading();
+            this.showSuccessAlert(true, "Veiculo cadastrado com Sucesso.");
+          }
+        } catch (error) {
+          this.finishLoading();
+          this.showErrorAlert(true, error.response.data.message);
+          //console.log(response.data);
+        }
+      } else {
+        //console.log("Atualizando informações do carro");
+        this.newCarLoading = true;
+        this.loader = this.newCarLoading;
+        this.userData.Vehicle[0].id_user = this.userData.id;
+        try {
+          const res = await User.updateVehicle(this.userData.Vehicle[0]);
+          //console.log(res.data);
+          this.userData.Vehicle[0] = res.data;
+          //console.log("Testando a resposta do carForm ", res.data);
+          if (this.vehicleFileChanged) {
+            this.uploadImageCar("Veiculo alterado com Sucesso.");
+          } else {
+            this.setItemLocalStorage(this.userData);
+            this.finishLoading();
+            this.showSuccessAlert(true, "Veiculo alterado com Sucesso.");
+          }
+        } catch (error) {
+          this.finishLoading();
+          this.showErrorAlert(true, error.response.data.message);
+          //console.log(response.data);
+        }
       }
     },
 
@@ -558,6 +636,9 @@ export default {
           avatar: null,
           brand: "",
           model: "",
+          vehicle_type: "Carro",
+          vehicle_color: "",
+          license_plate: "",
         };
       }
       if (!this.userData.StatusRequest[0]) {
@@ -620,6 +701,29 @@ export default {
 
 .card-subtitle {
   font-size: 1.35em;
+}
+
+.car-specification h1 {
+  padding: 4px;
+  width: 100%;
+  text-align: center;
+}
+
+.car-radio-group {
+  padding: 4px;
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.car-radio {
+  padding: 12px;
+  width: 30%;
+}
+
+.car-radio p {
+  font-size: 1.5em;
+  margin-bottom: 0px;
 }
 
 .card-result {
