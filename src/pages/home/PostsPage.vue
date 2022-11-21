@@ -214,6 +214,15 @@
                         placeholder="Selecione a Modalidade da Carona"
                       />
                     </v-card-text>
+                    <v-card-text>
+                      <h2>Frequência dessa Carona ?</h2>
+                          <v-select
+                            :items="frequencia"
+                            v-model="frequencia"
+                           
+                          ></v-select>
+
+                    </v-card-text>
                   </v-col>
                 </v-row>
               </v-container>
@@ -257,6 +266,7 @@ export default {
   data() {
     return {
       modalidade: ["Livre", "Contribuitiva"],
+      frequencia:["Regular","Não-regular"],
       publications: [],
       publication: {
         id_user: "1",
