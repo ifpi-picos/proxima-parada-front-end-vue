@@ -39,24 +39,47 @@
       </v-btn>
     </v-hover>
 
-    <v-card>
+   <!--  <v-card>
       <h2>Card-01</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus assumenda consectetur corrupti numquam, eligendi consequatur! Repellendus quas necessitatibus praesentium non et amet dicta aperiam dolorem, ullam neque. Placeat, suscipit voluptates.</p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
+        assumenda consectetur corrupti numquam, eligendi consequatur!
+        Repellendus quas necessitatibus praesentium non et amet dicta aperiam
+        dolorem, ullam neque. Placeat, suscipit voluptates.
+      </p>
     </v-card>
 
     <v-card>
       <h2>Card-02</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus assumenda consectetur corrupti numquam, eligendi consequatur! Repellendus quas necessitatibus praesentium non et amet dicta aperiam dolorem, ullam neque. Placeat, suscipit voluptates.</p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
+        assumenda consectetur corrupti numquam, eligendi consequatur!
+        Repellendus quas necessitatibus praesentium non et amet dicta aperiam
+        dolorem, ullam neque. Placeat, suscipit voluptates.
+      </p>
     </v-card>
 
     <v-card>
       <h2>Card-03</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus assumenda consectetur corrupti numquam, eligendi consequatur! Repellendus quas necessitatibus praesentium non et amet dicta aperiam dolorem, ullam neque. Placeat, suscipit voluptates.</p>
-    </v-card>
-    
-    
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
+        assumenda consectetur corrupti numquam, eligendi consequatur!
+        Repellendus quas necessitatibus praesentium non et amet dicta aperiam
+        dolorem, ullam neque. Placeat, suscipit voluptates.
+      </p>
+    </v-card> -->
 
     <v-row dense>
+      <v-alert
+        :value="alertInfo"
+        color="blue"
+        width="100%"
+        elevation="3"
+        outlined
+        dismissible
+        type="info"
+        >Nenhuma carona encontrada</v-alert
+      >
       <v-col
         v-for="(publication, index) in publications"
         :key="index"
@@ -169,7 +192,7 @@
                         type="number"
                       />
 
-                     <!--  <v-text-field
+                      <!--  <v-text-field
                         v-model="publication.departure_date"
                         :rules="[rules.required]"
                         label="Digite o Dia Mes e Ano "
@@ -214,8 +237,6 @@
                         placeholder="Selecione a Modalidade da Carona"
                       />
                     </v-card-text>
-                    
-                    
                   </v-col>
                 </v-row>
               </v-container>
@@ -259,7 +280,7 @@ export default {
   data() {
     return {
       modalidade: ["Livre", "Contribuitiva"],
-      frequencia:["Regular","Não-regular"],
+      frequencia: ["Regular", "Não-regular"],
       publications: [],
       publication: {
         id_user: "1",
@@ -287,6 +308,7 @@ export default {
       alertMessage: "Erro ao conectar-se ao banco de dados!",
       dialogNewPost: false,
       saveLoading: false,
+      alertInfo: false,
       alertError: false,
       alertSuccess: false,
       loading: false,
@@ -318,14 +340,19 @@ export default {
       this.loading = true;
       try {
         const res = await User.getAllPostsByIdUser(idUser);
-        this.publications = res.data;
+        console.log(res);
+        if (res.data) {
+          this.alertInfo = true;
+        } else {
+          this.publications = res.data;
+        }
         this.loading = false;
       } catch (error) {
         this.erroAlert = true;
         this.loading = false;
-        this.messageError = error.response.message;
+        this.messageError = error.response.data.message;
         this.loading = false;
-        console.log(error.response.message);
+        console.log(error.response);
       }
     },
 

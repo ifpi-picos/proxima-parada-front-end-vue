@@ -9,14 +9,31 @@
     >
     </v-progress-linear>
     <v-alert
-      :value="erroAlert"
+      :value="alertError"
       color="red"
       elevation="3"
       outlined
       type="warning"
-      >{{ messageError }}</v-alert
+      >{{ alertMessage }}</v-alert
+    >
+    <v-alert
+      :value="alertSuccess"
+      color="green"
+      elevation="3"
+      outlined
+      type="success"
+      >{{ alertMessage }}</v-alert
     >
     <v-row dense>
+      <v-alert
+        :value="alertInfo"
+        color="blue"
+        width="100%"
+        elevation="3"
+        outlined
+        dismissible
+        type="info"
+        >Nenhuma Requisição não lida encontrada</v-alert>
       <v-col
         v-for="(requisition, i) in requisitions"
         :key="i"
@@ -214,7 +231,6 @@ import Admin from "../../services/admin";
 export default {
   data: () => ({
     requisitions: [],
-    messageError: "Erro ao conectar-se ao banco de dados!",
     dialogConfirmStatusRequest: false,
     selectedItem: {
       user: {
@@ -223,7 +239,10 @@ export default {
     },
     loading: false,
     statusLoading: false,
-    erroAlert: false,
+    alertInfo: false,
+    alertError: false,
+    alertSuccess: false,
+    alertMessage: "Erro ao conectar-se ao banco de dados!",
   }),
   methods: {
     async getAllStatusRequest() {
@@ -232,14 +251,14 @@ export default {
         // eslint-disable-next-line no-unused-vars
         const res = await Admin.getAllStatusRequest();
         console.log(res);
-        this.requisitions = res.data;
-        this.loading = false;
+        if (res.data.length == 0) {
+          this.alertInfo = true;
+        } else {
+          this.requisitions = res.data;
+        }
+        this.finishiProcess();
       } catch (error) {
-        //const response = error.response;
-        this.erroAlert = true;
-        this.loading = false;
-        this.messageError = error.response.data.message;
-
+        this.showErrorAlert(true, error.response.data.message);
         console.log(error.response.data);
       }
     },
@@ -256,11 +275,13 @@ export default {
         const res = await Admin.updateStatusRequest(data);
         console.log(res);
         this.statusLoading = false;
-        //this.$router.go();
+        this.dialogConfirmStatusRequest = false;
+        this.showSuccessAlert(true, "Requisição resapondida com sucesso.");
       } catch (error) {
         //const response = error.response;
         this.statusLoading = false;
-        this.messageError = error.response.data.message;
+        this.dialogConfirmStatusRequest = false;
+        this.showErrorAlert(true, error.response.data.message);
         console.log(error.response.data);
       }
     },
@@ -268,6 +289,28 @@ export default {
     openDialoStatusRequest(item) {
       this.dialogConfirmStatusRequest = true;
       this.selectedItem = item;
+    },
+
+    finishiProcess() {
+      this.loading = false;
+      this.alertError = false;
+      this.alertSuccess = false;
+    },
+
+    showErrorAlert(status, message) {
+      this.alertError = status;
+      this.alertMessage = message;
+      setTimeout(() => {
+        this.finishiProcess();
+      }, 3000);
+    },
+
+    showSuccessAlert(status, message) {
+      this.alertMessage = message;
+      this.alertSuccess = status;
+      setTimeout(() => {
+        this.finishiProcess();
+      }, 3000);
     },
   },
   created() {

@@ -17,6 +17,16 @@
       >{{ messageError }}</v-alert
     >
     <v-row dense>
+      <v-alert
+        :value="alertInfo"
+        color="blue"
+        width="100%"
+        elevation="3"
+        outlined
+        dismissible
+        type="info"
+        >Nenhuma carona encontrada</v-alert
+      >
       <v-col
         v-for="(publication, index) in publications"
         :key="index"
@@ -74,12 +84,7 @@
             </v-row>
             <v-row>
               <v-card-actions>
-                <v-btn
-                  color="blue darken-2"
-                  elevation="2"
-                  outlined
-                  rounded
-                >
+                <v-btn color="blue darken-2" elevation="2" outlined rounded>
                   Conversar com o motorista
                 </v-btn>
               </v-card-actions>
@@ -98,6 +103,8 @@ export default {
     publications: [],
     messageError: "Erro ao conectar-se ao banco de dados!",
     loading: false,
+
+    alertInfo: false,
     erroAlert: false,
     userData: {
       id: "1",
@@ -110,7 +117,11 @@ export default {
       this.loading = true;
       try {
         const res = await User.getAllPosts();
-        this.publications = res.data;
+        if (res.data.length == 0) {
+          this.alertInfo = true;
+        } else {
+          this.publications = res.data;
+        }
         this.loading = false;
       } catch (error) {
         this.erroAlert = true;
@@ -141,7 +152,6 @@ export default {
 .border-blue {
   border: 1px solid blue;
 }
-
 
 .column-header {
   padding: 0;
