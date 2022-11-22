@@ -39,36 +39,7 @@
       </v-btn>
     </v-hover>
 
-    <!--  <v-card>
-      <h2>Card-01</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
-        assumenda consectetur corrupti numquam, eligendi consequatur!
-        Repellendus quas necessitatibus praesentium non et amet dicta aperiam
-        dolorem, ullam neque. Placeat, suscipit voluptates.
-      </p>
-    </v-card>
-
-    <v-card>
-      <h2>Card-02</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
-        assumenda consectetur corrupti numquam, eligendi consequatur!
-        Repellendus quas necessitatibus praesentium non et amet dicta aperiam
-        dolorem, ullam neque. Placeat, suscipit voluptates.
-      </p>
-    </v-card>
-
-    <v-card>
-      <h2>Card-03</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
-        assumenda consectetur corrupti numquam, eligendi consequatur!
-        Repellendus quas necessitatibus praesentium non et amet dicta aperiam
-        dolorem, ullam neque. Placeat, suscipit voluptates.
-      </p>
-    </v-card> -->
-
+    
     <v-row dense>
       <v-alert
         :value="alertInfo"
@@ -89,7 +60,7 @@
         lg="4"
         xl="4"
       >
-        <v-card elevation="6" min-width="360px">
+        <v-card elevation="6" min-width="250px">
           <v-container>
             <v-row>
               <v-card-title class="text-title text-h5">
@@ -126,26 +97,11 @@
               </v-card-text>
             </v-row>
             <v-row>
-              <v-card-actions>
-                <v-btn
-                  color="blue darken-2"
-                  block
-                  elevation="2"
-                  outlined
-                  rounded
-                >
-                  Editar
-                </v-btn>
-                <v-btn
-                  color="red darken-2"
-                  block
-                  elevation="2"
-                  outlined
-                  rounded
-                >
-                  Encerrar
-                </v-btn>
-              </v-card-actions>
+              <!-- rounded -->
+              <v-btn color="blue darken-2" block elevation="2" outlined >Editar</v-btn>
+              <v-btn color="red darken-2" block elevation="2" outlined >Encerrar Carona</v-btn>
+              <v-btn color="red darken-2" block elevation="2"  outlined >Cancelar</v-btn>
+              
             </v-row>
           </v-container>
         </v-card>
@@ -309,7 +265,7 @@ export default {
   data() {
     return {
       modalidade: ["Livre", "Contribuitiva"],
-      publications: [],
+      publications: [{ id: "53e6e5ae-831b-45c3-b764-015548b288f8", id_user: "23b4add2-1f92-4b01-86b7-1c79f030f0b3", departure_date: "2022-11-19T00:00:00.000Z", departure_hour: "1970-01-01T02:30:15.183Z", origin_address: "713b476d-d0f4-4583-90ae-0c0646527cd8", destination_address: "cf82a641-92a0-401c-913a-b581e3c5d481", statusPublication: true, regular: false, vacancies: true, modality: "1 test modality",  OriginAddress: { "id": "713b476d-d0f4-4583-90ae-0c0646527cd8", city: "1 test origin city", "neighborhood": "1 test origin district", street: "1 test origin road", number: "1" }, DestinationAddress: { id: "cf82a641-92a0-401c-913a-b581e3c5d481", city: "1 test destination city", "neighborhood": "1 test destination district", "street": "1 test destination road", "number": "1" } },],
       publication: {
         id_user: "1",
         departure_date: "",
