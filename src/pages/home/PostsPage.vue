@@ -39,7 +39,7 @@
       </v-btn>
     </v-hover>
 
-   <!--  <v-card>
+    <!--  <v-card>
       <h2>Card-01</h2>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
@@ -156,7 +156,7 @@
       <v-dialog v-model="dialogNewPost" persistent max-width="450px" scrollable>
         <v-col>
           <v-card>
-            <v-form @submit.prevent="postForm">
+            <v-form @submit.prevent="postForm" v-model="valid">
               <v-container>
                 <v-row>
                   <v-col>
@@ -174,13 +174,13 @@
                       />
 
                       <v-text-field
-                        v-model="publication.origin_district"
+                        v-model="publication.origin_neighborhood"
                         :rules="[rules.required]"
                         label="Nome do Bairro"
                       />
 
                       <v-text-field
-                        v-model="publication.origin_road"
+                        v-model="publication.origin_street"
                         :rules="[rules.required]"
                         label="Nome da Rua "
                       />
@@ -192,12 +192,24 @@
                         type="number"
                       />
 
-                      <!--  <v-text-field
-                        v-model="publication.departure_date"
-                        :rules="[rules.required]"
-                        label="Digite o Dia Mes e Ano "
-                        type="date"
-                      /> -->
+                      <v-row>
+                        <v-col cols="6">
+                          <v-text-field
+                            v-model="publication.departure_date"
+                            :rules="[rules.required]"
+                            label="Data da carona"
+                            type="date"
+                          />
+                        </v-col>
+                        <!-- <v-col cols="6">
+                          <v-text-field
+                            v-model="publication.departure_hour"
+                            :rules="[rules.required]"
+                            label="Hora da carona"
+                            type="time"
+                          />
+                        </v-col> -->
+                      </v-row>
                     </v-card-text>
 
                     <v-card-text>
@@ -210,13 +222,13 @@
                       />
 
                       <v-text-field
-                        v-model="publication.destination_district"
+                        v-model="publication.destination_neighborhood"
                         :rules="[rules.required]"
                         label="Nome do Bairro"
                       />
 
                       <v-text-field
-                        v-model="publication.destination_road"
+                        v-model="publication.destination_street"
                         :rules="[rules.required]"
                         label="Nome da Rua"
                       />
@@ -231,11 +243,28 @@
 
                     <v-card-text>
                       <h2>Caracteristicas da carona</h2>
-                      <v-select
-                        v-model="publication.modality"
-                        :items="modalidade"
-                        placeholder="Selecione a Modalidade da Carona"
-                      />
+                      <v-row>
+                        <v-col cols="6">
+                          <v-select
+                            v-model="publication.modality"
+                            :items="modalidade"
+                            placeholder="Selecione a Modalidade da Carona"
+                          />
+                        </v-col>
+                        <v-col cols="6">
+                          <v-row class="regularity-group pa-0">
+                            <v-col class="regularity-label-col" cols="9">
+                              <span>Carona regular?: </span>
+                            </v-col>
+                            <v-col class="regularity-switch-col" cols="3">
+                              <v-switch
+                                class="regularity-switch"
+                                v-model="publication.regular"
+                              ></v-switch>
+                            </v-col>
+                          </v-row>
+                        </v-col>
+                      </v-row>
                     </v-card-text>
                   </v-col>
                 </v-row>
@@ -245,7 +274,7 @@
                   <v-col cols="12" md="6" sm="6" xm="6">
                     <v-btn
                       :loading="saveLoading"
-                      :disabled="saveLoading"
+                      :disabled="!valid"
                       color="primary"
                       block
                       type="submit"
@@ -280,24 +309,19 @@ export default {
   data() {
     return {
       modalidade: ["Livre", "Contribuitiva"],
-      frequencia: ["Regular", "Não-regular"],
       publications: [],
       publication: {
         id_user: "1",
+        departure_date: "",
         origin_city: "",
-        origin_district: "",
-        origin_road: "",
+        origin_neighborhood: "",
+        origin_street: "",
         origin_number: "",
-        origin_longitude: "0000",
-        origin_latitude: "0000",
         destination_city: "",
-        destination_district: "",
-        destination_road: "",
+        destination_neighborhood: "",
+        destination_street: "",
         destination_number: "",
-        destination_longitude: "0000",
-        destination_latitude: "0000",
         regular: false,
-        vacancies: "há vagas",
         modality: "Livre",
       },
       userData: {
@@ -313,6 +337,7 @@ export default {
       alertSuccess: false,
       loading: false,
       loader: null,
+      valid: false,
       rules: {
         required: (value) => !!value || "Obrigatório.",
       },
@@ -324,6 +349,8 @@ export default {
       this.loader = this.saveLoading;
       this.publication.id_user = this.userData.id;
       try {
+        
+        console.log(this.publication);
         // eslint-disable-next-line no-unused-vars
         const res = await User.createNewPost(this.publication);
         this.loader = null;
@@ -340,7 +367,7 @@ export default {
       this.loading = true;
       try {
         const res = await User.getAllPostsByIdUser(idUser);
-        console.log(res);
+        //console.log(res);
         if (res.data) {
           this.alertInfo = true;
         } else {
@@ -411,6 +438,39 @@ export default {
 
 .text-content p {
   margin-bottom: 2px;
+}
+
+.regularity-group {
+  margin-top: 22px;
+  padding: 0;
+}
+
+.regularity-group span {
+  font-size: 1.3em;
+}
+
+.regularity-label-col {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+.regularity-switch-col {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  min-height: 0;
+}
+
+.regularity-switch {
+  padding: 0;
+  margin: 0;
+  max-height: 24px;
+}
+
+.v-messages {
+  min-height: 0;
 }
 
 .custom-loader {
