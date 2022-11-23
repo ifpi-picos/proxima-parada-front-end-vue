@@ -121,7 +121,6 @@ export default {
           this.alertInfo = true;
         } else {
           this.publications = res.data;
-          console.log(res.data);
         }
         this.loading = false;
       } catch (error) {

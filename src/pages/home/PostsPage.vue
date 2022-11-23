@@ -346,16 +346,8 @@ export default {
       this.loader = this.saveLoading;
       this.publication.id_user = this.userData.id;
       try {
-        //console.log("1: ",this.publication);
-        /* this.publication.departure_date = new Date(
-          this.publication.departure_date
-        ).toLocaleString("en-US", {timeZone: "America/Recife"}); */
-        /* this.publication.departure_hour =
-          this.publication.departure_hour.toString(); */
-        console.log("2: ", this.publication);
         // eslint-disable-next-line no-unused-vars
         const res = await User.createNewPost(this.publication);
-        console.log(res.data);
         this.loader = null;
         this.dialogNewPost = false;
         this.showSuccessAlert(true, "Carona criada com Sucesso.");
