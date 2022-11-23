@@ -170,14 +170,7 @@
                             type="date"
                           />
                         </v-col>
-                        <!-- <v-col cols="6">
-                          <v-text-field
-                            v-model="publication.departure_hour"
-                            :rules="[rules.required]"
-                            label="Hora da carona"
-                            type="time"
-                          />
-                        </v-col> -->
+                        
                       </v-row>
                     </v-card-text>
 
@@ -479,26 +472,18 @@ export default {
   }
   
 }
-/* .button {
-  border:1px solid; 
-  padding: 11px 21px; 
-  vertical-align: middle; 
-  background:#2D888F; 
-  color:white;border-radius:6px; 
-  font-size: 20px; 
-  font-family:helvetica, serif;
-  text-decoration:none;
-} */
+
 .button{
   border:1px solid; 
   padding: 4px 16px; 
   vertical-align: middle; 
-  background:#2D888F; 
+  background:#4769f2; 
   color:white;border-radius:6px; 
   font-size: 18px; 
   font-family:helvetica, serif;
   text-decoration:none;
 }
 .floatLeft{float:left};
+a{ background: red;}
 
 </style>
