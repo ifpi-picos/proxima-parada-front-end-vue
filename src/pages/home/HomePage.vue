@@ -59,8 +59,8 @@
                 <v-card-title class="text-title">Origem</v-card-title>
                 <v-card-text class="text-content">
                   <p>Cidade: {{ publication.OriginAddress.city }}</p>
-                  <p>Bairro: {{ publication.OriginAddress.district }}</p>
-                  <p>Rua: {{ publication.OriginAddress.road }}</p>
+                  <p>Bairro: {{ publication.OriginAddress.neighborhood }}</p>
+                  <p>Rua: {{ publication.OriginAddress.street }}</p>
                   <p>Nº: {{ publication.OriginAddress.number }}</p>
                 </v-card-text>
               </v-col>
@@ -69,8 +69,8 @@
                 <v-card-title class="text-title">Destino</v-card-title>
                 <v-card-text class="text-content">
                   <p>Cidade: {{ publication.DestinationAddress.city }}</p>
-                  <p>Bairro: {{ publication.DestinationAddress.district }}</p>
-                  <p>Rua: {{ publication.DestinationAddress.road }}</p>
+                  <p>Bairro: {{ publication.DestinationAddress.neighborhood }}</p>
+                  <p>Rua: {{ publication.DestinationAddress.street }}</p>
                   <p>Nº: {{ publication.DestinationAddress.number }}</p>
                 </v-card-text>
               </v-col>
@@ -121,6 +121,7 @@ export default {
           this.alertInfo = true;
         } else {
           this.publications = res.data;
+          console.log(res.data);
         }
         this.loading = false;
       } catch (error) {

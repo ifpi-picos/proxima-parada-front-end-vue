@@ -102,8 +102,8 @@
                 <v-card-title class="text-title">Origem</v-card-title>
                 <v-card-text class="text-content">
                   <p>Cidade: {{ publication.OriginAddress.city }}</p>
-                  <p>Bairro: {{ publication.OriginAddress.district }}</p>
-                  <p>Rua: {{ publication.OriginAddress.road }}</p>
+                  <p>Bairro: {{ publication.OriginAddress.neighborhood }}</p>
+                  <p>Rua: {{ publication.OriginAddress.street }}</p>
                   <p>Nº: {{ publication.OriginAddress.number }}</p>
                 </v-card-text>
               </v-col>
@@ -112,8 +112,10 @@
                 <v-card-title class="text-title">Destino</v-card-title>
                 <v-card-text class="text-content">
                   <p>Cidade: {{ publication.DestinationAddress.city }}</p>
-                  <p>Bairro: {{ publication.DestinationAddress.district }}</p>
-                  <p>Rua: {{ publication.DestinationAddress.road }}</p>
+                  <p>
+                    Bairro: {{ publication.DestinationAddress.neighborhood }}
+                  </p>
+                  <p>Rua: {{ publication.DestinationAddress.street }}</p>
                   <p>Nº: {{ publication.DestinationAddress.number }}</p>
                 </v-card-text>
               </v-col>
@@ -198,17 +200,9 @@
                             v-model="publication.departure_date"
                             :rules="[rules.required]"
                             label="Data da carona"
-                            type="date"
+                            type="datetime-local"
                           />
                         </v-col>
-                        <!-- <v-col cols="6">
-                          <v-text-field
-                            v-model="publication.departure_hour"
-                            :rules="[rules.required]"
-                            label="Hora da carona"
-                            type="time"
-                          />
-                        </v-col> -->
                       </v-row>
                     </v-card-text>
 
@@ -304,6 +298,7 @@
 
 <script>
 import User from "../../services/user";
+//import moment from "moment";
 
 export default {
   data() {
@@ -313,6 +308,7 @@ export default {
       publication: {
         id_user: "1",
         departure_date: "",
+        departure_hour: "",
         origin_city: "",
         origin_neighborhood: "",
         origin_street: "",
@@ -337,7 +333,8 @@ export default {
       alertSuccess: false,
       loading: false,
       loader: null,
-      valid: false,
+      valid: true,
+      modal2: false,
       rules: {
         required: (value) => !!value || "Obrigatório.",
       },
@@ -349,10 +346,16 @@ export default {
       this.loader = this.saveLoading;
       this.publication.id_user = this.userData.id;
       try {
-        
-        console.log(this.publication);
+        //console.log("1: ",this.publication);
+        /* this.publication.departure_date = new Date(
+          this.publication.departure_date
+        ).toLocaleString("en-US", {timeZone: "America/Recife"}); */
+        /* this.publication.departure_hour =
+          this.publication.departure_hour.toString(); */
+        console.log("2: ", this.publication);
         // eslint-disable-next-line no-unused-vars
         const res = await User.createNewPost(this.publication);
+        console.log(res.data);
         this.loader = null;
         this.dialogNewPost = false;
         this.showSuccessAlert(true, "Carona criada com Sucesso.");
@@ -368,7 +371,7 @@ export default {
       try {
         const res = await User.getAllPostsByIdUser(idUser);
         //console.log(res);
-        if (res.data) {
+        if (res.data.length == 0) {
           this.alertInfo = true;
         } else {
           this.publications = res.data;
