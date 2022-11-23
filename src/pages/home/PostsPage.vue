@@ -39,36 +39,7 @@
       </v-btn>
     </v-hover>
 
-    <!--  <v-card>
-      <h2>Card-01</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
-        assumenda consectetur corrupti numquam, eligendi consequatur!
-        Repellendus quas necessitatibus praesentium non et amet dicta aperiam
-        dolorem, ullam neque. Placeat, suscipit voluptates.
-      </p>
-    </v-card>
-
-    <v-card>
-      <h2>Card-02</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
-        assumenda consectetur corrupti numquam, eligendi consequatur!
-        Repellendus quas necessitatibus praesentium non et amet dicta aperiam
-        dolorem, ullam neque. Placeat, suscipit voluptates.
-      </p>
-    </v-card>
-
-    <v-card>
-      <h2>Card-03</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
-        assumenda consectetur corrupti numquam, eligendi consequatur!
-        Repellendus quas necessitatibus praesentium non et amet dicta aperiam
-        dolorem, ullam neque. Placeat, suscipit voluptates.
-      </p>
-    </v-card> -->
-
+    
     <v-row dense>
       <v-alert
         :value="alertInfo"
@@ -86,17 +57,17 @@
         cols="12"
         sm="6"
         md="6"
-        lg="4"
+        lg="2"
         xl="4"
       >
-        <v-card elevation="6" min-width="360px">
+        <v-card elevation="20" min-width="300px" max-width="320">
           <v-container>
             <v-row>
               <v-card-title class="text-title text-h5">
-                Informacções da carona
+                Informações da carona
               </v-card-title>
             </v-row>
-            <v-divider class="mt-3"></v-divider>
+            <v-divider class="mt-2"></v-divider>
             <v-row class="mt-0 mb-0">
               <v-col cols="6" class="pa-0 ma-0">
                 <v-card-title class="text-title">Origem</v-card-title>
@@ -123,31 +94,29 @@
             <v-divider class="mt-2"></v-divider>
             <v-row class="mt-0 mb-0">
               <v-card-text class="text-content">
-                <p>Hora de saida - {{ publication.departure_date }}</p>
+                <p>Hora de saida - {{ publication.departure_hour }}</p>
                 <p>Modalidade - {{ publication.modality }}</p>
               </v-card-text>
             </v-row>
-            <v-row>
-              <v-card-actions>
-                <v-btn
-                  color="blue darken-2"
-                  block
-                  elevation="2"
-                  outlined
-                  rounded
-                >
-                  Editar
-                </v-btn>
-                <v-btn
-                  color="red darken-2"
-                  block
-                  elevation="2"
-                  outlined
-                  rounded
-                >
-                  Encerrar
-                </v-btn>
-              </v-card-actions>
+            <v-row >
+          <v-container class="conteiner">
+                <!-- <v-btn color="blue-grey" block elevation="2" outlined>Editar </v-btn>
+                <v-btn color="blue " block elevation="2" outlined >Encerrar Carona</v-btn>
+                <v-btn color="red " block elevation="2"  outlined >Cancelar</v-btn> -->
+                <div>
+                  <div>
+                      <a class="button floatLeft" href="#" >Editar</a>
+                  </div>
+                  <div>
+                      <a class="button floatLeft" href="#" >Encerrar</a>
+                  </div>
+                  <div>
+                      <a class="button floatLeft" href="#" >Cancelar</a>
+                  </div>
+                </div>
+          </v-container>
+              
+         
             </v-row>
           </v-container>
         </v-card>
@@ -304,7 +273,7 @@ export default {
   data() {
     return {
       modalidade: ["Livre", "Contribuitiva"],
-      publications: [],
+      publications: [{ id: "53e6e5ae-831b-45c3-b764-015548b288f8", id_user: "23b4add2-1f92-4b01-86b7-1c79f030f0b3", departure_date: "2022-11-19T00:00:00.000Z", departure_hour: "1970-01-01T02:30:15.183", origin_address: "713b476d-d0f4-4583-90ae-0c0646527cd8", destination_address: "cf82a641-92a0-401c-913a-b581e3c5d481", statusPublication: true, regular: false, vacancies: true, modality: "1 test modality",  OriginAddress: { "id": "713b476d-d0f4-4583-90ae-0c0646527cd8", city: "1 test origin city", "neighborhood": "1 test origin district", street: "1 test origin road", number: "1" }, DestinationAddress: { id: "cf82a641-92a0-401c-913a-b581e3c5d481", city: "1 test destination city", "neighborhood": "1 test destination district", "street": "1 test destination road", "number": "1" } },],
       publication: {
         id_user: "1",
         departure_date: "",
@@ -503,5 +472,20 @@ export default {
   to {
     transform: rotate(360deg);
   }
+  
 }
+
+.button{
+  border:1px solid; 
+  padding: 4px 16px; 
+  vertical-align: middle; 
+  background:#4769f2; 
+  color:white;border-radius:6px; 
+  font-size: 18px; 
+  font-family:helvetica, serif;
+  text-decoration:none;
+}
+.floatLeft{float:left};
+a{ background: red;}
+
 </style>
