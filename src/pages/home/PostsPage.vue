@@ -60,7 +60,7 @@
         lg="2"
         xl="4"
       >
-        <v-card elevation="20" min-width="260px">
+        <v-card elevation="20" min-width="300px" max-width="320">
           <v-container>
             <v-row>
               <v-card-title class="text-title text-h5">
@@ -97,11 +97,24 @@
               </v-card-text>
             </v-row>
             <v-row >
-              <!-- rounded -->
-              <v-btn color="blue" block elevation="2" outlined id="btn1">Editar</v-btn>
-              <v-btn color="blue " block elevation="2" outlined >Encerrar Carona</v-btn>
-              <v-btn color="red " block elevation="2"  outlined >Cancelar</v-btn>
+          <v-container class="conteiner">
+                <!-- <v-btn color="blue-grey" block elevation="2" outlined>Editar </v-btn>
+                <v-btn color="blue " block elevation="2" outlined >Encerrar Carona</v-btn>
+                <v-btn color="red " block elevation="2"  outlined >Cancelar</v-btn> -->
+                <div>
+                  <div>
+                      <a class="button floatLeft" href="#" >Editar</a>
+                  </div>
+                  <div>
+                      <a class="button floatLeft" href="#" >Encerrar</a>
+                  </div>
+                  <div>
+                      <a class="button floatLeft" href="#" >Cancelar</a>
+                  </div>
+                </div>
+          </v-container>
               
+         
             </v-row>
           </v-container>
         </v-card>
@@ -466,7 +479,26 @@ export default {
   }
   
 }
-#btn1{
-
+/* .button {
+  border:1px solid; 
+  padding: 11px 21px; 
+  vertical-align: middle; 
+  background:#2D888F; 
+  color:white;border-radius:6px; 
+  font-size: 20px; 
+  font-family:helvetica, serif;
+  text-decoration:none;
+} */
+.button{
+  border:1px solid; 
+  padding: 4px 16px; 
+  vertical-align: middle; 
+  background:#2D888F; 
+  color:white;border-radius:6px; 
+  font-size: 18px; 
+  font-family:helvetica, serif;
+  text-decoration:none;
 }
+.floatLeft{float:left};
+
 </style>
