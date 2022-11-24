@@ -129,68 +129,14 @@
                 <p>Modalidade - {{ publication.modality }}</p>
               </v-card-text>
             </v-row>
-
-            <!-- <v-row > -->
           <v-container>
-            
-               
-              <div>
-                <v-btn class="t1" color="blue lighten-2">Editar </v-btn>
-                <v-btn class="t2" color="blue lighten-2">Encerrar </v-btn>
-                <v-btn color="red lighten-1" >Cancelar</v-btn><br><br>
-
-              </div>
+            <div>
+              <v-btn class="t1" color="blue lighten-2">Editar </v-btn>
+              <v-btn class="t2" color="blue lighten-2">Encerrar </v-btn>
+              <v-btn color="red lighten-1" >Cancelar</v-btn><br><br>
+            </div>
           </v-container>
-              
-         
-
-            <v-row>
-              <!-- <v-container class="conteiner">
-                <v-btn color="blue-grey" block elevation="2" outlined>Editar</v-btn>
-                <v-btn color="blue " block elevation="2" outlined>Encerrar Carona</v-btn>
-                <v-btn color="red " block elevation="2" outlined>Cancelar</v-btn>
-                <div>
-                  <div>
-                    <a class="button floatLeft" href="#">Editar</a>
-                  </div>
-                  <div>
-                    <a class="button floatLeft" href="#">Encerrar</a>
-                  </div>
-                  <div>
-                    <a class="button floatLeft" href="#">Cancelar</a>
-                  </div>
-                </div>
-              </v-container> -->
-              <!-- <v-container>
-                <v-card-actions>
-                  <v-btn
-                    color="blue darken-2"
-                    elevation="2"
-                    outlined
-                    rounded
-                  >
-                    Editar
-                  </v-btn>
-                  <v-btn
-                    color="yellow accent-2"
-                    elevation="2"
-                    outlined
-                    rounded
-                  >
-                    Encerrar sagas
-                  </v-btn>
-                  <v-btn
-                    color="red darken-2"
-                    elevation="2"
-                    outlined
-                    rounded
-                  >
-                    Cancelar Carona
-                  </v-btn>
-                </v-card-actions>
-              </v-container> -->
-
-            </v-row>
+            
           </v-container>
         </v-card>
       </v-col>
@@ -205,7 +151,7 @@
                 <v-row>
                   <v-col>
                     <v-card-text>
-                      <h1>Cadastrar nova carona</h1>
+                      <h1>Cadastrar nova Carona</h1>
                     </v-card-text>
 
                     <v-card-text>
@@ -249,7 +195,7 @@
                     </v-card-text>
 
                     <v-card-text>
-                      <h2>Pra onde estou indo</h2>
+                      <h2>Pra onde estou Indo</h2>
 
                       <v-text-field
                         v-model="publication.destination_city"
@@ -578,19 +524,4 @@ export default {
   margin: 5px;
   font-size: 12px;
 }
-
-/* button{
-  border:1px solid; 
-  padding: 4px 16px; 
-  vertical-align: middle; 
-  background:#4769f2; 
-  color:white;border-radius:6px; 
-  font-size: 18px; 
-  font-family:helvetica, serif;
-  text-decoration:none;
-} */
-
-/* .floatLeft{float:left};
- */
-
 </style>
