@@ -92,8 +92,6 @@
 
         <v-card elevation="20" min-width="380px" max-width="360">
 
-        <!-- <v-card elevation="6" min-width="360px"> -->
-
           <v-container>
             <v-row>
               <v-card-title class="text-title text-h5">
@@ -133,15 +131,13 @@
             </v-row>
 
             <!-- <v-row > -->
-          <v-container class="container">
+          <v-container>
             
-                <!-- <v-btn color="blue-grey" block elevation="2" outlined>Editar </v-btn>
-                <v-btn color="blue " block elevation="2" outlined >Encerrar Carona</v-btn>
-                <v-btn color="red " block elevation="2"  outlined >Cancelar</v-btn>  -->
+               
               <div>
-                <v-btn class="t1" color="blue-grey">Editar </v-btn>
-                <v-btn class="t2" color="blue-grey" >Encerrar </v-btn>
-                <v-btn color="blue-grey" >Cancelar</v-btn>
+                <v-btn class="t1" color="blue lighten-2">Editar </v-btn>
+                <v-btn class="t2" color="blue lighten-2">Encerrar </v-btn>
+                <v-btn color="red lighten-1" >Cancelar</v-btn><br><br>
 
               </div>
           </v-container>
@@ -577,7 +573,11 @@ export default {
   }
 }
 
-
+.t1,.t2{
+ 
+  margin: 5px;
+  font-size: 12px;
+}
 
 /* button{
   border:1px solid; 
