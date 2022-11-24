@@ -133,7 +133,7 @@
             <div>
               <v-btn class="t1" color="blue lighten-2">Editar </v-btn>
               <v-btn class="t2" color="blue lighten-2">Encerrar </v-btn>
-              <v-btn color="red lighten-1" >Cancelar</v-btn><br><br>
+              <v-btn class="t3" color="red lighten-1" >Cancelar</v-btn><br><br>
             </div>
           </v-container>
             
@@ -519,7 +519,7 @@ export default {
   }
 }
 
-.t1,.t2{
+.t1,.t2,.t3{
  
   margin: 5px;
   font-size: 12px;
