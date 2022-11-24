@@ -60,7 +60,7 @@
         lg="2"
         xl="4"
       >
-        <v-card elevation="20" min-width="300px" max-width="320">
+        <v-card elevation="20" min-width="380px" max-width="360">
           <v-container>
             <v-row>
               <v-card-title class="text-title text-h5">
@@ -97,21 +97,16 @@
               </v-card-text>
             </v-row>
             <v-row >
-          <v-container class="conteiner">
+          <v-container class="container">
                 <!-- <v-btn color="blue-grey" block elevation="2" outlined>Editar </v-btn>
                 <v-btn color="blue " block elevation="2" outlined >Encerrar Carona</v-btn>
-                <v-btn color="red " block elevation="2"  outlined >Cancelar</v-btn> -->
-                <div>
-                  <div>
-                      <a class="button floatLeft" href="#" >Editar</a>
-                  </div>
-                  <div>
-                      <a class="button floatLeft" href="#" >Encerrar</a>
-                  </div>
-                  <div>
-                      <a class="button floatLeft" href="#" >Cancelar</a>
-                  </div>
-                </div>
+                <v-btn color="red " block elevation="2"  outlined >Cancelar</v-btn>  -->
+              <div>
+                <v-btn class="t1" color="blue-grey">Editar </v-btn>
+                <v-btn class="t2" color="blue-grey" >Encerrar </v-btn>
+                <v-btn color="blue-grey" >Cancelar</v-btn>
+
+              </div>
           </v-container>
               
          
@@ -473,7 +468,8 @@ export default {
   
 }
 
-.button{
+
+button{
   border:1px solid; 
   padding: 4px 16px; 
   vertical-align: middle; 
@@ -483,7 +479,8 @@ export default {
   font-family:helvetica, serif;
   text-decoration:none;
 }
-.floatLeft{float:left};
-a{ background: red;}
+
+/* .floatLeft{float:left};
+ */
 
 </style>
