@@ -125,7 +125,7 @@
             <v-divider class="mt-2"></v-divider>
             <v-row class="mt-0 mb-0">
               <v-card-text class="text-content">
-                <p>Hora de saida - {{ publication.departure_date }}</p>
+                <p>Hora de saida - {{ publication.departure_hour }}</p>
                 <p>Modalidade - {{ publication.modality }}</p>
               </v-card-text>
             </v-row>
