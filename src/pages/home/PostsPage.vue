@@ -133,7 +133,7 @@
             <div>
               <v-btn class="t1" color="blue lighten-2">Editar </v-btn>
               <v-btn class="t2" color="blue lighten-2">Encerrar </v-btn>
-              <v-btn class="t3" color="red lighten-1" >Cancelar</v-btn><br><br>
+              <v-btn class="t3" color="red lighten-1" >Cancelar</v-btn><br>
             </div>
           </v-container>
             
