@@ -36,12 +36,13 @@
         lg="4"
         xl="4"
       >
-        <v-card elevation="6" min-width="360px">
+        <v-card elevation="6" min-width="300px" min-height="161px">
           <v-container>
             <v-expand-transition>
               <div v-if="!publication.expand" @click="expandON(index)">
                 <v-row class="mt-0 mb-0">
-                  <v-col cols="6" class="pa-0 ma-0">
+                  <v-col cols="6" class="pa-0 ma-0" min-width="150px" >
+                    
                     <v-card-title class="text-title">Origem</v-card-title>
                     <v-card-text class="text-content">
                       <p>Cidade: {{ publication.OriginAddress.city }}</p>
@@ -51,7 +52,7 @@
                     </v-card-text>
                   </v-col>
                   <v-divider vertical class="mt-2"></v-divider>
-                  <v-col cols="6" class="pa-0 ma-0">
+                  <v-col cols="6" class="pa-0 ma-0" min-width="150px">
                     <v-card-title class="text-title">Destino</v-card-title>
                     <v-card-text class="text-content">
                       <p>Cidade: {{ publication.DestinationAddress.city }}</p>
@@ -61,16 +62,6 @@
                       </p>
                     </v-card-text>
                   </v-col>
-                </v-row>
-                <v-divider class="mt-2"></v-divider>
-                <v-row class="mt-0 mb-0">
-                  <v-card-text class="text-content-expand-in">
-                    <v-row>
-                      <v-col cols="6">
-                        <p>Modalidade - {{ publication.modality }}</p>
-                      </v-col>
-                    </v-row>
-                  </v-card-text>
                 </v-row>
               </div>
             </v-expand-transition>

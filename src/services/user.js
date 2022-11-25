@@ -33,6 +33,18 @@ export default {
     return http.post("/publications", postData);
   },
 
+  editPost: (postData) => {
+    return http.put("/publications/update/" + postData.id_user, postData);
+  },
+
+  finishVacanciesPost: (idUser, postData) => {
+    return http.put("/publications/update/vacancies/" + idUser, postData);
+  },
+
+  cancelPost: (idUser, postData) => {
+    return http.put("/publications/update/status/" + idUser, postData);
+  },
+
   getAllPosts: () => {
     return http.get("/publications");
   },
