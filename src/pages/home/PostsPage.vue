@@ -133,7 +133,6 @@
                 <p>Modalidade - {{ publication.modality }}</p>
               </v-card-text>
             </v-row>
-
             <v-container class="pa-0 ma-0">
               <v-card-actions class="pa-0 ma-0">
                 <v-row class="pa-0 ma-0">
@@ -180,11 +179,6 @@
                   </v-col>
                 </v-row>
               </v-card-actions>
-              <!-- <div>
-                <v-btn class="t1" color="blue lighten-2">Editar </v-btn>
-                <v-btn class="t2" color="blue lighten-2">Encerrar </v-btn>
-                <v-btn class="t3" color="red lighten-1">Cancelar</v-btn>
-              </div> -->
             </v-container>
           </v-container>
         </v-card>
