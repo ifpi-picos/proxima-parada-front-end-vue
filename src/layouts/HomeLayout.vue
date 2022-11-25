@@ -12,7 +12,6 @@
             </v-list-item-content>
           </v-list-item>
           <template>
-
             <v-list-item :to="{ name: 'feed' }">
               <v-list-item-action>
                 <v-icon light>home</v-icon>
@@ -22,7 +21,7 @@
               </v-list-item-content>
             </v-list-item>
 
-            <v-list-item  :to="{ name: 'profile' }">
+            <v-list-item :to="{ name: 'profile' }">
               <v-list-item-action>
                 <v-icon light>account_box</v-icon>
               </v-list-item-action>
@@ -49,9 +48,49 @@
       <v-spacer></v-spacer>
       <v-toolbar-title>Próxima Parada</v-toolbar-title>
       <v-spacer></v-spacer>
+
+      <v-menu bottom :offset-y="true" transition="slide-y-transition">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn dark icon v-bind="attrs" v-on="on">
+            <v-avatar>
+              <v-img v-if="userLocal.avatar" :src="userLocal.avatar" />
+              <v-img
+                v-else
+                src="https://cdn-icons-png.flaticon.com/512/70/70310.png"
+              />
+            </v-avatar>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item :to="{ name: 'profile' }">
+            <v-list-item-content>
+              <v-list-item-title>Perfil</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-icon light>account_box</v-icon>
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item @click="signout">
+            <v-list-item-content>
+              <v-list-item-title>Sair</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-icon light>logout</v-icon>
+            </v-list-item-action>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+
+      <!-- <v-avatar>
+        <v-img v-if="userLocal.avatar" :src="userLocal.avatar" />
+        <v-img
+          v-else
+          src="https://cdn-icons-png.flaticon.com/512/70/70310.png"
+        />
+      </v-avatar>
       <v-btn icon @click="signout">
         <v-icon>logout</v-icon>
-      </v-btn>
+      </v-btn> -->
     </v-app-bar>
 
     <v-main>
@@ -71,7 +110,7 @@ export default {
     return {
       drawer: false,
       userLocal: {
-        status: true
+        status: true,
       },
     };
   },

@@ -78,7 +78,6 @@
         outlined
         dismissible
         type="info"
-        ref="cardPostWidth"
         >Nenhuma carona encontrada</v-alert
       >
       <v-col
@@ -90,12 +89,7 @@
         lg="4"
         xl="4"
       >
-        <v-card
-          elevation="6"
-          name="cardPostUser"
-          class="cardPostUser"
-          min-width="280px"
-        >
+        <v-card elevation="6" min-width="280px">
           <v-container>
             <v-row>
               <v-card-title class="text-title text-h5">
@@ -665,11 +659,11 @@ export default {
       this.userData = JSON.parse(sessionStorage.getItem("userLocal"));
       this.getAllPosts(this.userData.id);
     }
-    this.widthListener(window.innerWidth)
+    this.widthListener(window.innerWidth);
   },
   mounted() {
     window.onresize = () => {
-      this.widthListener(window.innerWidth)
+      this.widthListener(window.innerWidth);
     };
   },
 };
@@ -741,6 +735,7 @@ export default {
   animation: loader 1s infinite;
   display: flex;
 }
+
 @-moz-keyframes loader {
   from {
     transform: rotate(0);
@@ -772,12 +767,5 @@ export default {
   to {
     transform: rotate(360deg);
   }
-}
-
-.t1,
-.t2,
-.t3 {
-  margin: 5px;
-  font-size: 12px;
 }
 </style>
