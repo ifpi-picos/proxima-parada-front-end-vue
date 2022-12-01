@@ -48,9 +48,9 @@ export default {
           icon: "add_to_home_screen",
         },
         {
-          href: "profile-admin",
-          title: "Perfil",
-          icon: "account_box",
+          href: "newadmin",
+          title: "Novo Administrador",
+          icon: "person_add",
         },
       ],
     };

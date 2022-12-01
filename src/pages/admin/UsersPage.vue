@@ -25,29 +25,37 @@
         md="4"
         lg="3"
       >
-        <v-card class="mx-auto" outlined>
-          <v-list-item three-line>
-            <v-list-item-content>
-              <v-list-item-title class="text-h5 mb-1">
-                {{ user.name }}
-              </v-list-item-title>
-              <v-list-item-subtitle>{{ user.occupation }}</v-list-item-subtitle>
-              <v-list-item-subtitle>{{ user.email }}</v-list-item-subtitle>
-            </v-list-item-content>
+        <v-card class="mx-auto" outlined @click="expand(index)">
+          <v-expand-transition>
+            <div v-if="!user.expand">
+              <v-list-item three-line>
+                <v-list-item-content>
+                  <v-list-item-title class="text-h5 mb-1">
+                    {{ user.name }}
+                  </v-list-item-title>
+                  <v-list-item-subtitle>
+                    {{user.occupation}}
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle>
+                    {{ user.email }}
+                  </v-list-item-subtitle>
+                </v-list-item-content>
 
-            <v-list-item-avatar size="100" v-if="!user.avatar">
-              <v-img
-                  src="https://e7.pngegg.com/pngimages/178/595/png-clipart-user-profile-computer-icons-login-user-avatars-monochrome-black.png"
-                />
-            </v-list-item-avatar>
-            <v-list-item-avatar v-else size="80">
-              <v-img v-if="user.avatar" :src="user.avatar" />
-            </v-list-item-avatar>
-          </v-list-item>
-
-          <v-card-actions>
-            <v-btn color="primary" text> Exibir perfil completo </v-btn>
-          </v-card-actions>
+                <v-list-item-avatar size="100" v-if="!user.avatar">
+                  <v-img
+                    src="https://e7.pngegg.com/pngimages/178/595/png-clipart-user-profile-computer-icons-login-user-avatars-monochrome-black.png"
+                  />
+                </v-list-item-avatar>
+                <v-list-item-avatar v-else size="80">
+                  <v-img v-if="user.avatar" :src="user.avatar" />
+                </v-list-item-avatar>
+              </v-list-item>
+            </div>
+          </v-expand-transition>
+          <v-expand-transition>
+            <div v-if="user.expand">
+            </div>
+          </v-expand-transition>
         </v-card>
       </v-col>
     </v-row>
@@ -96,5 +104,4 @@ export default {
 .border {
   border: 1px solid red;
 }
-
 </style>

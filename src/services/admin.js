@@ -1,11 +1,16 @@
 import { http } from "./config";
 
 export default {
-  getAdminData: () => {
-    return http.get("/users");
+  postNewAdmin: (adminData) => {
+    return http.post("/admin", adminData);
   },
+
   getAllUsers: () => {
     return http.get("/admin/users");
+  },
+
+  getStatistics: () => {
+    return http.get("/admin/statistics");
   },
 
   getAllStatusRequest: () => {

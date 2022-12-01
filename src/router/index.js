@@ -59,11 +59,17 @@ const routes = [
         name: "requisitions",
         component: () => import("../pages/admin/RequisitionsPage.vue"),
       },
+      
       {
+        path: "new-admin",
+        name: "newadmin",
+        component: () => import("../pages/admin/NewAdminPage.vue"),
+      },
+      /* {
         path: "profile-admin",
         name: "profile-admin",
         component: () => import("../pages/admin/ProfileAdminPage.vue"),
-      },
+      }, */
     ],
   },
 ];
