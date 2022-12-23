@@ -21,10 +21,10 @@
         :src="require('../../assets/logo.png')"
         class="my-3"
         contain
-        height="260"
+        height="200"
       />
-      <v-form @submit.prevent="authUser" v-model="valid">
-        <v-text-field
+      <v-form @submit.prevent="authUser" v-model="valid" >
+        <v-text-field class="form"
           prepend-icon="mail_outline"
           name="email"
           label="E-mail"
@@ -34,6 +34,8 @@
         >
         </v-text-field>
         <v-text-field
+        
+        class="password"
           prepend-icon="password"
           name="password"
           label="Senha"
@@ -42,15 +44,16 @@
           :type="show1 ? 'text' : 'password'"
           @click:append="show1 = !show1"
           v-model="userAuth.password"
+         
         >
         </v-text-field>
-        <v-btn
+        <v-btn class="btn"
           :disabled="!valid"
           block
-          color="primary"
+          color="grey darken-4"
           elevation="6"
           type="submit"
-          >Login</v-btn
+          ><b>Entrar</b> </v-btn
         >
       </v-form>
     </v-card-text>
@@ -112,3 +115,19 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap');
+.btn{
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+}
+.form{
+  font-family: 'Open Sans', sans-serif;
+  
+}
+.password{
+  font-family: 'Open Sans', sans-serif;
+}
+</style>

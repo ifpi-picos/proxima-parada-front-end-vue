@@ -1,9 +1,9 @@
 <template>
-  <v-container fluid fill-height>
+  <v-container fluid fill-height class="teste">
 
     <v-hover v-slot:default="{ hover }" open-delay="200">
       <v-btn
-        color="primary"
+        color="grey darken-4"
         elevation="2"
         rounded
         class="fab-new-post ma-2"
@@ -88,10 +88,10 @@
     <v-layout align-center justify-center>
       <v-flex xs8 sm6 md4>
         <v-card>
-          <v-tabs fixed-tabs background-color="primary">
-            <v-tab> Entrar </v-tab>
+          <v-tabs fixed-tabs  color="#fff" >
+            <v-tab class="form"><b>Entar</b></v-tab>
 
-            <v-tab> Registrar-se </v-tab>
+            <v-tab class="form"> <b>Registrar-se</b></v-tab>
 
             <v-tab-item>
               <template>
@@ -166,7 +166,8 @@ export default {
   },
 };
 </script>
-<style lang="css" scoped>
+<style scoped>
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap');
 .border {
   border: 2px solid red;
 }
@@ -187,5 +188,16 @@ export default {
   position: fixed;
   top: 16px;
   right: 16px;
+}
+.fab-new-post{
+  color:#fff;
+}
+.form{
+  font-family: 'Open Sans', sans-serif;
+
+}
+.teste{
+ 
+  background: rgba(233, 231, 231, 0.274);
 }
 </style>

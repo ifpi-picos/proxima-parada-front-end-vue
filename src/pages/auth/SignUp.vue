@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-text>
+    <v-card-text class="form">
       <v-alert
         :value="erroAlert"
         color="red"
@@ -18,7 +18,7 @@
       >
       </v-progress-linear>
       <v-form @submit.prevent="auhtUser" v-model="valid">
-        <v-text-field
+        <v-text-field 
           prepend-icon="perm_identity"
           name="name"
           label="Nome Completo"
@@ -79,10 +79,10 @@
           v-model="userData.samePasswords"
         >
         </v-text-field>
-        <v-btn
+        <v-btn class="btn"
           :disabled="!valid"
           block
-          color="primary"
+          color="grey darken-4"
           elevation="6"
           type="submit"
           >Cadastrar</v-btn
@@ -154,3 +154,17 @@ export default {
   },
 };
 </script>
+<style scoped>
+.btn{
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+}
+.form{
+  font-family: 'Open Sans', sans-serif;
+  
+}
+.password{
+  font-family: 'Open Sans', sans-serif;
+}
+</style>
