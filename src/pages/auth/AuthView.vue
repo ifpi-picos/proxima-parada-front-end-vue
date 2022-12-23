@@ -200,4 +200,5 @@ export default {
  
   background: rgba(233, 231, 231, 0.274);
 }
+
 </style>
