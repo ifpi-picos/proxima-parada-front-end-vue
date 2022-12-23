@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/no-unused-components -->
 <template>
   <v-app>
-    <v-navigation-drawer class="grey darken-1" v-model="drawer" app dark temporary width="60%">
+    <v-navigation-drawer class="grey darken-1" v-model="drawer" app dark temporary width="55%">
       <v-list>
         <v-list-item-group>
           <v-list-item>
@@ -52,7 +52,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar class="grey darken-4 " dense dark app>
+    <v-app-bar class="grey darken-3 " dense dark app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
       <v-toolbar-title class="title">Próxima Parada</v-toolbar-title>
