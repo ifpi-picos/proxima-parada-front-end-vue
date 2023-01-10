@@ -23,6 +23,11 @@ const routes = [
         component: () => import("../pages/auth/SignInPage.vue"),
       },
       {
+        path: "/signinadmin",
+        name: "signinadmin",
+        component: () => import("../pages/auth/SignInAdminPage.vue"),
+      },
+      {
         path: "/signup",
         name: "signup",
         component: () => import("../pages/auth/SignUpPage.vue"),

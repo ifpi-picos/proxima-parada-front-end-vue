@@ -21,23 +21,22 @@
             >
             </v-progress-linear>
             <v-img
-              :src="require('../../assets/logo.png')"
+              :src="require('../../assets/images/admin.png')"
               class="my-3"
               contain
               height="260"
             />
-            <v-form @submit.prevent="authUser" v-model="valid">
+            <v-form @submit.prevent="authAdmin" v-model="valid">
               <v-text-field
                 prepend-icon="mail_outline"
                 name="email"
                 label="E-mail"
                 type="text"
                 :rules="[rules.required, rules.email]"
-                v-model="userAuth.email"
+                v-model="adminAuth.email"
               >
               </v-text-field>
               <v-text-field
-                class="password"
                 prepend-icon="password"
                 name="password"
                 label="Senha"
@@ -45,9 +44,8 @@
                 :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="show1 ? 'text' : 'password'"
                 @click:append="show1 = !show1"
-                v-model="userAuth.password"
+                v-model="adminAuth.password"
               >
-                <p>mano do ceu</p>
               </v-text-field>
               <v-btn
                 :disabled="!valid"
@@ -55,19 +53,11 @@
                 color="primary"
                 elevation="6"
                 type="submit"
-                >Entrar</v-btn
+                >Login</v-btn
               >
               <br />
               <v-card>
-                <p>
-                  Novo no Proxima-Parada?
-                  <a href="/signup" rel="noopener noreferrer">Fazer conta</a>
-                </p>
-              </v-card>
-              <v-card>
-                <p>
-                  <a href="/signinadmin" rel="">Entrar como Adminstrador</a>
-                </p>
+                <p><a href="/signin">Entrar como usuario convencional</a></p>
               </v-card>
             </v-form>
           </v-card-text>
@@ -83,8 +73,7 @@ import Auth from "../../services/auth";
 export default {
   data() {
     return {
-      userLocal: {},
-      userAuth: {
+      adminAuth: {
         email: "",
         password: "",
       },
@@ -93,6 +82,7 @@ export default {
       erroAlert: false,
       show1: false,
       valid: false,
+      dialogSigninAdmin: false,
       rules: {
         required: (value) => !!value || "Obrigatório.",
         min: (value) => value.length >= 6 || "Mínimo 6 caracteres",
@@ -105,31 +95,24 @@ export default {
     };
   },
   methods: {
-    async authUser() {
+    async authAdmin() {
       this.loading = true;
       try {
-        const res = await Auth.signinUser(this.userAuth);
+        const res = await Auth.signinAdmin(this.adminAuth);
         this.userLocal = res.data;
         sessionStorage.setItem("userLocal", JSON.stringify(this.userLocal));
         this.loading = false;
-        this.$router.push({ name: "feed" });
+        this.$router.push({ name: "dashboard" });
       } catch (error) {
         const response = error.response;
         this.loading = false;
         this.erroAlert = true;
-        if (response.data.message) {
-          this.messageError = response.data.message;
-        }
+        this.messageError = response.data.message;
         console.log(response);
       }
     },
   },
-  watch: {
-    erroAlert(val) {
-      if (!val) return;
-      setTimeout(() => (this.erroAlert = false), 3000);
-    },
-  },
+  
 };
 </script>
 
