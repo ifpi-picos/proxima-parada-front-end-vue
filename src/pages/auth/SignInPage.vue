@@ -62,7 +62,7 @@
         >
         <br>
        <v-card>
-        <p>Novo no Proxima-Parada? <a href="/signup" rel="noopener noreferrer">fazer conta</a></p>
+        <p>Novo no Proxima-Parada? <a href="/signup" rel="noopener noreferrer">Fazer conta</a></p>
        </v-card>
       </v-form>
      

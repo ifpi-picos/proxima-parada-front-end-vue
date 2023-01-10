@@ -99,6 +99,10 @@
                                     type="submit"
                                     >Cadastrar</v-btn
                                 >
+                                <br>
+                                <v-card>
+                                    <p>Já tenho Conta <a href="/signin"> Fazer Login</a></p>
+                                </v-card>
                             </v-form>
                         </v-card-text>
                     </v-card-text>
