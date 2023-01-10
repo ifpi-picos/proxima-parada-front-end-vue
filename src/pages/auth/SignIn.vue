@@ -21,10 +21,10 @@
         :src="require('../../assets/logo.png')"
         class="my-3"
         contain
-        height="200"
+        height="260"
       />
       <v-form @submit.prevent="authUser" v-model="valid" >
-        <v-text-field class="form"
+        <v-text-field
           prepend-icon="mail_outline"
           name="email"
           label="E-mail"
@@ -47,10 +47,10 @@
          
         >
         </v-text-field>
-        <v-btn class="btn"
+        <v-btn
           :disabled="!valid"
           block
-          color="grey darken-4"
+          color="primary"
           elevation="6"
           type="submit"
           ><b>Entrar</b> </v-btn

@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-text class="form">
+    <v-card-text>
       <v-alert
         :value="erroAlert"
         color="red"
@@ -79,10 +79,10 @@
           v-model="userData.samePasswords"
         >
         </v-text-field>
-        <v-btn class="btn"
+        <v-btn
           :disabled="!valid"
           block
-          color="grey darken-4"
+          color="primary"
           elevation="6"
           type="submit"
           >Cadastrar</v-btn

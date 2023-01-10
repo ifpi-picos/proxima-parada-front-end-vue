@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/no-unused-components -->
 <template>
   <v-app>
-    <v-navigation-drawer class="grey darken-1" v-model="drawer" app dark temporary width="55%">
+    <v-navigation-drawer class="primary" v-model="drawer" app dark temporary>
       <v-list>
         <v-list-item-group>
           <v-list-item>
@@ -11,8 +11,8 @@
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <template class="teste">
-            <v-list-item :to="{ name: 'feed' }" class="teste">
+          <template>
+            <v-list-item :to="{ name: 'feed' }">
               <v-list-item-action>
                 <v-icon light>home</v-icon>
               </v-list-item-action>
@@ -21,7 +21,7 @@
               </v-list-item-content>
             </v-list-item>
 
-            <v-list-item :to="{ name: 'profile' }" class="teste">
+            <v-list-item :to="{ name: 'profile' }">
               <v-list-item-action>
                 <v-icon light>account_box</v-icon>
               </v-list-item-action>
@@ -30,7 +30,7 @@
               </v-list-item-content>
             </v-list-item>
 
-            <v-list-item v-if="userLocal.status" :to="{ name: 'ride' }" class="teste">
+            <v-list-item v-if="userLocal.status" :to="{ name: 'ride' }">
               <v-list-item-action>
                 <v-icon light >drive_eta</v-icon>
               </v-list-item-action>
@@ -52,18 +52,18 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar class="grey darken-3 " dense dark app>
+    <v-app-bar class="primary " dense dark app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
-      <v-toolbar-title class="title">Próxima Parada</v-toolbar-title>
+      <v-toolbar-title>Próxima Parada</v-toolbar-title>
       <v-spacer></v-spacer>
-      <!-- <v-avatar>
+      <v-avatar>
         <v-img v-if="userLocal.avatar" :src="userLocal.avatar" />
          <v-img
           v-else
           src="https://cdn-icons-png.flaticon.com/512/70/70310.png"
-        /
-      </v-avatar> -->
+        />
+      </v-avatar>
     </v-app-bar>
 
     <v-main>
@@ -135,18 +135,6 @@ export default {
 };
 </script>
 
-<style scoped>
-  @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap');
-  .grey{
-    transition: 1.9s;
-    
-  }
-  
-  .teste{
-   padding: 15px;
-  }
-  .teste2{
-    width: 42px;
-  }
-  
+<style>
+ 
 </style>

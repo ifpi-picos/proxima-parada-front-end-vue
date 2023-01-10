@@ -150,7 +150,7 @@ import User from "@/services/user";
 export default {
   data: () => ({
     publications: [
-      /* {
+       {
         User: {
           name: "Teste 1 Teste",
           avatar:
@@ -188,7 +188,7 @@ export default {
           street: "Rua 1",
           number: "1",
         },
-      }, */
+      }, 
     ],
     messageError: "Erro ao conectar-se ao banco de dados!",
     loading: false,
