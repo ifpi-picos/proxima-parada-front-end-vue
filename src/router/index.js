@@ -6,13 +6,17 @@ Vue.use(VueRouter);
 const routes = [
   {
     path:"/",
-    redirect:{ name: "authMain" },
+    redirect:{ name: "signin" },
   },
   {
     path: "/auth",
-    name: "authMain",
+    name: "auth",
     component: () => import("../layouts/AuthLayout.vue"),
     children:[
+      {
+        path: "",
+        redirect: { name: "signin" },
+      },
       {
         path: "/signin",
         name: "signin",
