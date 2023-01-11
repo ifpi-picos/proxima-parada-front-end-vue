@@ -10,6 +10,7 @@
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        
         <v-divider></v-divider>
         <template v-for="(item, index) in items">
           <v-list-item :href="item.href" :to="{ name: item.href }" :key="index">
