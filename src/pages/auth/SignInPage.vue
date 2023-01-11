@@ -2,10 +2,10 @@
   <v-container fluid fill-height>
     <v-layout align-center justify-center >
       <v-flex xs8 sm4 md4>
-      <section>
-          <h1>Próxima Parada</h1>
-          <p class="descricao">O Próxima Parada é um sistema que irá facilitar o deslocamento entre sua casa e a instituição de ensino que você frequênta</p>
-      </section> 
+        <section>
+            <h1>Próxima Parada</h1>
+            <p class="descricao">O Próxima Parada é um sistema que irá facilitar o deslocamento entre sua casa e a instituição de ensino que você frequênta</p>
+        </section> 
       </v-flex>
       <section class="teste">
         
@@ -143,7 +143,7 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap");
+/* @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap");
 .btn {
   color: #fff;
   font-family: "Open Sans", sans-serif;
@@ -154,7 +154,7 @@ export default {
 }
 .password {
   font-family: "Open Sans", sans-serif;
-}
+} */
 .teste{
   display: flexbox;
   flex-direction: row;

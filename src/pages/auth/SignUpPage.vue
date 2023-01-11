@@ -1,6 +1,13 @@
 <template>
   <v-container fluid fill-height>
     <v-layout align-center justify-center>
+      <v-flex xs8 sm4 md4>
+        <section>
+            <h1>Próxima Parada</h1>
+            <p class="descricao">O Próxima Parada é um sistema que irá facilitar o deslocamento entre sua casa e a instituição de ensino que você frequênta</p>
+        </section> 
+      </v-flex>
+      
       <v-flex xs8 sm6 md4>
         <v-card>
           <v-card-text>
@@ -190,8 +197,21 @@ export default {
   text-decoration: none;
   text-align: center;
 }
-.descricao{
+/* .descricao{
   text-align: center;
 
+} */
+.descricao{
+  font-size: 20px;
+    color: #6b7677;
+    text-align:left;
+    margin: -4px 11px 0px 0px;
+
+}
+h1{
+  font-size: 58px;
+  color: rgb(0, 89, 255);
+  
+  
 }
 </style>
