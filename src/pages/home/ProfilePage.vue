@@ -111,7 +111,7 @@
                     Oferecer caronas
                   </v-btn>
 
-                  <v-card v-if="userData.StatusRequest[0].id" class="wmp">
+                  <v-card v-if="userData.StatusRequest[0].id" class="wmp" style="box-shadow: none;">
                     <v-card-title
                       v-if="!userData.StatusRequest[0].readed"
                       class="card-result wmp warning"
@@ -120,13 +120,26 @@
                       Sual solicitação está em processamento.
                     </v-card-title>
                     <div v-if="userData.StatusRequest[0].readed" class="wmp">
-                      <v-card-title
-                        v-if="!userData.StatusRequest[0].status"
-                        class="card-result wmp error"
-                        block
-                      >
-                        Sual solicitação foi recusada.
-                      </v-card-title>
+                      <v-col class="refuse" v-if="!userData.StatusRequest[0].status">
+                        <v-card-title
+                          v-if="!userData.StatusRequest[0].status"
+                          class="card-result wmp error"
+                          block
+                        >
+                          Sual solicitação foi recusada.
+                        </v-card-title>
+                        <v-card-title style="color: red;">
+                          {{ userData.StatusRequest[0].messageForRefuse }}
+                        </v-card-title>
+                        <v-btn
+                          color="primary"
+                          block
+                          @click="dialogDriver = true"
+                        >
+                          Solicitar Novamente Status de motorista
+                        </v-btn>
+                      </v-col>
+
                       <v-card-title
                         v-if="userData.StatusRequest[0].status"
                         class="card-result wmp success"
@@ -420,6 +433,39 @@ export default {
       vehicleFileChanged: false,
       vehicleType: "Carro",
       userData: {
+        id: "41b2c605-1f7d-4f41-baeb-b3a6c8808ca4",
+        name: "Teste 1 Teste",
+        email: "1teste@gmail.com",
+        phone_number: "(34) 5 3453-4534",
+        occupation: "Aluno(a)",
+        avatar:
+          "https://storage.googleapis.com/proxima-parada-storage.appspot.com/users%2F41b2c605-1f7d-4f41-baeb-b3a6c8808ca4.jpg",
+        status: true,
+        level: false,
+        Vehicle: [
+          {
+            id: "e64e2550-d2f6-4fe3-9ee8-0e36248417c3",
+            brand: "Volkswagen",
+            model: "Goll",
+            avatar:
+              "https://storage.googleapis.com/proxima-parada-storage.appspot.com/vehicles%2Fe64e2550-d2f6-4fe3-9ee8-0e36248417c3.jpg",
+            vehicle_type: "Carro",
+            vehicle_color: "Azull",
+            license_plate: "234234234",
+          },
+        ],
+        StatusRequest: [
+          {
+            id: "0b39f204-2402-4866-941b-4c0bb5f589d4",
+            status: false,
+            readed: true,
+            id_user: "41b2c605-1f7d-4f41-baeb-b3a6c8808ca4",
+            messageForRefuse: "Imagem do veiculo muito borrada",
+          },
+        ],
+      },
+
+      /* userData: {
         Vehicle: [
           {
             id_user: "",
@@ -432,7 +478,7 @@ export default {
           },
         ],
         StatusRequest: [{ id_user: "" }],
-      },
+      }, */
       vehicleAvatar: null,
       loading: false,
       updateLoading: false,
@@ -512,7 +558,7 @@ export default {
       }
     },
 
-    async uploadImageCar( message) {
+    async uploadImageCar(message) {
       this.loading = true;
       let formData = new FormData();
       formData.append("vehicleAvatarFileName", this.vehicleFile);
@@ -665,7 +711,7 @@ export default {
   created() {
     //console.log("testand o user loca no Profile: ", this.userData);
     if (sessionStorage.getItem("userLocal")) {
-      this.prepareData(JSON.parse(sessionStorage.getItem("userLocal")));
+      //this.prepareData(JSON.parse(sessionStorage.getItem("userLocal")));
     }
     //console.log("testand o user loca no Profile: ", this.userData);
   },
@@ -678,6 +724,10 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+
+.refuse{
+  padding: 0;
+}
 .border {
   border: 1px red solid;
 }
