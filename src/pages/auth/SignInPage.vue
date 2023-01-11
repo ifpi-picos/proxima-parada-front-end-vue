@@ -160,7 +160,7 @@ export default {
   flex-direction: row;
   padding: 120px;
   
-  
+ 
 }
 .teste2{
   display: flexbox;

@@ -2,13 +2,13 @@
   <v-container fluid fill-height>
     <v-layout align-center justify-center>
       <v-flex xs8 sm4 md4>
-        <section>
+        <section class="teste">
             <h1>Próxima Parada</h1>
             <p class="descricao">O Próxima Parada é um sistema que irá facilitar o deslocamento entre sua casa e a instituição de ensino que você frequênta</p>
         </section> 
       </v-flex>
       
-      <v-flex xs8 sm6 md4>
+      <v-flex xs8 sm6 md5>
         <v-card>
           <v-card-text>
             <v-progress-linear
@@ -108,7 +108,7 @@
                 >
                 <br />
                
-                  <p class="descricao">Já tenho Conta <a class="link" href="/signin"> Fazer Login</a></p>
+                  <p class="deslink">Já tenho Conta <a class="link" href="/signin"> Fazer Login</a></p>
                 
               </v-form>
             </v-card-text>
@@ -197,21 +197,116 @@ export default {
   text-decoration: none;
   text-align: center;
 }
-/* .descricao{
+/* .descricao{1146
   text-align: center;
 
 } */
-.descricao{
-  font-size: 20px;
-    color: #6b7677;
-    text-align:left;
-    margin: -4px 11px 0px 0px;
-
-}
 h1{
   font-size: 58px;
   color: rgb(0, 89, 255);
-  
-  
+  margin-left: -145px;
+
 }
+.descricao{
+  font-size: 18px;
+    color: #6b7677;
+    text-align:left;
+    margin: -4px 11px 0px 0px;
+    margin-left: -145px;
+   
+
+}
+.deslink{
+  font-size: 14px;
+    color: #6b7677;
+    text-align:center;
+    margin: -4px 11px 0px 0px;
+}
+
+/* .teste{
+    display: flexbox;
+    flex-direction: row;
+    padding: 40px;
+  
+  } */
+@media screen and (max-width: 1144px) {
+  .teste{
+    display: flexbox;
+    flex-direction: row;
+    padding: 35px;
+  
+  }
+    h1{
+    font-size: 48px;
+    color: rgb(0, 89, 255); 
+    margin-left: -125px;
+  }
+  .descricao{
+  font-size: 16px;
+    color: #6b7677;
+    text-align:left;
+    margin: -4px 11px 0px 0px;
+    margin-left: -125px;
+   
+
+}
+}
+
+@media screen and (max-width: 975px) {
+  .teste{
+    display: flexbox;
+    flex-direction: row;
+    padding: 20px;
+  
+  }
+    h1{
+    font-size: 38px;
+    color: rgb(0, 89, 255); 
+    margin-left: -125px;
+  }
+  .descricao{
+  font-size: 18px;
+    color: #6b7677;
+    text-align:left;
+    margin: -4px 11px 0px 0px;
+    margin-left: -125px;
+   
+
+  }
+}
+@media screen and (max-width: 959px) {
+  .teste{
+    display: flexbox;
+    flex-direction: row;
+    padding: 20px;
+  
+  }
+    h1{
+    font-size: 34px;
+    color: rgb(0, 89, 255); 
+    margin-left: -45px;
+  }
+  .descricao{
+  font-size: 14px;
+    color: #6b7677;
+    text-align:left;
+    margin: -4px 11px 0px 0px;
+    margin-left: -45px;
+   
+
+  }
+}
+ @media screen and (max-width: 738px) {
+  .teste{
+    display: none;
+  }
+    h1{
+   display: none;
+  }
+  .descricao{
+  display: none ;
+   
+
+  }
+} 
 </style>
