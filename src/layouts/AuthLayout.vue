@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/no-unused-components -->
 <template>
     <v-app>
-        <v-main>
+        <v-main class="testando">
             <v-fade-transition mode="out-in">
                <router-view></router-view>
                 
@@ -22,5 +22,7 @@ export default {
 </script>
   
 <style>
-
+.testando{
+  background: #f0f2f5;
+}
 </style>

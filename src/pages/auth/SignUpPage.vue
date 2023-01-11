@@ -100,9 +100,9 @@
                   >Cadastrar</v-btn
                 >
                 <br />
-                <v-card>
-                  <p>Já tenho Conta <a href="/signin"> Fazer Login</a></p>
-                </v-card>
+               
+                  <p class="descricao">Já tenho Conta <a class="link" href="/signin"> Fazer Login</a></p>
+                
               </v-form>
             </v-card-text>
           </v-card-text>
@@ -185,5 +185,13 @@ export default {
 }
 .password {
   font-family: "Open Sans", sans-serif;
+}
+.link{
+  text-decoration: none;
+  text-align: center;
+}
+.descricao{
+  text-align: center;
+
 }
 </style>

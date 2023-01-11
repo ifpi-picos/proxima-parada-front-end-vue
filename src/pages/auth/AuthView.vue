@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid fill-height class="teste">
+  <v-container fluid fill-height >
 
     <v-hover v-slot:default="{ hover }" open-delay="200">
       <v-btn

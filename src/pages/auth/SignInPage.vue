@@ -1,7 +1,14 @@
 <template>
   <v-container fluid fill-height>
-    <v-layout align-center justify-center>
-      <v-flex xs8 sm6 md4>
+    <v-layout align-center justify-center >
+      <v-flex xs8 sm4 md4>
+      <section>
+          <h1>Próxima Parada</h1>
+          <p class="descricao">O Próxima Parada é um sistema que irá facilitar o deslocamento entre sua casa e a instituição de ensino que você frequênta</p>
+      </section> 
+      </v-flex>
+      <section class="teste">
+        
         <v-card>
           <v-card-text>
             <v-alert
@@ -19,13 +26,14 @@
               top
               height="6"
             >
+            
             </v-progress-linear>
-            <v-img
+            <!-- <v-img
               :src="require('../../assets/logo.png')"
               class="my-3"
               contain
               height="260"
-            />
+            /> -->
             <v-form @submit.prevent="authUser" v-model="valid">
               <v-text-field
                 prepend-icon="mail_outline"
@@ -47,7 +55,7 @@
                 @click:append="show1 = !show1"
                 v-model="userAuth.password"
               >
-                <p>mano do ceu</p>
+          
               </v-text-field>
               <v-btn
                 :disabled="!valid"
@@ -58,21 +66,22 @@
                 >Entrar</v-btn
               >
               <br />
-              <v-card>
-                <p>
-                  Novo no Proxima-Parada?
-                  <a href="/signup" rel="noopener noreferrer">Fazer conta</a>
+             
+                <p class="paragrafo">
+                  Novo no Próxima Parada?
+                  <a class="link" href="/signup" rel="noopener noreferrer">Criar conta</a>
                 </p>
-              </v-card>
-              <v-card>
-                <p>
-                  <a href="/signinadmin" rel="">Entrar como Adminstrador</a>
-                </p>
-              </v-card>
+             
+              
             </v-form>
           </v-card-text>
         </v-card>
-      </v-flex>
+      </section>
+      <!-- <v-flex xs8 sm4 md4>
+      <section>
+          <p><a  class="link admin" href="/signinadmin" rel="">Entrar como Adminstrador</a></p>
+      </section> 
+      </v-flex> -->
     </v-layout>
   </v-container>
 </template>
@@ -145,5 +154,99 @@ export default {
 }
 .password {
   font-family: "Open Sans", sans-serif;
+}
+.teste{
+  display: flexbox;
+  flex-direction: row;
+  padding: 120px;
+  
+  
+}
+.teste2{
+  display: flexbox;
+  flex-direction: row;
+  
+}
+h1{
+  font-size: 58px;
+  color: rgb(0, 89, 255);
+  
+  
+}
+.descricao{
+  font-size: 20px;
+    color: #6b7677;
+    text-align:left;
+    margin: -4px 11px 0px 0px;
+
+}
+.paragrafo{
+  text-align: center;
+}
+.link{
+  text-decoration: none;
+  padding: 4px;
+}
+.admin{
+  padding: 24px;
+}
+
+@media screen and (max-width: 1266px) {
+  .teste{
+    display: flexbox;
+    flex-direction: row;
+    padding: 80px;
+  
+  
+  }
+    h1{
+    font-size: 48px;
+    color: rgb(0, 89, 255); 
+  }
+}
+@media screen and (max-width: 1052px) {
+  .teste{
+    display: flexbox;
+    flex-direction: row;
+    padding: 40px;
+  }
+  .descricao{
+    font-size: 16px;
+    color: #6b7677;
+    text-align:left;
+    margin: -4px 11px 0px 0px;
+  }
+
+  h1{
+    font-size: 38px;
+    color: rgb(0, 89, 255); 
+  }
+}
+@media screen and (max-width: 838px) {
+  .teste{
+    display: flexbox;
+    flex-direction: row;
+    padding: 20px;
+  }
+  .descricao{
+    font-size: 10px;
+    color: #6b7677;
+    text-align:left;
+    margin: -4px 11px 0px 0px;
+  }
+
+  h1{
+    font-size: 28px;
+    color: rgb(0, 89, 255); 
+  }
+}
+@media screen and (max-width: 685px) {
+
+  h1{
+    display: none;
+  }
+  .descricao{
+    display: none;
+  }
 }
 </style>

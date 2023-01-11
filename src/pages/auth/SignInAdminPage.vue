@@ -56,9 +56,9 @@
                 >Login</v-btn
               >
               <br />
-              <v-card>
+              
                 <p><a href="/signin">Entrar como usuario convencional</a></p>
-              </v-card>
+              
             </v-form>
           </v-card-text>
         </v-card>
