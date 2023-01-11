@@ -1,7 +1,7 @@
 <template>
   <v-container fluid fill-height>
     <v-layout align-center justify-center >
-      <v-flex xs8 sm4 md4>
+      <v-flex xs8 sm4 md4 class="divfinal">
         <section>
             <h1>Próxima Parada</h1>
             <p class="descricao">O Próxima Parada é um sistema que irá facilitar o deslocamento entre sua casa e a instituição de ensino que você frequênta</p>
@@ -248,5 +248,23 @@ h1{
   .descricao{
     display: none;
   }
+  .divfinal{
+    
+    text-align: center;
+    margin-left: -155px;
+  }
 }
+@media screen and (max-width: 560px){
+.divfinal{
+  
+  text-align: center;
+  margin-left: -125px;
+  }
+}
+/* @media screen and (max-width: 585px){
+.divfinal{
+
+  margin-left: -9px;
+  }
+} */
 </style>

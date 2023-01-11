@@ -1,6 +1,6 @@
 <template>
   <v-container fluid fill-height>
-    <v-layout align-center justify-center>
+    <v-layout align-center justify-center >
       <v-flex xs8 sm4 md4>
         <section class="teste">
             <h1>Próxima Parada</h1>
@@ -8,8 +8,8 @@
         </section> 
       </v-flex>
       
-      <v-flex xs8 sm6 md5>
-        <v-card>
+      <v-flex xs8 sm6 md5 class="divfinal">
+        <v-card >
           <v-card-text>
             <v-progress-linear
               :active="loading"
@@ -305,8 +305,11 @@ h1{
   }
   .descricao{
   display: none ;
-   
-
   }
+  .divfinal{
+    text-align: center;
+    margin-left: -155px;
+  }
+ 
 } 
 </style>
