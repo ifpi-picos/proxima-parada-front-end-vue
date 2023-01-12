@@ -1,80 +1,80 @@
 <template>
   <v-container fluid fill-height>
-    <v-layout align-center justify-center >
-      <v-flex xs8 sm4 md4 class="divfinal">
-        <section>
-            <h1>Próxima Parada</h1>
-            <p class="descricao">O Próxima Parada é um sistema que irá facilitar o deslocamento entre sua casa e a instituição de ensino que você frequênta</p>
-        </section> 
-      </v-flex>
-      <section class="teste">
-        
-        <v-card>
-          <v-card-text>
-            <v-alert
-              :value="erroAlert"
-              color="red"
-              elevation="3"
-              outlined
-              type="warning"
-              >{{ messageError }}</v-alert
-            >
-            <v-progress-linear
-              :active="loading"
-              :indeterminate="loading"
-              absolute
-              top
-              height="6"
-            >
-            
-            </v-progress-linear>
-            <!-- <v-img
+    <v-layout align-center justify-center>
+      <section class="section-label">
+        <div class="div-label">
+          <h1>Próxima Parada</h1>
+          <p class="descricao">
+            O Próxima Parada é um sistema que irá facilitar o deslocamento entre
+            sua casa e a instituição de ensino que você frequênta
+          </p>
+        </div>
+      </section>
+      <section class="section-form">
+        <v-card class="card-form">
+          <div class="div-form">
+            <v-card-text>
+              <v-alert
+                :value="erroAlert"
+                color="red"
+                elevation="3"
+                outlined
+                type="warning"
+              >
+                {{ messageError }}
+              </v-alert>
+              <v-progress-linear
+                :active="loading"
+                :indeterminate="loading"
+                absolute
+                top
+                height="6"
+              />
+              <!-- <v-img
               :src="require('../../assets/logo.png')"
               class="my-3"
               contain
               height="260"
             /> -->
-            <v-form @submit.prevent="authUser" v-model="valid">
-              <v-text-field
-                prepend-icon="mail_outline"
-                name="email"
-                label="E-mail"
-                type="text"
-                :rules="[rules.required, rules.email]"
-                v-model="userAuth.email"
-              >
-              </v-text-field>
-              <v-text-field
-                class="password"
-                prepend-icon="password"
-                name="password"
-                label="Senha"
-                :rules="[rules.required, rules.min]"
-                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="show1 ? 'text' : 'password'"
-                @click:append="show1 = !show1"
-                v-model="userAuth.password"
-              >
-          
-              </v-text-field>
-              <v-btn
-                :disabled="!valid"
-                block
-                color="primary"
-                elevation="6"
-                type="submit"
-                >Entrar</v-btn
-              >
-              <br />
-             
+              <v-form @submit.prevent="authUser" v-model="valid">
+                <v-text-field
+                  prepend-icon="mail_outline"
+                  name="email"
+                  label="E-mail"
+                  type="text"
+                  :rules="[rules.required, rules.email]"
+                  v-model="userAuth.email"
+                />
+                <v-text-field
+                  class="password"
+                  prepend-icon="password"
+                  name="password"
+                  label="Senha"
+                  :rules="[rules.required, rules.min]"
+                  :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="show1 ? 'text' : 'password'"
+                  @click:append="show1 = !show1"
+                  v-model="userAuth.password"
+                />
+                <v-btn
+                  :disabled="!valid"
+                  block
+                  color="primary"
+                  elevation="6"
+                  type="submit"
+                >
+                  Entrar
+                </v-btn>
+                <br />
                 <p class="paragrafo">
                   Novo no Próxima Parada?
-                  <a class="link" href="/signup" rel="noopener noreferrer">Criar conta</a>
+                  <a class="link" href="/signup" rel="noopener noreferrer"
+                    >Criar conta</a
+                  >
                 </p>
-             
-              
-            </v-form>
-          </v-card-text>
+              </v-form>
+            </v-card-text>
+          </div>
         </v-card>
       </section>
       <!-- <v-flex xs8 sm4 md4>
@@ -143,128 +143,151 @@ export default {
 </script>
 
 <style scoped>
-/* @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap");
-.btn {
-  color: #fff;
-  font-family: "Open Sans", sans-serif;
-  font-size: 18px;
+.section-form {
+  height: 103%;
+  width: 30%;
+  min-width: 450px;
+  max-width: 500px;
+  margin-right: 200px;
 }
-.form {
-  font-family: "Open Sans", sans-serif;
+.card-form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-.password {
-  font-family: "Open Sans", sans-serif;
-} */
-.teste{
-  display: flexbox;
-  flex-direction: row;
-  padding: 120px;
-  
- 
+.section-label {
+  height: 100%;
+  width: 70%;
 }
-.teste2{
-  display: flexbox;
-  flex-direction: row;
-  
+.div-label {
+  width: 80%;
+  height: 100%;
+  margin-left: 200px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-h1{
+
+h1 {
   font-size: 58px;
   color: rgb(0, 89, 255);
-  
-  
 }
-.descricao{
+.descricao {
   font-size: 20px;
-    color: #6b7677;
-    text-align:left;
-    margin: -4px 11px 0px 0px;
-
+  color: #6b7677;
+  text-align: left;
+  margin: -4px 11px 0px 0px;
 }
-.paragrafo{
+.paragrafo {
   text-align: center;
 }
-.link{
+.link {
   text-decoration: none;
   padding: 4px;
 }
-.admin{
-  padding: 24px;
+
+@media screen and (max-width: 1400px) {
+  .section-form {
+    width: 40%;
+    min-width: 420px;
+    margin-right: 160px;
+  }
+
+  .section-label {
+    width: 60%;
+  }
+  .div-label {
+    margin-left: 100px;
+  }
+  h1 {
+    font-size: 48px;
+    color: rgb(0, 89, 255);
+  }
 }
 
 @media screen and (max-width: 1266px) {
-  .teste{
-    display: flexbox;
-    flex-direction: row;
-    padding: 80px;
-  
-  
+  .section-form {
+    margin-right: 140px;
   }
-    h1{
+
+  .div-label {
+    margin-left: 100px;
+  }
+  h1 {
     font-size: 48px;
-    color: rgb(0, 89, 255); 
+    color: rgb(0, 89, 255);
   }
 }
-@media screen and (max-width: 1052px) {
-  .teste{
-    display: flexbox;
-    flex-direction: row;
-    padding: 40px;
+
+@media screen and (max-width: 1166px) {
+  .section-form {
+    margin-right: 120px;
   }
-  .descricao{
+  .div-label {
+    margin-left: 80px;
+  }
+}
+
+@media screen and (max-width: 1052px) {
+  .section-form {
+    margin-right: 100px;
+  }
+
+  .div-label {
+    margin-left: 80px;
+  }
+  .descricao {
     font-size: 16px;
     color: #6b7677;
-    text-align:left;
+    text-align: left;
     margin: -4px 11px 0px 0px;
   }
 
-  h1{
+  h1 {
     font-size: 38px;
-    color: rgb(0, 89, 255); 
+    color: rgb(0, 89, 255);
   }
 }
+
 @media screen and (max-width: 838px) {
-  .teste{
-    display: flexbox;
-    flex-direction: row;
-    padding: 20px;
+  .section-form {
+    width: 50%;
+    min-width: 380px;
+    margin-right: 80px;
   }
-  .descricao{
-    font-size: 10px;
+
+  .section-label {
+    width: 50%;
+  }
+  .div-label {
+    margin-left: 40px;
+    padding: 40px;
+  }
+
+  .descricao {
     color: #6b7677;
-    text-align:left;
+    text-align: left;
     margin: -4px 11px 0px 0px;
   }
 
-  h1{
+  h1 {
     font-size: 28px;
-    color: rgb(0, 89, 255); 
+    color: rgb(0, 89, 255);
   }
 }
 @media screen and (max-width: 685px) {
+  .section-form {
+    width: 100%;
+    min-width: 380px;
+    max-width: 500px;
+    margin-right: 0;
+  }
 
-  h1{
+  .section-label {
     display: none;
   }
-  .descricao{
-    display: none;
-  }
-  .divfinal{
-    
-    text-align: center;
-    margin-left: -155px;
-  }
 }
-@media screen and (max-width: 560px){
-.divfinal{
-  
-  text-align: center;
-  margin-left: -125px;
-  }
-}
-/* @media screen and (max-width: 585px){
-.divfinal{
-
-  margin-left: -9px;
-  }
-} */
 </style>

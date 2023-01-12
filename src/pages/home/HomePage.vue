@@ -289,7 +289,22 @@ export default {
         if (res.data.length == 0) {
           this.alertInfo = true;
         } else {
-          this.publications = res.data;
+          for (let i = 0; i < res.data; i++) {
+            this.publications.push({
+              User: res.data.User,
+              departure_hour: res.data.departure_hour,
+              departure_date: res.data.departure_date,
+              id: res.data.id,
+              id_user: res.data.id_user,
+              modality: res.data.modality,
+              regular: res.data.regular,
+              statusPublication: res.data.statusPublication,
+              vacancies: res.data.vacancies,
+              DestinationAddress: res.data.DestinationAddress,
+              OriginAddress: res.data.OriginAddress,
+              expand: false,
+            });
+          }
         }
         this.loading = false;
       } catch (error) {

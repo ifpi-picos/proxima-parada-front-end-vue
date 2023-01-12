@@ -1,15 +1,19 @@
 <template>
   <v-container fluid fill-height>
-    <v-layout align-center justify-center >
-      <v-flex xs8 sm4 md4>
-        <section class="teste">
-            <h1>Próxima Parada</h1>
-            <p class="descricao">O Próxima Parada é um sistema que irá facilitar o deslocamento entre sua casa e a instituição de ensino que você frequênta</p>
-        </section> 
-      </v-flex>
-      
-      <v-flex xs8 sm6 md5 class="divfinal">
-        <v-card >
+    <v-layout align-center justify-center>
+      <section class="section-label">
+        <div class="div-label">
+          <h1>Próxima Parada</h1>
+          <p class="descricao">
+            O Próxima Parada é um sistema que irá facilitar o deslocamento entre
+            sua casa e a instituição de ensino que você frequênta
+          </p>
+        </div>
+      </section>
+
+      <section class="section-form">
+        <v-card class="card-form">
+          <div class="div-form">
           <v-card-text>
             <v-progress-linear
               :active="loading"
@@ -17,8 +21,7 @@
               absolute
               top
               height="6"
-            >
-            </v-progress-linear>
+            />
             <v-card-text>
               <v-alert
                 :value="erroAlert"
@@ -34,8 +37,7 @@
                 absolute
                 top
                 height="6"
-              >
-              </v-progress-linear>
+              />
               <v-form @submit.prevent="auhtUser" v-model="valid">
                 <v-text-field
                   prepend-icon="perm_identity"
@@ -45,8 +47,7 @@
                   :rules="[rules.required]"
                   password
                   v-model="userData.name"
-                >
-                </v-text-field>
+                />
 
                 <v-select
                   prepend-icon="work_outline"
@@ -55,8 +56,7 @@
                   :items="items"
                   v-model="userData.occupation"
                   :rules="[rules.required]"
-                >
-                </v-select>
+                />
                 <v-text-field
                   prepend-icon="perm_device_information"
                   name="phone_number"
@@ -64,8 +64,7 @@
                   v-mask="'(##) # ####-####'"
                   type="phone"
                   v-model="userData.phone_number"
-                >
-                </v-text-field>
+                />
                 <v-text-field
                   prepend-icon="mail_outline"
                   name="email"
@@ -73,8 +72,7 @@
                   type="text"
                   :rules="[rules.required, rules.email]"
                   v-model="userData.email"
-                >
-                </v-text-field>
+                />
 
                 <v-text-field
                   prepend-icon="password"
@@ -85,8 +83,8 @@
                   :type="show1 ? 'text' : 'password'"
                   @click:append="show1 = !show1"
                   v-model="userData.password"
-                >
-                </v-text-field>
+                />
+
                 <v-text-field
                   prepend-icon="password"
                   name="password_confirm"
@@ -96,25 +94,26 @@
                   :type="show2 ? 'text' : 'password'"
                   @click:append="show2 = !show2"
                   v-model="userData.samePasswords"
-                >
-                </v-text-field>
+                />
+
                 <v-btn
                   :disabled="!valid"
                   block
                   color="primary"
                   elevation="6"
                   type="submit"
-                  >Cadastrar</v-btn
                 >
-                <br />
-               
-                  <p class="deslink">Já tenho Conta <a class="link" href="/signin"> Fazer Login</a></p>
-                
+                  Cadastrar </v-btn
+                ><br />
+                <p class="deslink">
+                  Já tenho Conta <a class="link" href="/signin"> Fazer Login</a>
+                </p>
               </v-form>
             </v-card-text>
           </v-card-text>
+          </div>
         </v-card>
-      </v-flex>
+      </section>
     </v-layout>
   </v-container>
 </template>
@@ -182,134 +181,151 @@ export default {
 };
 </script>
 <style scoped>
-.btn {
-  color: #fff;
-  font-family: "Open Sans", sans-serif;
-  font-size: 18px;
+.section-form {
+  height: 103%;
+  width: 30%;
+  min-width: 450px;
+  max-width: 500px;
+  margin-right: 200px;
 }
-.form {
-  font-family: "Open Sans", sans-serif;
+.card-form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-.password {
-  font-family: "Open Sans", sans-serif;
+.section-label {
+  height: 100%;
+  width: 70%;
 }
-.link{
-  text-decoration: none;
-  text-align: center;
+.div-label {
+  width: 80%;
+  height: 100%;
+  margin-left: 200px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-/* .descricao{1146
-  text-align: center;
 
-} */
-h1{
+h1 {
   font-size: 58px;
   color: rgb(0, 89, 255);
-  margin-left: -145px;
-
 }
-.descricao{
-  font-size: 18px;
-    color: #6b7677;
-    text-align:left;
-    margin: -4px 11px 0px 0px;
-    margin-left: -145px;
-   
-
+.descricao {
+  font-size: 20px;
+  color: #6b7677;
+  text-align: left;
+  margin: -4px 11px 0px 0px;
 }
-.deslink{
-  font-size: 14px;
-    color: #6b7677;
-    text-align:center;
-    margin: -4px 11px 0px 0px;
+.paragrafo {
+  text-align: center;
+}
+.link {
+  text-decoration: none;
+  padding: 4px;
 }
 
-/* .teste{
-    display: flexbox;
-    flex-direction: row;
-    padding: 40px;
-  
-  } */
-@media screen and (max-width: 1144px) {
-  .teste{
-    display: flexbox;
-    flex-direction: row;
-    padding: 35px;
-  
+@media screen and (max-width: 1400px) {
+  .section-form {
+    width: 40%;
+    min-width: 420px;
+    margin-right: 160px;
   }
-    h1{
+
+  .section-label {
+    width: 60%;
+  }
+  .div-label {
+    margin-left: 100px;
+  }
+  h1 {
     font-size: 48px;
-    color: rgb(0, 89, 255); 
-    margin-left: -125px;
+    color: rgb(0, 89, 255);
   }
-  .descricao{
-  font-size: 16px;
+}
+
+@media screen and (max-width: 1266px) {
+  .section-form {
+    margin-right: 140px;
+  }
+
+  .div-label {
+    margin-left: 100px;
+  }
+  h1 {
+    font-size: 48px;
+    color: rgb(0, 89, 255);
+  }
+}
+
+@media screen and (max-width: 1166px) {
+  .section-form {
+    margin-right: 120px;
+  }
+  .div-label {
+    margin-left: 80px;
+  }
+}
+
+@media screen and (max-width: 1052px) {
+  .section-form {
+    margin-right: 100px;
+  }
+
+  .div-label {
+    margin-left: 80px;
+  }
+  .descricao {
+    font-size: 16px;
     color: #6b7677;
-    text-align:left;
+    text-align: left;
     margin: -4px 11px 0px 0px;
-    margin-left: -125px;
-   
-
-}
-}
-
-@media screen and (max-width: 975px) {
-  .teste{
-    display: flexbox;
-    flex-direction: row;
-    padding: 20px;
-  
   }
-    h1{
+
+  h1 {
     font-size: 38px;
-    color: rgb(0, 89, 255); 
-    margin-left: -125px;
-  }
-  .descricao{
-  font-size: 18px;
-    color: #6b7677;
-    text-align:left;
-    margin: -4px 11px 0px 0px;
-    margin-left: -125px;
-   
-
+    color: rgb(0, 89, 255);
   }
 }
-@media screen and (max-width: 959px) {
-  .teste{
-    display: flexbox;
-    flex-direction: row;
-    padding: 20px;
-  
-  }
-    h1{
-    font-size: 34px;
-    color: rgb(0, 89, 255); 
-    margin-left: -45px;
-  }
-  .descricao{
-  font-size: 14px;
-    color: #6b7677;
-    text-align:left;
-    margin: -4px 11px 0px 0px;
-    margin-left: -45px;
-   
 
+@media screen and (max-width: 838px) {
+  .section-form {
+    width: 50%;
+    min-width: 380px;
+    margin-right: 80px;
+  }
+
+  .section-label {
+    width: 50%;
+  }
+  .div-label {
+    margin-left: 40px;
+    padding: 40px;
+  }
+
+  .descricao {
+    color: #6b7677;
+    text-align: left;
+    margin: -4px 11px 0px 0px;
+  }
+
+  h1 {
+    font-size: 28px;
+    color: rgb(0, 89, 255);
   }
 }
- @media screen and (max-width: 738px) {
-  .teste{
+@media screen and (max-width: 685px) {
+  .section-form {
+    width: 100%;
+    min-width: 380px;
+    max-width: 500px;
+    margin-right: 0;
+  }
+
+  .section-label {
     display: none;
   }
-    h1{
-   display: none;
-  }
-  .descricao{
-  display: none ;
-  }
-  .divfinal{
-    text-align: center;
-    margin-left: -155px;
-  }
- 
-} 
+}
 </style>
