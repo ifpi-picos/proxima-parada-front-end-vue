@@ -129,8 +129,15 @@
             <v-expand-transition>
               <div v-if="publication.expand">
                 <v-row>
-                  <v-card-actions>
-                    <v-btn color="blue darken-2" elevation="2" outlined rounded>
+                  <v-card-actions class="block">
+                    <v-btn
+                      color="blue darken-2"
+                      block
+                      elevation="2"
+                      outlined
+                      rounded
+                      @click="callPhone(publication.User.phone_number)"
+                    >
                       Conversar com o motorista
                     </v-btn>
                   </v-card-actions>
@@ -284,27 +291,15 @@ export default {
   methods: {
     async getAllPosts() {
       this.loading = true;
+      this.publications = [];
       try {
         const res = await User.getAllPosts();
         if (res.data.length == 0) {
           this.alertInfo = true;
         } else {
-          for (let i = 0; i < res.data; i++) {
-            this.publications.push({
-              User: res.data.User,
-              departure_hour: res.data.departure_hour,
-              departure_date: res.data.departure_date,
-              id: res.data.id,
-              id_user: res.data.id_user,
-              modality: res.data.modality,
-              regular: res.data.regular,
-              statusPublication: res.data.statusPublication,
-              vacancies: res.data.vacancies,
-              DestinationAddress: res.data.DestinationAddress,
-              OriginAddress: res.data.OriginAddress,
-              expand: false,
-            });
-          }
+          this.publications = res.data.map((element) => {
+            return { ...element, expand: false };
+          });
         }
         this.loading = false;
       } catch (error) {
@@ -316,8 +311,9 @@ export default {
       }
     },
 
-    talkWithDriver() {
-      console.log("Botão de falar com o motorista presiionado");
+    callPhone(phone) {
+      phone = phone.replace(/\D/gim, "");
+      window.open("https://wa.me/55" + phone, "_blank");
     },
 
     expandON(index) {
@@ -346,6 +342,10 @@ export default {
 }
 .border-black {
   border: 1px solid black;
+}
+
+.block {
+  width: 100%;
 }
 
 .border-blue {

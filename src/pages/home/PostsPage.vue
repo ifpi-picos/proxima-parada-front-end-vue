@@ -39,36 +39,6 @@
       </v-btn>
     </v-hover>
 
-    <!--  <v-card>
-      <h2>Card-01</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
-        assumenda consectetur corrupti numquam, eligendi consequatur!
-        Repellendus quas necessitatibus praesentium non et amet dicta aperiam
-        dolorem, ullam neque. Placeat, suscipit voluptates.
-      </p>
-    </v-card>
-
-    <v-card>
-      <h2>Card-02</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
-        assumenda consectetur corrupti numquam, eligendi consequatur!
-        Repellendus quas necessitatibus praesentium non et amet dicta aperiam
-        dolorem, ullam neque. Placeat, suscipit voluptates.
-      </p>
-    </v-card>
-
-    <v-card>
-      <h2>Card-03</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
-        assumenda consectetur corrupti numquam, eligendi consequatur!
-        Repellendus quas necessitatibus praesentium non et amet dicta aperiam
-        dolorem, ullam neque. Placeat, suscipit voluptates.
-      </p>
-    </v-card> -->
-
     <v-row dense>
       <v-alert
         :value="alertInfo"
@@ -132,7 +102,7 @@
                 <v-row class="pa-0 ma-0">
                   <v-col cols="4" class="pa-0 ma-0">
                     <v-btn
-                      color="blue darken-2"
+                      color="blue darken-1"
                       elevation="2"
                       block
                       outlined
@@ -145,8 +115,8 @@
                   </v-col>
                   <v-col cols="4" class="pa-0 ma-0">
                     <v-btn
-                      :disabled="!publication.vacancies"
-                      color="yellow accent-2"
+                      v-if="publication.vacancies"
+                      color="yellow darken-1"
                       elevation="2"
                       block
                       outlined
@@ -156,11 +126,23 @@
                       <v-icon v-if="cardIcon">check_circle_outline</v-icon>
                       <span v-else>Encerrar</span>
                     </v-btn>
+                    <v-btn
+                      v-if="!publication.vacancies"
+                      color="green darken-1"
+                      elevation="2"
+                      block
+                      outlined
+                      rounded
+                      @click="finishPost(index)"
+                    >
+                      <v-icon v-if="cardIcon">check_circle_outline</v-icon>
+                      <span v-else>Disponibilizar</span>
+                    </v-btn>
                   </v-col>
                   <v-col cols="4" class="pa-0 ma-0">
                     <v-btn
                       :disabled="!publication.statusPublication"
-                      color="red darken-2"
+                      color="red darken-1"
                       elevation="2"
                       block
                       outlined
@@ -331,10 +313,10 @@
     </v-row>
 
     <v-row justify="center">
-      <v-dialog v-model="dialogFinishVacancies" max-width="300">
+      <v-dialog v-model="dialogFinishVacancies" max-width="360">
         <v-card>
-          <v-card-title class="text-h5">
-            Tem certeza de que deseja as vagas desta carona?
+          <v-card-title class="text-h5 word">
+            Tem certeza de que deseja alterar as vagas desta carona?
           </v-card-title>
           <v-card-actions>
             <v-row class="pa-0 ma-0">
@@ -370,9 +352,9 @@
     </v-row>
 
     <v-row justify="center">
-      <v-dialog v-model="dialogCancelRide" max-width="300">
+      <v-dialog v-model="dialogCancelRide" max-width="360">
         <v-card>
-          <v-card-title class="text-h5">
+          <v-card-title class="text-h5 word">
             Tem certeza de que deseja cancelar carona?
           </v-card-title>
           <v-card-actions>
@@ -563,7 +545,7 @@ export default {
       this.loader = this.finishVacanciesLoading;
       let data = {
         id: this.publications[this.indexPub].id,
-        vacancies: false,
+        vacancies: !this.publications[this.indexPub].vacancies,
       };
       try {
         // eslint-disable-next-line no-unused-vars
@@ -671,6 +653,10 @@ export default {
 <style lang="css" scoped>
 .border {
   border: 1px red solid;
+}
+
+.word {
+  word-break: normal;
 }
 
 .fab-new-post {

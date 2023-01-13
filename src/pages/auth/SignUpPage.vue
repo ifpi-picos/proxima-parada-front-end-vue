@@ -57,14 +57,14 @@
                   v-model="userData.occupation"
                   :rules="[rules.required]"
                 />
-                <v-text-field
+               <!--  <v-text-field
                   prepend-icon="perm_device_information"
                   name="phone_number"
                   label="Número de Whatsapp"
                   v-mask="'(##) # ####-####'"
                   type="phone"
                   v-model="userData.phone_number"
-                />
+                /> -->
                 <v-text-field
                   prepend-icon="mail_outline"
                   name="email"
@@ -106,7 +106,7 @@
                   Cadastrar </v-btn
                 ><br />
                 <p class="deslink">
-                  Já tenho Conta <a class="link" href="/signin"> Fazer Login</a>
+                  Já tenho Conta <a class="link" href="#/signin"> Fazer Login</a>
                 </p>
               </v-form>
             </v-card-text>

@@ -68,7 +68,7 @@
                 <br />
                 <p class="paragrafo">
                   Novo no Próxima Parada?
-                  <a class="link" href="/signup" rel="noopener noreferrer"
+                  <a class="link" href="#/signup" rel="noopener noreferrer"
                     >Criar conta</a
                   >
                 </p>

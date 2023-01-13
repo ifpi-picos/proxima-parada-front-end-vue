@@ -129,7 +129,7 @@
                           Sual solicitação foi recusada.
                         </v-card-title>
                         <v-card-title style="color: red;">
-                          {{ userData.StatusRequest[0].messageForRefuse }}
+                          {{ userData.StatusRequest[0].statusDescriptionDenied }}
                         </v-card-title>
                         <v-btn
                           color="primary"
@@ -228,7 +228,7 @@
               <v-container>
                 <v-row>
                   <v-col cols="12" md="6">
-                    <v-btn :loading="updateLoading" color="primary" block>
+                    <v-btn :loading="updateLoading" color="primary" block type="submint">
                       Salvar
                     </v-btn>
                   </v-col>
@@ -432,7 +432,7 @@ export default {
       userFileChanged: false,
       vehicleFileChanged: false,
       vehicleType: "Carro",
-      userData: {
+      /* userData: {
         id: "41b2c605-1f7d-4f41-baeb-b3a6c8808ca4",
         name: "Teste 1 Teste",
         email: "1teste@gmail.com",
@@ -460,25 +460,26 @@ export default {
             status: false,
             readed: true,
             id_user: "41b2c605-1f7d-4f41-baeb-b3a6c8808ca4",
-            messageForRefuse: "Imagem do veiculo muito borrada",
+            statusDescriptionDenied: "Imagem do veiculo muito borrada",
           },
         ],
-      },
+      }, */
 
-      /* userData: {
+      userData: {
         Vehicle: [
           {
             id_user: "",
             avatar: "",
             brand: "",
             model: "",
+            statusDescriptionDenied: "",
             vehicle_type: "Carro",
             vehicle_color: "",
             license_plate: "",
           },
         ],
         StatusRequest: [{ id_user: "" }],
-      }, */
+      },
       vehicleAvatar: null,
       loading: false,
       updateLoading: false,
@@ -711,7 +712,7 @@ export default {
   created() {
     //console.log("testand o user loca no Profile: ", this.userData);
     if (sessionStorage.getItem("userLocal")) {
-      //this.prepareData(JSON.parse(sessionStorage.getItem("userLocal")));
+      this.prepareData(JSON.parse(sessionStorage.getItem("userLocal")));
     }
     //console.log("testand o user loca no Profile: ", this.userData);
   },

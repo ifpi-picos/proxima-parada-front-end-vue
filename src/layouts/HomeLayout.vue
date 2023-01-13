@@ -90,7 +90,7 @@ export default {
   methods: {
     async signout() {
       sessionStorage.removeItem("userLocal");
-      this.$router.push({ name: "authMain" });
+      this.$router.push({ name: "signin" });
       /* try {
         const res = await Auth.logout();
         if (res.status == 200) {

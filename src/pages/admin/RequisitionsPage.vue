@@ -203,8 +203,10 @@
               <v-col>
                 <v-row>
                   <v-text-field
-                  style="padding:0 12px;"
-                    v-model="selectedItem.user.Vehicle[0].messageForRefuse"
+                    style="padding: 0 12px"
+                    v-model="
+                      selectedItem.statusDescriptionDenied
+                    "
                     label="Motivo da rejeição"
                   />
                 </v-row>
@@ -242,11 +244,12 @@ import Admin from "../../services/admin";
 export default {
   data: () => ({
     requisitions: [
-      {
+      /* {
         id: "cd9ab86a-9f2c-412a-b7e3-4652934b6d9f",
         status: false,
         readed: false,
         id_user: "47b86c9d-bdc9-4d3a-9352-a388e9977939",
+        statusDescriptionDenied: "",
         created_at: "2022-11-14T18:53:59.472Z",
         updated_at: "2022-11-14T18:53:59.472Z",
         user: {
@@ -268,7 +271,7 @@ export default {
             },
           ],
         },
-      },
+      }, */
     ],
     dialogConfirmStatusRequest: false,
     selectedItem: {
@@ -286,10 +289,11 @@ export default {
   methods: {
     async getAllStatusRequest() {
       this.loading = true;
+      this.requisitions = [];
       try {
         // eslint-disable-next-line no-unused-vars
         const res = await Admin.getAllStatusRequest();
-        console.log(res);
+        console.log("testando retorno de statusRequeset", res.data);
         if (res.data.length == 0) {
           this.alertInfo = true;
         } else {
@@ -307,6 +311,7 @@ export default {
       let data = {
         id: this.selectedItem.id,
         id_user: this.selectedItem.id_user,
+        statusDescriptionDenied: this.selectedItem.statusDescriptionDenied,
         status: status,
       };
       try {
@@ -316,6 +321,7 @@ export default {
         this.statusLoading = false;
         this.dialogConfirmStatusRequest = false;
         this.showSuccessAlert(true, "Requisição resapondida com sucesso.");
+        this.getAllStatusRequest();
       } catch (error) {
         //const response = error.response;
         this.statusLoading = false;
@@ -326,6 +332,7 @@ export default {
     },
 
     openDialoStatusRequest(item) {
+      console.log("testando o itemSeleceted", item);
       this.dialogConfirmStatusRequest = true;
       this.selectedItem = item;
     },
@@ -353,7 +360,7 @@ export default {
     },
   },
   created() {
-    //this.getAllStatusRequest();
+    this.getAllStatusRequest();
   },
 };
 </script>

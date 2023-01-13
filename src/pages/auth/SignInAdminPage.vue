@@ -55,10 +55,6 @@
                 type="submit"
                 >Login</v-btn
               >
-              <br />
-              
-                <p><a href="/signin">Entrar como usuario convencional</a></p>
-              
             </v-form>
           </v-card-text>
         </v-card>
