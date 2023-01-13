@@ -1,23 +1,8 @@
 <template>
   <v-container fluid fill-height>
-
-    <v-hover v-slot:default="{ hover }" open-delay="200">
-      <v-btn
-        color="primary"
-        elevation="2"
-        rounded
-        class="fab-new-post ma-2"
-        @click="dialogSigninAdmin = true"
-      >
-        <v-icon>admin_panel_settings</v-icon>
-        <v-expand-x-transition>
-          <span v-if="hover" class="ml-2">Entrar com Administrador</span>
-        </v-expand-x-transition>
-      </v-btn>
-    </v-hover>
-    <v-row justify="center">
-      <v-dialog v-model="dialogSigninAdmin" persistent max-width="400px">
-        <v-card class="pa-2">
+    <v-layout align-center justify-center>
+      <v-flex xs8 sm6 md4>
+        <v-card>
           <v-card-text>
             <v-alert
               :value="erroAlert"
@@ -70,41 +55,8 @@
                 type="submit"
                 >Login</v-btn
               >
-              <v-btn
-                class="mt-2"
-                color="red darken-1"
-                outlined
-                block
-                elevation="6"
-                @click="dialogSigninAdmin = false"
-              >
-                Cancelar
-              </v-btn>
             </v-form>
           </v-card-text>
-        </v-card>
-      </v-dialog>
-    </v-row>
-    <v-layout align-center justify-center>
-      <v-flex xs8 sm6 md4>
-        <v-card>
-          <v-tabs fixed-tabs background-color="primary">
-            <v-tab> Entrar </v-tab>
-
-            <v-tab> Registrar-se </v-tab>
-
-            <v-tab-item>
-              <template>
-                <sign-in />
-              </template>
-            </v-tab-item>
-
-            <v-tab-item>
-              <template>
-                <sign-up />
-              </template>
-            </v-tab-item>
-          </v-tabs>
         </v-card>
       </v-flex>
     </v-layout>
@@ -112,17 +64,9 @@
 </template>
 
 <script>
-import SignIn from "./SignIn.vue";
-import SignUp from "./SignUp.vue";
 import Auth from "../../services/auth";
 
 export default {
-  name: "Auth-main",
-  components: {
-    // eslint-disable-next-line vue/no-unused-components
-    SignIn,
-    SignUp,
-  },
   data() {
     return {
       adminAuth: {
@@ -164,28 +108,21 @@ export default {
       }
     },
   },
+  
 };
 </script>
-<style lang="css" scoped>
-.border {
-  border: 2px solid red;
-}
-.flex.xs8,
-.flex.sm6,
-.flex.md4 {
-  max-width: 400px;
-  min-width: 360px;
-}
 
-.btn-signin-admin {
-  right: 5px;
-  top: 5px;
+<style scoped>
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap");
+.btn {
+  color: #fff;
+  font-family: "Open Sans", sans-serif;
+  font-size: 18px;
 }
-
-.fab-new-post {
-  z-index: 4;
-  position: fixed;
-  top: 16px;
-  right: 16px;
+.form {
+  font-family: "Open Sans", sans-serif;
+}
+.password {
+  font-family: "Open Sans", sans-serif;
 }
 </style>

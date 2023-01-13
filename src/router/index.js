@@ -5,9 +5,34 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    name: "authMain",
+    path:"/",
+    redirect:{ name: "signin" },
+  },
+  {
+    path: "/auth",
+    name: "auth",
     component: () => import("../layouts/AuthLayout.vue"),
+    children:[
+      {
+        path: "",
+        redirect: { name: "signin" },
+      },
+      {
+        path: "/signin",
+        name: "signin",
+        component: () => import("../pages/auth/SignInPage.vue"),
+      },
+      {
+        path: "/signinadmin",
+        name: "signinadmin",
+        component: () => import("../pages/auth/SignInAdminPage.vue"),
+      },
+      {
+        path: "/signup",
+        name: "signup",
+        component: () => import("../pages/auth/SignUpPage.vue"),
+      },
+    ],
   },
   {
     path: "/home",
@@ -75,7 +100,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  mode: "history",
+/*   mode: "history", */
   routes,
 });
 

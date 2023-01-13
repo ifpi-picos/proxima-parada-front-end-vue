@@ -1,27 +1,28 @@
 <!-- eslint-disable vue/no-unused-components -->
 <template>
     <v-app>
-        <v-main>
+        <v-main class="testando">
             <v-fade-transition mode="out-in">
-                <AuthView></AuthView>
+               <router-view></router-view>
+                
             </v-fade-transition>
         </v-main>
     </v-app>
 </template>
 <script>
-import AuthView from '@/pages/auth/AuthView.vue';
+
+
 export default {
     name: 'HomeView',
     data() {
         return {
         }
     },
-    components: {
-        AuthView
-    }
 }
 </script>
   
 <style>
-
+.testando{
+  background: #f0f2f5;
+}
 </style>

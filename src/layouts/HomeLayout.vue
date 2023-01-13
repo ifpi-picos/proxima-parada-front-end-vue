@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/no-unused-components -->
 <template>
   <v-app>
-    <v-navigation-drawer class="primary" v-model="drawer" dark app temporary>
+    <v-navigation-drawer class="primary" v-model="drawer" app dark temporary>
       <v-list>
         <v-list-item-group>
           <v-list-item>
@@ -32,7 +32,7 @@
 
             <v-list-item v-if="userLocal.status" :to="{ name: 'ride' }">
               <v-list-item-action>
-                <v-icon light>drive_eta</v-icon>
+                <v-icon light >drive_eta</v-icon>
               </v-list-item-action>
               <v-list-item-content>
                 <v-list-item-title>Caronas</v-list-item-title>
@@ -52,14 +52,14 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar class="primary" dense dark app>
+    <v-app-bar class="primary " dense dark app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
       <v-toolbar-title>Próxima Parada</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-avatar>
         <v-img v-if="userLocal.avatar" :src="userLocal.avatar" />
-        <v-img
+         <v-img
           v-else
           src="https://cdn-icons-png.flaticon.com/512/70/70310.png"
         />
@@ -90,7 +90,7 @@ export default {
   methods: {
     async signout() {
       sessionStorage.removeItem("userLocal");
-      this.$router.push({ name: "authMain" });
+      this.$router.push({ name: "signin" });
       /* try {
         const res = await Auth.logout();
         if (res.status == 200) {
@@ -135,4 +135,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+ 
+</style>

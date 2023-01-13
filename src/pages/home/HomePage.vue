@@ -41,8 +41,7 @@
             <v-expand-transition>
               <div v-if="!publication.expand" @click="expandON(index)">
                 <v-row class="mt-0 mb-0">
-                  <v-col cols="6" class="pa-0 ma-0" min-width="150px" >
-                    
+                  <v-col cols="6" class="pa-0 ma-0" min-width="150px">
                     <v-card-title class="text-title">Origem</v-card-title>
                     <v-card-text class="text-content">
                       <p>Cidade: {{ publication.OriginAddress.city }}</p>
@@ -130,8 +129,15 @@
             <v-expand-transition>
               <div v-if="publication.expand">
                 <v-row>
-                  <v-card-actions>
-                    <v-btn color="blue darken-2" elevation="2" outlined rounded>
+                  <v-card-actions class="block">
+                    <v-btn
+                      color="blue darken-2"
+                      block
+                      elevation="2"
+                      outlined
+                      rounded
+                      @click="callPhone(publication.User.phone_number)"
+                    >
                       Conversar com o motorista
                     </v-btn>
                   </v-card-actions>
@@ -166,28 +172,109 @@ export default {
             },
           ],
         },
-        departure_hour: "15:45 PM",
-        departure_date: "23/12/2022",
-        id: "2e66431c-f0fb-405b-97c6-89d3340f1c72",
+        departure_hour: "03:35 AM",
+        departure_date: "23/11/2022",
+        id: "c6c469be-c838-466a-b360-1836054a4488",
+        id_user: "41b2c605-1f7d-4f41-baeb-b3a6c8808ca4",
+        modality: "Livre",
+        regular: false,
+        statusPublication: true,
+        vacancies: true,
+        DestinationAddress: {
+          id: "577fc3ba-0a6d-449a-a3a5-6327ebb8f749",
+          city: "teste hora 03:35 AM",
+          neighborhood: "teste hora 03:35 AM",
+          street: "teste hora 03:35 AM",
+          number: "35",
+        },
+        OriginAddress: {
+          id: "1b68aff2-4c17-46b4-873d-b04b741de917",
+          city: "teste hora 03:35 AM",
+          neighborhood: "teste hora 03:35 AM",
+          street: "teste hora 03:35 AM",
+          number: "03",
+        },
+        expand: false,
+      },
+      {
+        User: {
+          name: "Teste 1 Teste",
+          avatar:
+            "https://storage.googleapis.com/proxima-parada-storage.appspot.com/users%2F41b2c605-1f7d-4f41-baeb-b3a6c8808ca4.jpg",
+          occupation: "Aluno(a)",
+          Vehicle: [
+            {
+              vehicle_type: "Carro",
+              brand: "Volkswagen",
+              model: "Goll",
+              vehicle_color: "Azull",
+              license_plate: "234234234",
+            },
+          ],
+        },
+        departure_hour: "03:55 AM",
+        departure_date: "23/11/2022",
+        id: "7cc3b799-223b-4500-be19-9067061a620d",
+        id_user: "41b2c605-1f7d-4f41-baeb-b3a6c8808ca4",
+        modality: "Livre",
+        regular: false,
+        statusPublication: true,
+        vacancies: true,
+        DestinationAddress: {
+          id: "7d24fca2-861c-4a9b-ae4b-c53ea4e9413a",
+          city: "teste hora 03:55 AM",
+          neighborhood: "teste hora 03:55 AM",
+          street: "teste hora 03:55 AM",
+          number: "55",
+        },
+        OriginAddress: {
+          id: "8faae428-76d4-44f3-b9e9-01d65fcb4098",
+          city: "teste hora 03:55 AM",
+          neighborhood: "teste hora 03:55 AM",
+          street: "teste hora 03:55 AM",
+          number: "03",
+        },
+        expand: false,
+      },
+      {
+        User: {
+          name: "Teste 1 Teste",
+          avatar:
+            "https://storage.googleapis.com/proxima-parada-storage.appspot.com/users%2F41b2c605-1f7d-4f41-baeb-b3a6c8808ca4.jpg",
+          occupation: "Aluno(a)",
+          Vehicle: [
+            {
+              vehicle_type: "Carro",
+              brand: "Volkswagen",
+              model: "Goll",
+              vehicle_color: "Azull",
+              license_plate: "234234234",
+            },
+          ],
+        },
+        departure_hour: "05:15 AM",
+        departure_date: "23/11/2022",
+        id: "1e46858e-627c-4dfd-acf8-3c57be014754",
         id_user: "41b2c605-1f7d-4f41-baeb-b3a6c8808ca4",
         modality: "Livre",
         regular: true,
         statusPublication: true,
         vacancies: true,
         DestinationAddress: {
-          id: "8a0ca4a6-9121-4061-adc4-e4ba154fdbd4",
-          city: "Cidade 2",
-          neighborhood: "Bairro 2",
-          street: "Rua 2",
-          number: "2",
-        },
-        OriginAddress: {
-          id: "97aaecea-d1d5-4711-ac81-0993aa74b73f",
-          city: "Cidade 2",
+          id: "e3888aaa-9ba8-495a-9987-5e96b762c382",
+          city: "teste hora 05:15 Am",
           neighborhood: "Bairro 1",
           street: "Rua 1",
           number: "1",
         },
+        OriginAddress: {
+          id: "64696b3a-3c13-4d6e-a7b4-88dec6d1a9d9",
+          city: "teste hora 05:15 Am",
+          neighborhood: "Bairro 2",
+          street: "Rua 2",
+          number: "2",
+        },
+        expand: false,
       }, */
     ],
     messageError: "Erro ao conectar-se ao banco de dados!",
@@ -204,12 +291,15 @@ export default {
   methods: {
     async getAllPosts() {
       this.loading = true;
+      this.publications = [];
       try {
         const res = await User.getAllPosts();
         if (res.data.length == 0) {
           this.alertInfo = true;
         } else {
-          this.publications = res.data;
+          this.publications = res.data.map((element) => {
+            return { ...element, expand: false };
+          });
         }
         this.loading = false;
       } catch (error) {
@@ -221,8 +311,9 @@ export default {
       }
     },
 
-    talkWithDriver() {
-      console.log("Botão de falar com o motorista presiionado");
+    callPhone(phone) {
+      phone = phone.replace(/\D/gim, "");
+      window.open("https://wa.me/55" + phone, "_blank");
     },
 
     expandON(index) {
@@ -251,6 +342,10 @@ export default {
 }
 .border-black {
   border: 1px solid black;
+}
+
+.block {
+  width: 100%;
 }
 
 .border-blue {

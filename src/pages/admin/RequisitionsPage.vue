@@ -33,7 +33,8 @@
         outlined
         dismissible
         type="info"
-        >Nenhuma Requisição não lida encontrada</v-alert>
+        >Nenhuma Requisição não lida encontrada</v-alert
+      >
       <v-col
         v-for="(requisition, i) in requisitions"
         :key="i"
@@ -199,26 +200,38 @@
           </v-container>
           <v-container>
             <v-card-actions>
-              <v-row>
-                <v-col cols="12" sm="6" md="6">
-                  <v-btn
-                    color="error"
-                    block
-                    @click="updateStatusRequest(false)"
-                  >
-                    Rejeitar
-                  </v-btn>
-                </v-col>
-                <v-col cols="12" sm="6" md="6">
-                  <v-btn
-                    color="success"
-                    block
-                    @click="updateStatusRequest(true)"
-                  >
-                    Aceitar
-                  </v-btn>
-                </v-col>
-              </v-row>
+              <v-col>
+                <v-row>
+                  <v-text-field
+                    style="padding: 0 12px"
+                    v-model="
+                      selectedItem.statusDescriptionDenied
+                    "
+                    label="Motivo da rejeição"
+                  />
+                </v-row>
+
+                <v-row>
+                  <v-col>
+                    <v-btn
+                      color="error"
+                      block
+                      @click="updateStatusRequest(false)"
+                    >
+                      Rejeitar
+                    </v-btn>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="6">
+                    <v-btn
+                      color="success"
+                      block
+                      @click="updateStatusRequest(true)"
+                    >
+                      Aceitar
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              </v-col>
             </v-card-actions>
           </v-container>
         </v-card>
@@ -230,7 +243,36 @@
 import Admin from "../../services/admin";
 export default {
   data: () => ({
-    requisitions: [],
+    requisitions: [
+      /* {
+        id: "cd9ab86a-9f2c-412a-b7e3-4652934b6d9f",
+        status: false,
+        readed: false,
+        id_user: "47b86c9d-bdc9-4d3a-9352-a388e9977939",
+        statusDescriptionDenied: "",
+        created_at: "2022-11-14T18:53:59.472Z",
+        updated_at: "2022-11-14T18:53:59.472Z",
+        user: {
+          id: "47b86c9d-bdc9-4d3a-9352-a388e9977939",
+          name: "1 Teste Update Return",
+          email: "1teste@gmail.com",
+          phone_number: "000000000",
+          occupation: "1 Teste",
+          avatar:
+            "https://storage.googleapis.com/proxima-parada-storage.appspot.com/users%2F47b86c9d-bdc9-4d3a-9352-a388e9977939.png",
+          status: false,
+          level: false,
+          Vehicle: [
+            {
+              id: "1c6ec25c-e849-490d-9644-c9396bd6ee43",
+              brand: "Volkswagen",
+              model: "Sentra",
+              avatar: null,
+            },
+          ],
+        },
+      }, */
+    ],
     dialogConfirmStatusRequest: false,
     selectedItem: {
       user: {
@@ -247,10 +289,11 @@ export default {
   methods: {
     async getAllStatusRequest() {
       this.loading = true;
+      this.requisitions = [];
       try {
         // eslint-disable-next-line no-unused-vars
         const res = await Admin.getAllStatusRequest();
-        console.log(res);
+        console.log("testando retorno de statusRequeset", res.data);
         if (res.data.length == 0) {
           this.alertInfo = true;
         } else {
@@ -268,6 +311,7 @@ export default {
       let data = {
         id: this.selectedItem.id,
         id_user: this.selectedItem.id_user,
+        statusDescriptionDenied: this.selectedItem.statusDescriptionDenied,
         status: status,
       };
       try {
@@ -277,6 +321,7 @@ export default {
         this.statusLoading = false;
         this.dialogConfirmStatusRequest = false;
         this.showSuccessAlert(true, "Requisição resapondida com sucesso.");
+        this.getAllStatusRequest();
       } catch (error) {
         //const response = error.response;
         this.statusLoading = false;
@@ -287,6 +332,7 @@ export default {
     },
 
     openDialoStatusRequest(item) {
+      console.log("testando o itemSeleceted", item);
       this.dialogConfirmStatusRequest = true;
       this.selectedItem = item;
     },
