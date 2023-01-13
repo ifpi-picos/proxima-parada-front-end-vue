@@ -105,8 +105,8 @@
                 >
                   Cadastrar </v-btn
                 ><br />
-                <p class="deslink">
-                  Já tenho Conta <a class="link" href="#/signin"> Fazer Login</a>
+                <p class="paragrafo">
+                  Já tem Conta? <a class="link" href="#/signin"> Fazer Login</a>
                 </p>
               </v-form>
             </v-card-text>
