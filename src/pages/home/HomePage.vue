@@ -36,7 +36,7 @@
         lg="4"
         xl="4"
       >
-        <v-card elevation="6" min-width="300px" min-height="161px">
+        <v-card elevation="6" min-width="300px" min-height="160px">
           <v-container>
             <v-expand-transition>
               <div v-if="!publication.expand" @click="expandON(index)">

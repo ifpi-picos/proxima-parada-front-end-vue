@@ -111,7 +111,11 @@
                     Oferecer caronas
                   </v-btn>
 
-                  <v-card v-if="userData.StatusRequest[0].id" class="wmp" style="box-shadow: none;">
+                  <v-card
+                    v-if="userData.StatusRequest[0].id"
+                    class="wmp"
+                    style="box-shadow: none"
+                  >
                     <v-card-title
                       v-if="!userData.StatusRequest[0].readed"
                       class="card-result wmp warning"
@@ -120,7 +124,10 @@
                       Sual solicitação está em processamento.
                     </v-card-title>
                     <div v-if="userData.StatusRequest[0].readed" class="wmp">
-                      <v-col class="refuse" v-if="!userData.StatusRequest[0].status">
+                      <v-col
+                        class="refuse"
+                        v-if="!userData.StatusRequest[0].status"
+                      >
                         <v-card-title
                           v-if="!userData.StatusRequest[0].status"
                           class="card-result wmp error"
@@ -128,8 +135,10 @@
                         >
                           Sual solicitação foi recusada.
                         </v-card-title>
-                        <v-card-title style="color: red;">
-                          {{ userData.StatusRequest[0].statusDescriptionDenied }}
+                        <v-card-title style="color: red" class="word">
+                          {{
+                            userData.StatusRequest[0].statusDescriptionDenied
+                          }}
                         </v-card-title>
                         <v-btn
                           color="primary"
@@ -228,7 +237,12 @@
               <v-container>
                 <v-row>
                   <v-col cols="12" md="6">
-                    <v-btn :loading="updateLoading" color="primary" block type="submint">
+                    <v-btn
+                      :loading="updateLoading"
+                      color="primary"
+                      block
+                      type="submint"
+                    >
                       Salvar
                     </v-btn>
                   </v-col>
@@ -433,34 +447,36 @@ export default {
       vehicleFileChanged: false,
       vehicleType: "Carro",
       /* userData: {
-        id: "41b2c605-1f7d-4f41-baeb-b3a6c8808ca4",
-        name: "Teste 1 Teste",
-        email: "1teste@gmail.com",
-        phone_number: "(34) 5 3453-4534",
+        id: "eb52a0f8-9ea0-4d23-9550-606b356b582d",
+        name: "Teste 2Teste",
+        email: "5teste@gmail.com",
+        phone_number: "(12) 0 9120-9102",
         occupation: "Aluno(a)",
         avatar:
-          "https://storage.googleapis.com/proxima-parada-storage.appspot.com/users%2F41b2c605-1f7d-4f41-baeb-b3a6c8808ca4.jpg",
-        status: true,
+          "https://storage.googleapis.com/proxima-parada-storage.appspot.com/users%2Feb52a0f8-9ea0-4d23-9550-606b356b582d.jpg",
+        status: false,
         level: false,
         Vehicle: [
           {
-            id: "e64e2550-d2f6-4fe3-9ee8-0e36248417c3",
-            brand: "Volkswagen",
-            model: "Goll",
+            id: "6b5eb946-9c03-4aa0-84bc-b93ce4bd99ee",
+            brand: "Subaru",
+            model: "WRX",
             avatar:
-              "https://storage.googleapis.com/proxima-parada-storage.appspot.com/vehicles%2Fe64e2550-d2f6-4fe3-9ee8-0e36248417c3.jpg",
+              "https://storage.googleapis.com/proxima-parada-storage.appspot.com/vehicles%2F6b5eb946-9c03-4aa0-84bc-b93ce4bd99ee.jpeg",
             vehicle_type: "Carro",
-            vehicle_color: "Azull",
-            license_plate: "234234234",
+            vehicle_color: "Vermelho",
+            license_plate: "FG45R5",
           },
         ],
         StatusRequest: [
           {
-            id: "0b39f204-2402-4866-941b-4c0bb5f589d4",
+            id: "621f8138-0969-4997-8900-50a8a2590fe4",
             status: false,
             readed: true,
-            id_user: "41b2c605-1f7d-4f41-baeb-b3a6c8808ca4",
-            statusDescriptionDenied: "Imagem do veiculo muito borrada",
+            statusDescriptionDenied:
+              "Cor do veiculo informada nao conrresponde a da foto",
+            created_at: "2023-01-17T11:52:10.005Z",
+            id_user: "eb52a0f8-9ea0-4d23-9550-606b356b582d",
           },
         ],
       }, */
@@ -551,7 +567,7 @@ export default {
         const res = await User.updateUserData(this.userData);
         console.log(res);
         this.finishLoading();
-        this.showSuccessAlert(true, "Informações aletradas com Sucesso!!!");
+        this.showSuccessAlert(true, "Informações altradas com Sucesso!!!");
       } catch (error) {
         this.finishLoading();
         this.showErrorAlert(true, error.response.data.message);
@@ -725,8 +741,10 @@ export default {
 };
 </script>
 <style lang="css" scoped>
-
-.refuse{
+.word {
+  word-break: normal;
+}
+.refuse {
   padding: 0;
 }
 .border {
@@ -796,10 +814,6 @@ export default {
 .wmp {
   min-width: 100% !important;
   max-width: none;
-
-  display: flex;
-  flex: 1 0 auto;
-
   margin: 0;
   padding: 0;
 }
