@@ -73,7 +73,7 @@
                       <v-card-title class="text-title">
                         {{ publication.User.name }}
                       </v-card-title>
-                      <v-card-subtitle class="text-subtitle">
+                      <v-card-subtitle class="text-subtitle mt-1">
                         {{ publication.User.occupation }}
                       </v-card-subtitle>
                     </v-col>
