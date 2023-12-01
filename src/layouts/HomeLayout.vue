@@ -61,7 +61,7 @@
         <v-img v-if="userLocal.avatar" :src="userLocal.avatar" />
          <v-img
           v-else
-          src="https://cdn-icons-png.flaticon.com/512/70/70310.png"
+          src="https://e7.pngegg.com/pngimages/178/595/png-clipart-user-profile-computer-icons-login-user-avatars-monochrome-black.png"
         />
       </v-avatar>
     </v-app-bar>
