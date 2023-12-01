@@ -194,23 +194,74 @@ h1 {
     width: 40%;
     min-width: 420px;
     margin-right: 160px;
+    margin-left: 200px;
   }
-
   .section-label {
     width: 60%;
   }
   .div-label {
     margin-left: 100px;
   }
+
   h1 {
     font-size: 48px;
     color: rgb(0, 89, 255);
   }
-}
-
-@media screen and (max-width: 1266px) {
   .section-form {
-    margin-right: 140px;
+    margin-right: 40px;
+  }
+  .div-label {
+    margin-left: 100px;
+  }
+  
+}
+@media screen and (max-width:1333px) {
+  .section-form {
+    width: 40%;
+    min-width: 420px;
+    margin-right: 160px;
+    margin-left: 200px;
+  }
+  .section-label {
+    width: 63%;
+  }
+  .div-label {
+    margin-left: 100px;
+  }
+
+  h1 {
+    font-size: 48px;
+    color: rgb(0, 89, 255);
+  }
+  .section-form {
+    margin-right: 40px;
+  }
+  .div-label {
+    margin-left: 100px;
+  }
+  
+}
+  @media screen and (max-width:1332px) {
+  .section-form {
+    width: 20%;
+    min-width: 420px;
+    margin-right: 160px;
+    margin-left: 100px;
+    
+  }
+  
+  .section-label {
+    width: 64%;
+  }
+  .div-label {
+    margin-left: 100px;
+  }
+  h1 {
+    font-size: 48px;
+    color: rgb(0, 89, 255);
+  }
+  .section-form {
+    margin-right: 40px;
   }
 
   .div-label {
@@ -222,59 +273,152 @@ h1 {
   }
 }
 
-@media screen and (max-width: 1166px) {
+@media screen and (max-width: 1230px) {
   .section-form {
-    margin-right: 120px;
+    width: 20%;
+    min-width: 420px;
+    margin-right: 160px;
+    margin-left: 100px;
+    
+  }
+  
+  .section-label {
+    width: 65%;
   }
   .div-label {
-    margin-left: 80px;
+    margin-left: 100px;
   }
-}
-
-@media screen and (max-width: 1052px) {
-  .section-form {
-    margin-right: 100px;
-  }
-
-  .div-label {
-    margin-left: 80px;
-  }
-  .descricao {
-    font-size: 16px;
-    color: #6b7677;
-    text-align: left;
-    margin: -4px 11px 0px 0px;
-  }
-
   h1 {
-    font-size: 38px;
+    font-size: 48px;
+    color: rgb(0, 89, 255);
+  }
+  .section-form {
+    margin-right: 40px;
+  }
+
+  .div-label {
+    margin-left: 100px;
+  }
+  h1 {
+    font-size: 48px;
     color: rgb(0, 89, 255);
   }
 }
 
-@media screen and (max-width: 838px) {
+@media screen and (max-width: 1167px) {
   .section-form {
-    width: 50%;
-    min-width: 380px;
-    margin-right: 80px;
+    width: 20%;
+    min-width: 420px;
+    margin-right: 160px;
+    margin-left: 100px;
+    
   }
-
+  
   .section-label {
-    width: 50%;
+    width: 64%;
   }
   .div-label {
-    margin-left: 40px;
-    padding: 40px;
+    margin-left: 100px;
   }
-
-  .descricao {
-    color: #6b7677;
-    text-align: left;
-    margin: -4px 11px 0px 0px;
-  }
-
   h1 {
-    font-size: 28px;
+    font-size: 48px;
+    color: rgb(0, 89, 255);
+  }
+  .section-form {
+    margin-right: 40px;
+  }
+
+  .div-label {
+    margin-left: 100px;
+  }
+  h1 {
+    font-size: 48px;
+    color: rgb(0, 89, 255);
+  }
+
+}
+
+@media screen and (max-width: 1112px) {
+  .section-form {
+    width: 20%;
+    min-width: 420px;
+    margin-right: 160px;
+    margin-left: 100px;
+    
+  }
+  
+  .section-label {
+    width: 64%;
+  }
+  .div-label {
+    margin-left: 80px;
+  }
+  .section-form {
+    margin-right: 25px;
+  }
+
+  .div-label {
+    margin-left: 80px;
+  }
+  h1 {
+    font-size: 48px;
+    color: rgb(0, 89, 255);
+  }
+
+}
+@media screen and (max-width: 1097px) {
+  .section-form {
+    width: 20%;
+    min-width: 420px;
+    margin-right: 160px;
+    margin-left: 100px;
+    
+  }
+  
+  .section-label {
+    width: 64%;
+  }
+  .div-label {
+    margin-left: 80px;
+  }
+  .section-form {
+    margin-right: 8px;
+  }
+
+  .div-label {
+    margin-left: 80px;
+  }
+  h1 {
+    font-size: 48px;
+    color: rgb(0, 89, 255);
+  }
+
+}
+
+@media screen and (max-width: 1075px) {
+  .section-form {
+    width: 20%;
+    min-width: 420px;
+    margin-right: 160px;
+    margin-left: 100px;
+    
+  }
+  
+  .section-label {
+    width: 64%;
+  }
+  .div-label {
+    margin-left: 80px;
+  }
+  .section-form {
+    margin-right: 1px;
+  }
+
+  .div-label {
+    margin-left: 80px;
+  }
+  h1 {
+    font-size: 48px;
     color: rgb(0, 89, 255);
   }
 }
